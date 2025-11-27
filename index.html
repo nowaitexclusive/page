@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Aeterna — Real de Luxo</title>
   <title>NOWAIT — Private Luxury Market</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOWAIT — Private Luxury Preview</title>
   <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;background:#0b0b0b;color:#e9e9e9;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
@@ -23,8 +25,16 @@
       --muted: #bfbfbf;
       --gold: #C6A667;
       --border: rgba(255, 255, 255, 0.08);
+      --bg: #050505;
+      --surface: #0c0c0c;
       --glass: rgba(255, 255, 255, 0.04);
       --radius: 20px;
+      --border: rgba(255, 255, 255, 0.08);
+      --ink: #f5f5f5;
+      --muted: #c6c6c6;
+      --gold: #c8a86a;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+      --radius: 22px;
       --maxw: 1180px;
       --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
     }
@@ -72,6 +82,8 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; font-family: "Inter", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--ink); }
     body { min-height: 100vh; display: flex; flex-direction: column; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif; }
+    body { min-height: 100vh; }
     img { max-width: 100%; display: block; height: auto; }
     a { color: inherit; text-decoration: none; }
 
@@ -82,8 +94,12 @@
       background: radial-gradient(circle at 15% 20%, rgba(198, 166, 103, 0.16), transparent 38%),
                   radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.05), transparent 40%),
                   linear-gradient(160deg, rgba(255, 255, 255, 0.02), transparent 60%);
+      background: radial-gradient(circle at 18% 16%, rgba(200,168,106,0.12), transparent 40%),
+                  radial-gradient(circle at 82% 0%, rgba(255,255,255,0.07), transparent 48%),
+                  linear-gradient(165deg, rgba(255,255,255,0.04), transparent 60%);
       pointer-events: none;
       z-index: -2;
+      filter: blur(0.2px);
     }
 
     body::after {
@@ -92,9 +108,12 @@
       inset: 0;
       background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 14px);
       opacity: 0.4;
+      background: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 14px);
+      opacity: 0.35;
       pointer-events: none;
       z-index: -1;
       filter: blur(0.3px);
+      filter: blur(0.35px);
     }
 
     .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: clamp(18px, 3vw, 32px); }
@@ -123,10 +142,24 @@
       pointer-events: none;
     }
     .hero-card h1 { margin: 12px 0 14px; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; text-wrap: balance; color: #fff; }
+    .block { padding: clamp(40px, 8vw, 120px) 0; position: relative; }
+
+    header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); background: rgba(5,5,5,0.85); border-bottom: 1px solid var(--border); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+    .logo { display: flex; align-items: center; gap: 8px; letter-spacing: 0.14em; font-size: 12px; text-transform: uppercase; color: var(--muted); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--glass); color: var(--muted); font-size: 13px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #6be28a; box-shadow: 0 0 0 6px rgba(107,226,138,0.18); }
+
+    .hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(22px, 4vw, 48px); align-items: center; }
+    .hero-card { background: linear-gradient(140deg, rgba(255,255,255,0.06), rgba(0,0,0,0.8)); border: 1px solid var(--border); border-radius: 32px; padding: clamp(22px, 4vw, 44px); box-shadow: var(--shadow); position: relative; overflow: hidden; isolation: isolate; }
+    .hero-card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 260px at 20% 10%, rgba(200,168,106,0.26), transparent 68%); opacity: 0.9; pointer-events: none; z-index: -1; }
+    .hero-card h1 { margin: 12px 0 14px; font-size: clamp(34px, 5.6vw, 68px); line-height: 1.02; text-wrap: balance; }
     .hero-card p { margin: 0; color: var(--muted); font-size: clamp(15px, 2.6vw, 18px); line-height: 1.6; text-wrap: pretty; }
+    .eyebrow { letter-spacing: 0.32em; text-transform: uppercase; font-size: 12px; color: var(--gold); }
     .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
     .btn { appearance: none; cursor: pointer; border: 1px solid transparent; border-radius: 999px; padding: 14px 22px; font-weight: 700; letter-spacing: 0.02em; font-size: 14px; transition: transform 0.15s ease, box-shadow 0.2s ease, border 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
     .btn-gold { background: linear-gradient(180deg, #d7b97a, var(--gold)); color: #0c0c0c; box-shadow: 0 16px 40px rgba(198, 166, 103, 0.35); }
+    .btn-gold { background: linear-gradient(180deg, #e5c98a, var(--gold)); color: #0c0c0c; box-shadow: 0 16px 40px rgba(200,168,106,0.32); }
     .btn-ghost { background: transparent; border-color: var(--border); color: #fff; }
     .btn:hover { transform: translateY(-1px); }
 
@@ -152,12 +185,19 @@
     .eyebrow { letter-spacing: 0.3em; text-transform: uppercase; font-size: 12px; color: var(--gold); }
     .badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--muted); font-size: 13px; }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(198,166,103,0.18); }
+    .hero-visual { border-radius: 28px; border: 1px solid var(--border); background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); padding: clamp(18px, 3vw, 28px); box-shadow: var(--shadow); position: relative; overflow: hidden; min-height: 320px; display: grid; place-content: center; }
+    .hero-visual::before { content: ""; position: absolute; inset: -20%; background: radial-gradient(circle at 30% 30%, rgba(200,168,106,0.22), transparent 50%); filter: blur(10px); opacity: 0.8; }
+    .hero-visual .preview-title { font-size: 24px; margin: 0 0 6px; }
+    .hero-visual .preview-meta { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
+    .hero-visual .tag { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+    .hero-visual .tag strong { color: #fff; }
 
     .splitter { border-top: 1px solid var(--border); margin: clamp(28px, 5vw, 46px) 0 0; opacity: 0.5; }
 
     .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(14px, 2.6vw, 22px); margin-top: clamp(18px, 3vw, 28px); }
     .pillar { padding: clamp(18px, 2.6vw, 24px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--glass); position: relative; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
     .pillar::after { content: ""; position: absolute; inset: 0; background: radial-gradient(220px 160px at 18% 12%, rgba(198,166,103,0.18), transparent 62%); opacity: 0.5; pointer-events: none; }
+    .pillar::after { content: ""; position: absolute; inset: 0; background: radial-gradient(220px 160px at 18% 12%, rgba(200,168,106,0.18), transparent 62%); opacity: 0.5; pointer-events: none; }
     .pillar h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: 0.01em; }
     .pillar p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
 
@@ -168,20 +208,43 @@
     .modal h2 { margin: 10px 0 8px; font-size: clamp(26px, 3.4vw, 32px); }
     .modal p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
     .close { position: absolute; top: 14px; right: 14px; border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; background: rgba(255,255,255,0.03); color: #fff; cursor: pointer; }
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(14px, 2.4vw, 20px); margin-top: 18px; }
+    .preview-card { background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(0,0,0,0.85)); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .preview-card::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(circle at 20% 20%, rgba(200,168,106,0.16), transparent 50%); opacity: 0.8; }
+    .preview-card h4 { margin: 0 0 6px; font-size: 16px; }
+    .preview-card p { margin: 0 0 8px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); color: var(--muted); font-size: 12px; }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(14px, 2.6vw, 22px); margin-top: 16px; }
+    .step { border: 1px solid var(--border); padding: 18px; border-radius: var(--radius); background: var(--glass); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+    .step strong { color: #fff; display: inline-block; margin-bottom: 6px; }
+    .step span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 
     form { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; position: relative; z-index: 1; }
+    .cta-panel { border: 1px solid var(--border); border-radius: 26px; padding: clamp(22px, 4vw, 38px); background: linear-gradient(145deg, rgba(200,168,106,0.12), rgba(0,0,0,0.86)); box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(18px, 3vw, 26px); align-items: center; }
+    form { display: grid; grid-template-columns: 1fr; gap: 12px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 13px; letter-spacing: 0.01em; color: #f1f1f1; }
     input, select, textarea { width: 100%; background: #0f0f0f; border: 1px solid var(--border); color: #fff; padding: 13px 14px; border-radius: 12px; font-size: 14px; outline: none; transition: border 0.15s ease, box-shadow 0.15s ease; }
     input:focus, select:focus, textarea:focus { border-color: rgba(198,166,103,0.6); box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.18); }
+    input:focus, select:focus, textarea:focus { border-color: rgba(200,168,106,0.6); box-shadow: 0 0 0 3px rgba(200, 168, 106, 0.18); }
     textarea { min-height: 110px; resize: vertical; }
 
     .note { color: var(--muted); font-size: 13px; margin: 0; line-height: 1.5; }
     .response { margin-top: 12px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); display: none; position: relative; z-index: 1; }
+    .response { margin-top: 12px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); display: none; }
     .response strong { color: #fff; }
     .response.aprovado { border-color: rgba(198,166,103,0.55); background: rgba(198,166,103,0.08); }
+    .response.ok { border-color: rgba(200,168,106,0.55); background: rgba(200,168,106,0.08); }
 
     footer { border-top: 1px solid var(--border); padding: 26px 0 40px; background: #030303; color: var(--muted); font-size: 13px; }
+    .faq { display: grid; gap: 10px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; background: var(--glass); }
+    .faq-item summary { cursor: pointer; list-style: none; font-weight: 700; letter-spacing: 0.01em; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item p { color: var(--muted); margin: 8px 0 0; line-height: 1.6; font-size: 14px; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 0 40px; background: #030303; color: var(--muted); font-size: 13px; }
     footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
     footer nav { display: flex; gap: 16px; }
     footer a { color: var(--muted); }
@@ -241,6 +304,10 @@
         <div class="cta-row"><a href="#form" class="btn">Garantir meu lugar</a></div>
         <p class="fine">*</p>
       </section>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">NOWAIT • PRIVATE MARKET</div>
+      <div class="pill"><span class="dot"></span> Preview ao vivo — convidados</div>
     </div>
   </header>
   </section>
@@ -274,14 +341,35 @@
           <div class="field" style="grid-column:1/-1">
             <label class="label" for="modelo">Modelo de interesse (opcional)</label>
             <textarea id="modelo" name="Modelo" placeholder="Ex.: Daytona 126500LN, Nautilus 5711, RM 11-03"></textarea>
+  <main>
+    <section class="wrap block hero">
+      <div class="hero-card">
+        <p class="eyebrow">sempre com preview</p>
+        <h1>NOWAIT: o clube que libera as melhores peças antes de todos.</h1>
+        <p>Compra, venda e curadoria de itens originais de luxo com liquidez imediata. Receba convites para prévias privadas, negocie com segurança e tenha prioridade nas aberturas.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="#acesso">Solicitar acesso</a>
+          <a class="btn btn-ghost" href="https://wa.me/5511911030464" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+        <div class="splitter"></div>
+        <div class="pillars">
+          <div class="pillar">
+            <h3>Priority Access</h3>
+            <p>Entre primeiro nas janelas fechadas e receba alertas quando uma peça sob medida chegar.</p>
           </div>
           <div class="consent" style="grid-column:1/-1">
             <input type="checkbox" id="ok" name="Consentimento" required style="width:22px;height:22px;margin-top:2px">
             <p><label for="ok">Autorizo contato por WhatsApp e concordo em receber ofertas privadas (você pode sair quando quiser).</label></p>
+          <div class="pillar">
+            <h3>Curadoria Nowait</h3>
+            <p>Somente originais com procedência auditada. Pagamentos protegidos e entrega acompanhada.</p>
           </div>
           <div class="cta-full" style="grid-column:1/-1">
             <button class="btn" type="submit" style="width:100%">Entrar agora antes que acabe</button>
             <p class="fine"><span>⏳</span> Janela encerra em <span id="count2">--:--:--</span></p>
+          <div class="pillar">
+            <h3>Liquidez e sigilo</h3>
+            <p>Vendeu? Pagamento e retirada discretos. Comprou? Seguro, rastreável e confidencial.</p>
           </div>
         </form>
       </section>
@@ -322,6 +410,7 @@
         <div class="eyebrow">priority vetting</div>
         <h2 id="modal-title">Entrar agora</h2>
         <p>Automação interna valida a faixa mínima de 100k, presença de Instagram e item de interesse.</p>
+        </div>
       </div>
 
       <form id="vettingForm" novalidate>
@@ -337,6 +426,14 @@
         <div class="field">
           <label for="instagram">Instagram*</label>
           <input id="instagram" name="instagram" placeholder="@username" required />
+      <div class="hero-visual" aria-live="polite">
+        <div class="tag"><strong>Prévia liberada</strong> — para convidados</div>
+        <h2 class="preview-title">Rolex Daytona 126500LN</h2>
+        <p class="preview-meta">Cerâmica Preta • 2024 • Full set</p>
+        <p class="note" id="preview-desc">Criando a prévia...</p>
+        <div class="cta-row">
+          <button class="btn btn-gold" id="nextPreview" type="button">Próxima prévia</button>
+          <a class="btn btn-ghost" href="#acesso">Receber convites</a>
         </div>
         <div class="field">
           <label for="faixa">Faixa de aquisição*</label>
@@ -371,14 +468,108 @@
         <div class="field full">
           <label for="detalhes">Item / detalhes (opcional)</label>
           <textarea id="detalhes" name="detalhes" placeholder="Modelo desejado, prazo e condição esperada."></textarea>
+      </div>
+    </section>
+
+    <section class="wrap block">
+      <div class="cta-panel">
+        <div class="stack">
+          <p class="eyebrow">como funciona</p>
+          <h2 style="margin: 8px 0 10px; font-size: clamp(26px, 4vw, 38px);">Preview, validação e fechamento em três movimentos.</h2>
+          <p style="margin: 0; color: var(--muted); line-height: 1.6;">O Nowait conecta colecionadores e vendedores homologados. Cada item passa por curadoria, entra em prévia privada e é liberado somente para membros aprovados.</p>
+          <div class="steps">
+            <div class="step"><strong>1. Prévia Nowait</strong><span>Receba alertas de novas peças com fotos e valores sugeridos.</span></div>
+            <div class="step"><strong>2. Verificação</strong><span>Checagem de procedência, números de série e histórico antes do match.</span></div>
+            <div class="step"><strong>3. Fechamento blindado</strong><span>Escrow, logística dedicada e entrega acompanhada para Brasil e exterior.</span></div>
+          </div>
         </div>
         <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
           <button type="submit" class="btn btn-gold">Solicitar entrada</button>
           <p class="note">Processo automático. Se aprovado, o link do grupo aparece na hora.</p>
+        <div class="stack" id="acesso">
+          <p class="eyebrow">solicitar prioridade</p>
+          <h3 style="margin: 8px 0 6px;">Liberamos convites diariamente — garanta o seu.</h3>
+          <form id="vettingForm" autocomplete="on">
+            <div class="field">
+              <label for="nome">Nome completo</label>
+              <input id="nome" name="nome" required />
+            </div>
+            <div class="field">
+              <label for="instagram">Instagram</label>
+              <input id="instagram" name="instagram" placeholder="@perfil" required />
+            </div>
+            <div class="field">
+              <label for="contato">WhatsApp ou e-mail</label>
+              <input id="contato" name="contato" required />
+            </div>
+            <div class="field">
+              <label for="faixa">Faixa de ticket</label>
+              <select id="faixa" name="faixa" required>
+                <option value="">Selecione</option>
+                <option value="100">R$ 100k - R$ 200k</option>
+                <option value="200">R$ 200k - R$ 400k</option>
+                <option value="400">R$ 400k - R$ 800k</option>
+                <option value="800">Acima de R$ 800k</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="item">Peça de interesse</label>
+              <select id="item" name="item" required>
+                <option value="">Selecione</option>
+                <option value="Rolex">Rolex</option>
+                <option value="Hermès">Hermès</option>
+                <option value="Audemars Piguet">Audemars Piguet</option>
+                <option value="Patek Philippe">Patek Philippe</option>
+                <option value="Richard Mille">Richard Mille</option>
+                <option value="Van Cleef & Arpels">Van Cleef & Arpels</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="detalhes">Detalhes do interesse</label>
+              <textarea id="detalhes" name="detalhes" placeholder="Conte sobre o que busca ou deseja vender" required></textarea>
+            </div>
+            <div class="full">
+              <button class="btn btn-gold" type="submit">Entrar na lista Nowait</button>
+            </div>
+            <p class="note full">Ao enviar, nossa equipe valida seu perfil e responde com a próxima janela de preview disponível.</p>
+            <div class="response" id="response" role="status" aria-live="polite"></div>
+          </form>
         </div>
       </form>
       <div id="response" class="response" role="status"></div>
     </div>
+      </div>
+    </section>
+
+    <section class="wrap block">
+      <p class="eyebrow">prévia agora</p>
+      <h2 style="margin: 10px 0 12px; font-size: clamp(26px, 4vw, 38px);">Algumas peças que liberamos primeiro para membros.</h2>
+      <div class="preview-grid" id="previewGrid"></div>
+    </section>
+
+    <section class="wrap block">
+      <p class="eyebrow">perguntas rápidas</p>
+      <h3 style="margin: 8px 0 14px; font-size: clamp(22px, 3.6vw, 32px);">O que você precisa saber antes de entrar.</h3>
+      <div class="faq">
+        <details class="faq-item" open>
+          <summary>O que significa "sempre com preview"?</summary>
+          <p>Todo membro recebe uma prévia privada com fotos, descrição e valor sugerido antes da liberação pública. As melhores peças fecham ainda na fase de preview.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Posso vender itens pelo Nowait?</summary>
+          <p>Sim. Validamos procedência e alinhamos preço antes de enviar para a comunidade. O fechamento é assistido e sigiloso.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Como funcionam pagamentos e entrega?</summary>
+          <p>Usamos escrow com parceiros financeiros e logística dedicada. Você escolhe retirada presencial ou entrega rastreada.</p>
+        </details>
+        <details class="faq-item">
+          <summary>E se eu for novo no mercado de luxo?</summary>
+          <p>Sem problema. O time de concierge orienta sobre modelos, autenticidade e liquidez para que você entre com segurança.</p>
+        </details>
+      </div>
+    </section>
   </main>
   </div>
 
@@ -391,6 +582,8 @@
         <a href="#">Política de Privacidade</a>
         <a href="#">Termos</a>
       </nav>
+      <span>NOWAIT • Private Luxury Market</span>
+      <span>Compra e venda segura • Brasil | EUA | Europa</span>
     </div>
   </footer>
 
@@ -421,6 +614,60 @@
       "Van Cleef & Arpels",
       "Outro",
     ]);
+    const previewDesc = document.getElementById("preview-desc");
+    const previewTitle = document.querySelector(".preview-title");
+    const previewMeta = document.querySelector(".preview-meta");
+    const nextPreview = document.getElementById("nextPreview");
+    const response = document.getElementById("response");
+    const vettingForm = document.getElementById("vettingForm");
+    const previewGrid = document.getElementById("previewGrid");
+
+    const previews = [
+      { title: "Rolex Daytona 126500LN", meta: "Cerâmica Preta • 2024 • Full set", desc: "Prévia exclusiva: lacrado, garantia internacional e histórico único proprietário.", status: "Disponível na prévia", value: "R$ 158.000" },
+      { title: "Hermès Birkin 25", meta: "Togo Gold • Hardware palladium", desc: "Peça em consignação verificada, alça intacta e corners perfeitos.", status: "Fila de interesse", value: "Sob consulta" },
+      { title: "Audemars Piguet Royal Oak", meta: "26240ST • 2023", desc: "Cronógrafo 41mm, revisão autorizada concluída e recibos em mãos.", status: "Match em 24h", value: "R$ 398.000" },
+      { title: "Van Cleef & Arpels Alhambra", meta: "Vintage 5 motifs • Mother of Pearl", desc: "Conjunto completo com certificado, pronto para envio Brasil/EUA.", status: "Disponível", value: "R$ 78.000" }
+    ];
+
+    function cyclePreview(index = 0) {
+      const item = previews[index % previews.length];
+      previewTitle.textContent = item.title;
+      previewMeta.textContent = item.meta;
+      previewDesc.textContent = `${item.desc} | ${item.status} • ${item.value}`;
+      previewDesc.dataset.index = index % previews.length;
+    }
+
+    function renderPreviewCards() {
+      previewGrid.innerHTML = previews.map((item) => `
+        <article class="preview-card">
+          <div class="badge">${item.status}</div>
+          <h4>${item.title}</h4>
+          <p>${item.meta}</p>
+          <p style="color:#fff; font-weight:700; margin: 0 0 6px;">${item.value}</p>
+          <p>${item.desc}</p>
+        </article>
+      `).join("");
+    }
+
+    nextPreview.addEventListener("click", () => {
+      const current = Number(previewDesc.dataset.index || 0);
+      cyclePreview(current + 1);
+    });
+
+    let previewInterval = setInterval(() => {
+      const current = Number(previewDesc.dataset.index || 0);
+      cyclePreview(current + 1);
+    }, 6000);
+
+    nextPreview.addEventListener("mouseenter", () => clearInterval(previewInterval));
+    nextPreview.addEventListener("mouseleave", () => {
+      previewInterval = setInterval(() => {
+        const current = Number(previewDesc.dataset.index || 0);
+        cyclePreview(current + 1);
+      }, 6000);
+    });
+
+    const validItems = new Set(previews.map((p) => p.title.split(" ")[0]).concat(["Outro", "Hermès", "Rolex", "Patek Philippe", "Richard Mille", "Audemars Piguet", "Van Cleef & Arpels"]));
 
     function classifyProfile({ faixa, instagram, item }) {
       const faixaNum = parseInt(faixa, 10);
@@ -509,11 +756,14 @@
       });
 
     document.getElementById("vettingForm").addEventListener("submit", (event) => {
+    vettingForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const form = event.currentTarget;
 
       if (!form.checkValidity()) {
         form.reportValidity();
+      if (!vettingForm.checkValidity()) {
+        vettingForm.reportValidity();
         return;
       }
 
@@ -527,9 +777,22 @@
         detalhes: form.detalhes.value,
       };
 
+      const data = Object.fromEntries(new FormData(vettingForm).entries());
       const approved = classifyProfile(data);
       renderResponse(approved);
+
+      response.style.display = "block";
+      response.className = approved ? "response ok" : "response";
+      response.innerHTML = approved
+        ? "<strong>Aprovado.</strong><br />Você receberá o próximo preview privado em minutos."
+        : "<strong>Recebido.</strong><br />Validaremos seu perfil e retornaremos antes da próxima janela.";
+      response.setAttribute("tabindex", "-1");
+      response.focus({ preventScroll: true });
+      response.scrollIntoView({ behavior: "smooth", block: "center" });
     });
+
+    cyclePreview();
+    renderPreviewCards();
   </script>
 </body>
 </html>
