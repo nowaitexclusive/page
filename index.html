@@ -1,506 +1,341 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NOWAIT — Luxury Concierge</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOWAIT — Private Luxury Market</title>
 
 <style>
-/* ===========================================
-   VARIÁVEIS (DARK + LIGHT MODE AUTOMÁTICO)
-   =========================================== */
+
+/* ============================
+   Paleta premium Hermès / Centurion
+   ============================ */
 :root {
-  --bg: #0b0b0b;
-  --ink: #f5f5f5;
-  --muted: #bfbfbf;
-  --gold: #d6b680;
-  --gold-dark: #b99a5f;
-  --card: #111111;
-  --border: rgba(255,255,255,0.10);
+  --bg-dark: #050505;
+  --bg-mid: #0a0a0a;
+  --bg-soft: #0c0c0c;
+  --gold: #d8b26a;
+  --gold-soft: rgba(216,178,106,0.45);
+  --text: #f2f2f2;
+  --muted: #bcbcbc;
+  --border: rgba(255,255,255,0.08);
+  --card: rgba(255,255,255,0.04);
   --radius: 18px;
-  --shadow: 0 18px 60px rgba(0,0,0,0.45);
-  --maxw: 1180px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f7f3ec;
-    --ink: #201c15;
-    --muted: #7b7366;
-    --card: #ffffff;
-    --border: rgba(0,0,0,0.08);
-    --shadow: 0 14px 38px rgba(0,0,0,0.08);
-  }
-}
-
-/* ===========================================
-   BASE
-   =========================================== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--ink);
+  --shadow: 0 18px 60px rgba(0,0,0,0.35);
   font-family: "Inter", sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
+/* ============================
+   Fundo premium
+   ============================ */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-mid) 45%, var(--bg-soft) 100%);
+  color: var(--text);
+}
+
+/* Layout */
 .wrap {
-  max-width: var(--maxw);
+  width: min(92%, 1180px);
   margin: 0 auto;
-  padding: clamp(18px, 4vw, 32px);
 }
 
-/* ===========================================
-   ANIMAÇÕES
-   =========================================== */
-.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s ease forwards;
-}
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
+.block {
+  padding: 90px 0;
 }
 
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-@keyframes fadeIn { to { opacity: 1; } }
-
-/* ===========================================
-   NAVBAR (ESCONDE AO DESCER, VOLTA AO SUBIR)
-   =========================================== */
-.nav-shell {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background: rgba(11,11,11,0.82);
-  border-bottom: 1px solid var(--border);
-  transition: transform .35s ease;
-}
-@media (prefers-color-scheme: light) {
-  .nav-shell { background: rgba(247,243,236,0.92); }
-}
-
-.nav-hidden { transform: translateY(-100%); }
-
+/* ============================
+   HERO
+   ============================ */
 .nav {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 10px clamp(18px,4vw,32px);
   display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.nav-brand {
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.nav-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-.nav-links {
-  display: flex;
-  gap: 18px;
-  font-size: 14px;
+  align-items: center;
+  padding: 14px 0;
+  font-size: 13px;
+  letter-spacing: 0.22em;
   color: var(--muted);
 }
 
-.nav-links a {
-  text-decoration: none;
-  padding-bottom: 2px;
-  position: relative;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold-dark);
-  transition: width .2s ease;
-}
-
-.nav-links a:hover::after { width: 100%; }
-
-.nav-cta-btn {
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-size: 13px;
-  border: 1px solid var(--border);
-  background: linear-gradient(135deg, rgba(214,182,128,0.15), rgba(185,154,95,0.35));
-  color: var(--ink);
-  cursor: pointer;
-  transition: .2s ease;
-}
-
-.nav-cta-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold-dark);
-}
-
-/* Mobile: esconder links */
-@media (max-width: 720px) { .nav-links { display: none; } }
-
-/* ===========================================
-   HERO
-   =========================================== */
 .hero {
-  padding: clamp(90px, 16vw, 150px) 0;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  position: relative;
-}
-
-/* Glass suave no topo */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -80px;
-  left: 50%;
-  width: 70%;
-  height: 200px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(214,182,128,0.18), transparent 70%);
-  filter: blur(40px);
-  opacity: 0.5;
+  margin-top: 40px;
 }
 
 .hero-title {
-  font-size: clamp(34px, 6vw, 58px);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.12;
+  margin-bottom: 14px;
 }
 
 .hero-sub {
-  max-width: 680px;
-  margin: 0 auto;
-  font-size: clamp(16px, 2.8vw, 19px);
   color: var(--muted);
+  font-size: 18px;
+  max-width: 580px;
+  margin: 0 auto 28px;
 }
 
 .proof {
+  color: var(--muted);
   font-size: 15px;
-  color: var(--gold-dark);
+  margin-top: 4px;
 }
 
-/* ===========================================
-   BOTÃO PRINCIPAL — COM BRILHO
-   =========================================== */
-.btn-main {
-  margin-top: 10px;
-  padding: 16px 32px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: #0b0b0b;
-  font-size: 15px;
+/* Botões hero */
+.btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 26px;
+  border-radius: 30px;
+  text-decoration: none;
   font-weight: 600;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: 0.25s;
-  box-shadow: 0 12px 30px rgba(214,182,128,0.25);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  transition: 0.18s ease;
 }
 
-.btn-main::before {
-  content: "";
-  position: absolute;
-  top: 0; left: -80%;
-  width: 60%; height: 100%;
-  background: linear-gradient(120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.6) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  transform: skewX(-20deg);
-  opacity: 0;
-}
-
-.btn-main:hover::before {
-  opacity: 1;
-  animation: shine 0.9s ease-out;
-}
-
-@keyframes shine {
-  from { left: -80%; }
-  to { left: 140%; }
+.btn-main {
+  background: linear-gradient(180deg, var(--gold), #b28940);
+  color: #0d0d0d;
+  box-shadow: 0 14px 32px rgba(216,178,106,0.25);
 }
 
 .btn-main:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 38px rgba(214,182,128,0.35);
+  transform: translateY(-2px);
 }
 
-/* ===========================================
-   SEÇÕES
-   =========================================== */
-.block {
-  padding: clamp(70px, 12vw, 120px) 0;
-  border-bottom: 1px solid var(--border);
+.btn-soft {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 .section-title {
-  font-size: clamp(26px, 4vw, 36px);
+  font-size: 32px;
+  font-weight: 600;
   margin-bottom: 28px;
-  font-weight: 500;
+  line-height: 1.2;
 }
 
+/* ============================
+   Linha dourada entre sessões
+   ============================ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  margin: 50px 0;
+}
+
+/* ============================
+   Cards Essência
+   ============================ */
 .grid {
   display: grid;
   gap: 22px;
 }
 
-@media (min-width: 720px) {
-  .grid-2 { grid-template-columns: 1fr 1fr; gap: 34px; }
-}
-
-/* ===========================================
-   CARDS + MICRO-INTERAÇÕES
-   =========================================== */
 .card {
-  padding: 26px;
   background: var(--card);
-  border-radius: var(--radius);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
   box-shadow: var(--shadow);
-  transition: .35s ease;
-  transform: translateY(0);
 }
 
-.card:hover {
-  transform: translateY(-6px) scale(1.015);
-  border-color: var(--gold-dark);
-  box-shadow: 0 24px 40px rgba(214,182,128,0.20);
+.card h3 {
+  font-size: 20px;
+  margin: 0 0 8px;
 }
 
-.card h3 { font-size: 18px; margin-bottom: 6px; }
-.card p { font-size: 15px; color: var(--muted); }
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
 
-/* ===========================================
-   BLOCO FINAL
-   =========================================== */
-.final-block {
-  padding: clamp(90px, 16vw, 150px) 0;
-  text-align: center;
+/* ============================
+   SLIDER minimalista premium
+   ============================ */
+.slider {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
+  overflow-x: auto;
+  gap: 14px;
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px;
 }
 
-/* ===========================================
-   FOOTER
-   =========================================== */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  min-width: 75%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 16px;
+  scroll-snap-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .25s ease;
+}
+
+.slide:hover {
+  transform: translateY(-3px);
+}
+
+.slide-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.slide-info {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ============================
+   Footer
+   ============================ */
 footer {
-  padding: 24px 0 34px;
+  padding: 40px 0 60px;
   text-align: center;
   color: var(--muted);
   font-size: 14px;
-  border-top: 1px solid var(--border);
 }
 
-/* ===========================================
-   MOBILE — AJUSTES DE ZOOM REDUZIDO
-   =========================================== */
+
+/* ============================
+   MOBILE
+   ============================ */
 @media (max-width: 720px) {
-
-  .hero {
-    padding: 70px 0 100px;
-    gap: 22px;
-  }
-
-  .hero-title {
-    font-size: 28px !important;
-    line-height: 1.15;
-  }
-
-  .hero-sub {
-    font-size: 15px !important;
-    max-width: 92%;
-  }
 
   .block {
     padding: 60px 0 !important;
   }
 
-  .final-block {
-    padding: 70px 0 !important;
+  .hero-title {
+    font-size: 28px !important;
+  }
+
+  .hero-sub {
+    font-size: 15px !important;
+    max-width: 90%;
   }
 
   .card {
-    padding: 18px !important;
+    padding: 16px !important;
   }
 
-  .btn-main {
-    padding: 14px 26px !important;
+  .card h3 {
+    font-size: 17px !important;
+  }
+
+  .card p {
     font-size: 14px !important;
-    width: auto;
   }
 
-  .nav {
-    padding: 10px 14px !important;
+  .section-title {
+    font-size: 22px !important;
   }
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<div class="nav-shell" id="navbar">
+<!-- NAV -->
+<div class="wrap">
   <div class="nav">
-    <div class="nav-brand">NOWAIT</div>
-
-    <div class="nav-main">
-      <nav class="nav-links">
-        <a href="#sobre">Sobre</a>
-        <a href="#pecas">Peças</a>
-        <a href="#contato">Contato</a>
-      </nav>
-
-      <a href="https://wa.me/5511911030464" target="_blank">
-        <button class="nav-cta-btn">Concierge</button>
-      </a>
-    </div>
+    <span>NOWAIT</span>
+    <span>Concierge</span>
   </div>
 </div>
 
 <!-- HERO -->
-<section class="wrap hero fade-in">
-  <h1 class="hero-title fade-up">Acesso direto ao mercado mais desejado do luxo.</h1>
+<section class="wrap hero block">
+  <h1 class="hero-title">Acesso direto ao mercado mais desejado do luxo.</h1>
+  <p class="hero-sub">Peças selecionadas e curadoria especializada para quem busca excelência.</p>
+  <p class="proof">Mais de 5.000 itens entregues com excelência.</p>
 
-  <p class="hero-sub fade-up" style="animation-delay:0.15s">
-    Peças selecionadas e curadoria especializada para quem busca excelência.
-  </p>
-
-  <p class="proof fade-up" style="animation-delay:0.30s">
-    Mais de 5.000 itens entregues com excelência.
-  </p>
-
-  <div class="fade-up" style="animation-delay:0.45s">
-    <a href="https://wa.me/5511911030464" target="_blank">
-      <button class="btn-main">Acesso direto com concierge</button>
-    </a>
+  <div class="btn-row">
+    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">Atendimento Concierge</a>
+    <a class="btn btn-soft" href="#essencia">Ver mais</a>
   </div>
 </section>
 
+<div class="section-divider"></div>
 
 <!-- ESSÊNCIA -->
-<section class="wrap block fade-in" id="sobre">
-  <h2 class="section-title fade-up">Essência NOWAIT</h2>
+<section id="essencia" class="wrap block">
+  <h2 class="section-title">Essência NOWAIT</h2>
 
-  <div class="grid grid-2">
-    <div class="card fade-up" style="animation-delay:0.1s">
+  <div class="grid">
+    <div class="card">
       <h3>Seleção refinada</h3>
       <p>Somente peças com padrão elevado e procedência clara.</p>
     </div>
 
-    <div class="card fade-up" style="animation-delay:0.2s">
+    <div class="card">
       <h3>Disponibilidade real</h3>
       <p>Inventário atualizado com peças em circulação global.</p>
     </div>
 
-    <div class="card fade-up" style="animation-delay:0.3s">
+    <div class="card">
       <h3>Processo simples</h3>
       <p>Você informa o que busca. Nós apresentamos as melhores opções.</p>
     </div>
 
-    <div class="card fade-up" style="animation-delay:0.4s">
+    <div class="card">
       <h3>Entrega confiável</h3>
-      <p>Organização completa de entrega, início ao fim.</p>
+      <p>Organização completa da entrega, início ao fim.</p>
     </div>
   </div>
 </section>
 
+<div class="section-divider"></div>
 
-<!-- PEÇAS -->
-<section class="wrap block fade-in" id="pecas">
-  <h2 class="section-title fade-up">Preview de peças</h2>
+<!-- SLIDER -->
+<section class="wrap block">
+  <h2 class="section-title">Peças em circulação</h2>
 
-  <div class="grid grid-2">
-    <div class="card fade-up">
-      <h3>Rolex Daytona 126500LN</h3>
-      <p>Full set • Ano 2024 • Disponibilidade imediata.</p>
+  <div class="slider">
+    <div class="slide">
+      <div class="slide-title">Royal Oak 15510ST</div>
+      <div class="slide-info">Full set • 2023 • Vídeo 4K</div>
     </div>
 
-    <div class="card fade-up" style="animation-delay:0.1s">
-      <h3>Royal Oak 15510ST</h3>
-      <p>Garantia válida • Origem verificada.</p>
+    <div class="slide">
+      <div class="slide-title">Daytona 126500LN</div>
+      <div class="slide-info">Full set • 2024 • Zero riscos</div>
     </div>
 
-    <div class="card fade-up" style="animation-delay:0.2s">
-      <h3>Patek Philippe 5712</h3>
-      <p>Consulta de disponibilidade global.</p>
+    <div class="slide">
+      <div class="slide-title">Patek Nautilus 5726A</div>
+      <div class="slide-info">Docs verificados • Pronto envio</div>
     </div>
+  </div>
 
-    <div class="card fade-up" style="animation-delay:0.3s">
-      <h3>Hermès Kelly 28</h3>
-      <p>Epsom • Palladium • Condição selecionada.</p>
-    </div>
+  <div class="btn-row" style="margin-top:32px;">
+    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">Solicitar peça</a>
   </div>
 </section>
 
-
-<!-- CTA FINAL -->
-<section class="wrap final-block fade-in" id="contato">
-  <h2 class="section-title fade-up">Confiança construída peça por peça</h2>
-
-  <p class="proof fade-up" style="animation-delay:0.15s">
-    Mais de 5.000 entregas realizadas com excelência comprovada.
-  </p>
-
-  <div class="fade-up" style="animation-delay:0.3s">
-    <a href="https://wa.me/5511911030464" target="_blank">
-      <button class="btn-main">Acesso direto com concierge</button>
-    </a>
-  </div>
-</section>
-
-
-<!-- FOOTER -->
 <footer>
-  NOWAIT — Luxury Concierge • © Todos os direitos reservados
+  NOWAIT — Private Luxury Market<br>
+  Atendimento via concierge
 </footer>
-
-<script>
-/* NAVBAR — ESCONDER AO DESCER, MOSTRAR AO SUBIR */
-let lastScroll = 0;
-const navbar = document.getElementById("navbar");
-
-window.addEventListener("scroll", () => {
-  const current = window.pageYOffset;
-
-  if (current > lastScroll && current > 80) {
-    navbar.classList.add("nav-hidden"); // descendo → esconde
-  } else {
-    navbar.classList.remove("nav-hidden"); // subindo → aparece
-  }
-
-  lastScroll = current;
-});
-</script>
 
 </body>
 </html>
