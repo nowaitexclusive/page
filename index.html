@@ -3,107 +3,71 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Aeterna — Real de Luxo</title>
   <title>NOWAIT — Private Luxury Market</title>
+
+  <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#0b0b0b;color:#e9e9e9;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
-    :root{
-      --bg:#0b0b0b;--card:#141414;--muted:#bdbdbd;--ring:#2a2a2a;
-      --brand:#f1c232;--brand-2:#caa020;
-      --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:18px;--pad:clamp(16px,3vw,28px);
-      --maxw:1100px;
-      --h1:clamp(26px,4.5vw,48px);
-      --h2:clamp(20px,3vw,28px);
-      --p:clamp(14px,2.3vw,18px);
     :root {
-      --bg: #020202;
-      --ink: #f4f4f4;
-      --muted: #bfbfbf;
-      --gold: #C6A667;
-      --border: rgba(255, 255, 255, 0.08);
-      --glass: rgba(255, 255, 255, 0.04);
-      --radius: 20px;
-      --maxw: 1180px;
-      --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
       --bg: #040404;
       --ink: #f8f8f8;
       --muted: #b8b8b8;
       --gold: #d8b26a;
       --gold-2: #b58b35;
-      --panel: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.14);
+      --panel: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.14);
       --radius: 22px;
-      --shadow: 0 18px 80px rgba(0,0,0,0.45);
+      --shadow: 0 18px 80px rgba(0, 0, 0, 0.45);
       --maxw: 1200px;
     }
-    img{max-width:100%;height:auto;display:block}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(14px,2vw,18px)}
-    .section{padding:clamp(22px,4vw,48px) var(--pad)}
-    .stack{display:flex;flex-direction:column;gap:clamp(16px,2.4vw,22px)}
-    .center{text-align:center}.muted{color:var(--muted)}
-    .hero{position:relative;background:
-      radial-gradient(1200px 600px at 50% -10%, rgba(241,194,50,.12), transparent 60%),
-      linear-gradient(180deg, rgba(241,194,50,.08), transparent 40%), var(--bg);
-      border-bottom:1px solid #111;}
-    .top-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-    .badge{font-size:12px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02)}
-    .logo{margin:10px auto 8px auto;width:min(200px,70vw)}
-    .hero h1{font-size:var(--h1);line-height:1.1;margin:10px 0 8px;color:#ffd773;text-wrap:balance}
-    .hero p{font-size:var(--p);color:#d8d8d8;max-width:800px;margin:0 auto}
-    .cards{display:grid;gap:16px;margin-top:16px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid var(--ring);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    .card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:#d3d3d3;font-size:15px}
-    .cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-    .btn{appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px 22px;font-weight:800;
-      background:linear-gradient(180deg,var(--brand),var(--brand-2));color:#111;box-shadow:0 10px 25px rgba(241,194,50,.25);
-      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;}
-    .btn:active{transform:translateY(1px)}
-    .btn-whatsapp{background:linear-gradient(180deg,#25D366,#128C7E);color:#fff;box-shadow:0 10px 25px rgba(36,179,83,.25)}
-    .window{margin-top:8px}
-    .timer{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ring);border-radius:999px;
-      padding:10px 14px;background:#0f0f0f;color:#ffd773;font-weight:700}
-    .bullet{margin:0;color:#d8d8d8}.bullet li{margin:6px 0}
-    .form{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid var(--ring);border-radius:var(--radius);padding:var(--pad);box-shadow:var(--shadow)}
-    .grid{display:grid;grid-template-columns:1fr;gap:12px}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .label{font-size:13px;color:#eaeaea}
-    input,select,textarea{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:14px 14px;color:#fff;font-size:16px;outline:none;transition:border .15s}
-    input:focus,select:focus,textarea:focus{border-color:#484848}
-    textarea{min-height:110px;resize:vertical}
-    .consent{display:flex;align-items:flex-start;gap:10px}
-    .consent p{margin:0;color:#cfcfcf;font-size:14px;line-height:1.4}
-    .cta-full{margin-top:6px}.fine{font-size:12px;color:#b8b8b8;margin-top:8px}
-    .foot{opacity:.85}
-    @media (min-width:640px){.cards{grid-template-columns:repeat(2,1fr)} .grid{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
 
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; font-family: "Inter", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--ink); }
-    body { min-height: 100vh; display: flex; flex-direction: column; }
-    img { max-width: 100%; display: block; height: auto; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
-    body { min-height: 100vh; overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: inherit; text-decoration: none; }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 15% 20%, rgba(198, 166, 103, 0.16), transparent 38%),
-                  radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.05), transparent 40%),
-                  linear-gradient(160deg, rgba(255, 255, 255, 0.02), transparent 60%);
       background:
         radial-gradient(1200px 600px at 10% 0%, rgba(216, 178, 106, 0.18), transparent 50%),
-        radial-gradient(1000px 600px at 90% 10%, rgba(255,255,255,0.08), transparent 45%),
-        linear-gradient(160deg, rgba(255,255,255,0.04), transparent 55%);
+        radial-gradient(1000px 600px at 90% 10%, rgba(255, 255, 255, 0.08), transparent 45%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.04), transparent 55%);
       pointer-events: none;
       z-index: -2;
     }
@@ -112,734 +76,1134 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 14px);
-      opacity: 0.4;
+      background: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.035) 0 1px,
+        transparent 1px 14px
+      );
       opacity: 0.35;
       pointer-events: none;
       z-index: -1;
       filter: blur(0.3px);
     }
 
-    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: clamp(18px, 3vw, 32px); }
-    .block { padding: clamp(38px, 8vw, 120px) 0; position: relative; overflow: hidden; }
+    .wrap {
+      width: min(var(--maxw), 100% - clamp(32px, 8vw, 120px));
+      margin: 0 auto;
+      padding: 0 clamp(18px, 4vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(28px, 5vw, 64px);
+    }
 
-    .top-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); letter-spacing: 0.24em; text-transform: uppercase; font-size: 12px; }
-    .logo { color: #f8f8f8; }
-
-    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 4vw, 48px); align-items: center; }
-    .hero-card {
-      border: 1px solid var(--border);
-      background: linear-gradient(140deg, rgba(255,255,255,0.04), rgba(0,0,0,0.85));
-      border-radius: 32px;
-      padding: clamp(22px, 4vw, 44px);
-      box-shadow: var(--shadow);
+    .block {
+      width: 100%;
+      padding: clamp(24px, 5vw, 80px) 0;
       position: relative;
-      overflow: hidden;
     }
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(320px 200px at 20% 10%, rgba(198,166,103,0.28), transparent 62%),
-                  radial-gradient(420px 260px at 80% 0%, rgba(255,255,255,0.07), transparent 58%);
-      opacity: 0.8;
-      pointer-events: none;
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
     }
-    .hero-card h1 { margin: 12px 0 14px; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; text-wrap: balance; color: #fff; }
-    .hero-card p { margin: 0; color: var(--muted); font-size: clamp(15px, 2.6vw, 18px); line-height: 1.6; text-wrap: pretty; }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
-    .btn { appearance: none; cursor: pointer; border: 1px solid transparent; border-radius: 999px; padding: 14px 22px; font-weight: 700; letter-spacing: 0.02em; font-size: 14px; transition: transform 0.15s ease, box-shadow 0.2s ease, border 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-gold { background: linear-gradient(180deg, #d7b97a, var(--gold)); color: #0c0c0c; box-shadow: 0 16px 40px rgba(198, 166, 103, 0.35); }
-    .btn-ghost { background: transparent; border-color: var(--border); color: #fff; }
-    .wrap { width: min(var(--maxw), 100% - clamp(32px, 8vw, 120px)); margin: 0 auto; padding: 0 clamp(18px, 4vw, 28px); display: flex; flex-direction: column; gap: clamp(28px, 5vw, 64px); }
-    .block { width: 100%; padding: clamp(24px, 5vw, 96px) 0; position: relative; }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
-    .muted { color: var(--muted); }
 
-    .top-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; font-size: 12px; flex-wrap: wrap; row-gap: 8px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.08em; }
-    .pill { border: 1px solid var(--border); border-radius: 999px; padding: 8px 14px; background: rgba(255,255,255,0.04); }
+    .muted {
+      color: var(--muted);
+    }
 
-    .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(20px, 4vw, 48px); align-items: stretch; width: 100%; }
-    .hero h1 { font-size: clamp(28px, 3.4vw, 46px); margin: 8px 0 6px; line-height: 1.04; }
-    .hero p { font-size: clamp(15px, 1.9vw, 18px); color: var(--muted); margin: 0; }
-    .stack { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; width: 100%; }
+    /* HEADER */
 
-    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; }
-    .btn { border: none; cursor: pointer; border-radius: 999px; padding: 14px 22px; font-weight: 700; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
-    .btn-gold { background: linear-gradient(130deg, var(--gold), var(--gold-2)); color: #0b0b0b; box-shadow: 0 18px 44px rgba(216,178,106,0.28); }
-    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--ink); }
-    .btn:hover { transform: translateY(-1px); }
+    .top-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
 
-    .hero-visual {
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(216, 178, 106, 0.8);
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(20px, 4vw, 48px);
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    .badge-row-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge-chip {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 3.4vw, 42px);
+      margin: 8px 0 2px;
+      line-height: 1.05;
+      text-wrap: balance;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin: 0;
+      text-wrap: pretty;
+    }
+
+    .hero-sub span {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .hero-secondary {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .btn-gold {
+      background: linear-gradient(130deg, var(--gold), var(--gold-2));
+      color: #0b0b0b;
+      box-shadow: 0 18px 44px rgba(216, 178, 106, 0.28);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-banner {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .hero-banner strong {
+      color: #fff;
+    }
+
+    .hero-right {
       border-radius: 28px;
       border: 1px solid var(--border);
-      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-      padding: clamp(18px, 3vw, 28px);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.85));
+      padding: clamp(18px, 3vw, 26px);
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
     }
-    .hero-visual::before {
+
+    .hero-right::before {
       content: "";
       position: absolute;
       inset: -20%;
-      background: radial-gradient(circle at 30% 30%, rgba(198,166,103,0.2), transparent 50%);
-      filter: blur(10px);
-      opacity: 0.8;
+      background: radial-gradient(
+        circle at 30% 10%,
+        rgba(198, 166, 103, 0.22),
+        transparent 55%
+      );
+      filter: blur(8px);
+      opacity: 0.9;
+      pointer-events: none;
     }
-    .hero-visual img { width: 100%; border-radius: 18px; border: 1px solid var(--border); position: relative; z-index: 1; }
 
-    .eyebrow { letter-spacing: 0.3em; text-transform: uppercase; font-size: 12px; color: var(--gold); }
-    .badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--muted); font-size: 13px; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(198,166,103,0.18); }
+    .hero-right-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+    }
 
-    .splitter { border-top: 1px solid var(--border); margin: clamp(28px, 5vw, 46px) 0 0; opacity: 0.5; }
+    .hero-right-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
 
-    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(14px, 2.6vw, 22px); margin-top: clamp(18px, 3vw, 28px); }
-    .pillar { padding: clamp(18px, 2.6vw, 24px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--glass); position: relative; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
-    .pillar::after { content: ""; position: absolute; inset: 0; background: radial-gradient(220px 160px at 18% 12%, rgba(198,166,103,0.18), transparent 62%); opacity: 0.5; pointer-events: none; }
-    .pillar h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: 0.01em; }
-    .pillar p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
+    .hero-right-main {
+      font-size: 20px;
+      margin: 2px 0 6px;
+    }
 
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); display: grid; place-items: center; padding: 22px; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
-    .overlay.open { opacity: 1; pointer-events: all; }
-    .modal { width: min(820px, 100%); background: #0c0c0c; border: 1px solid var(--border); border-radius: 26px; padding: clamp(22px, 3vw, 32px); box-shadow: var(--shadow); position: relative; overflow: hidden; }
-    .modal::before { content: ""; position: absolute; inset: 0; background: radial-gradient(380px 280px at 20% 0%, rgba(198,166,103,0.18), transparent 60%); opacity: 0.7; pointer-events: none; }
-    .modal h2 { margin: 10px 0 8px; font-size: clamp(26px, 3.4vw, 32px); }
-    .modal p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
-    .close { position: absolute; top: 14px; right: 14px; border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; background: rgba(255,255,255,0.03); color: #fff; cursor: pointer; }
+    .hero-right-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-    form { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; position: relative; z-index: 1; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: 13px; letter-spacing: 0.01em; color: #f1f1f1; }
-    input, select, textarea { width: 100%; background: #0f0f0f; border: 1px solid var(--border); color: #fff; padding: 13px 14px; border-radius: 12px; font-size: 14px; outline: none; transition: border 0.15s ease, box-shadow 0.15s ease; }
-    input:focus, select:focus, textarea:focus { border-color: rgba(198,166,103,0.6); box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.18); }
-    .hero-card { position: relative; overflow: hidden; padding: clamp(18px, 3vw, 24px); height: 100%; }
-    .hero-card::after { content: "NOWAIT"; position: absolute; bottom: -14px; right: 18px; font-size: 64px; font-weight: 700; letter-spacing: 0.2em; color: rgba(255,255,255,0.06); pointer-events: none; }
-    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; align-self: stretch; width: 100%; }
-    .hero-tile { padding: 14px; border-radius: 16px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); display: flex; flex-direction: column; gap: 6px; }
-    .hero-tile strong { font-size: 15px; }
-    .hero-tile span { color: var(--muted); font-size: 13px; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
 
-    .tagline { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
-    .tagline .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(216,178,106,0.8); }
+    .hero-stat-card {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 12px;
+      font-size: 13px;
+    }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(14px, 3vw, 22px); align-self: stretch; width: 100%; }
-    .card { padding: clamp(16px, 2.6vw, 22px); border-radius: 18px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); box-shadow: var(--shadow); height: 100%; }
-    .card h3 { margin: 0 0 8px; font-size: 18px; }
-    .card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .hero-stat-label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
 
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(18px, 4vw, 26px); align-items: stretch; width: 100%; }
+    .hero-stat-value {
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
 
-    .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-    .list li { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); }
-    .bullet { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(130deg, var(--gold), var(--gold-2)); margin-top: 6px; }
+    .timer-box {
+      margin-top: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.8);
+    }
 
-    .preview { padding: clamp(16px, 3vw, 22px); border-radius: var(--radius); border: 1px solid var(--border); background: linear-gradient(150deg, rgba(255,255,255,0.04), rgba(0,0,0,0.75)); position: relative; overflow: hidden; height: 100%; }
-    .preview h4 { margin: 0 0 10px; }
-    .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
-    .preview-card { border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); }
-    .preview-card .price { color: var(--gold); font-weight: 700; }
+    .timer-box span#countdownMain {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+        monospace;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      color: var(--gold);
+    }
 
-    .cta-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(18px, 3vw, 26px); align-items: stretch; }
-    .cta-panel form { width: 100%; }
+    /* DIFERENCIAIS */
 
-    form { display: grid; gap: 12px; }
-    label { display: grid; gap: 6px; font-size: 14px; }
-    input, textarea, select { padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.16); background: #0c0c0c; color: var(--ink); font-size: 15px; outline: none; transition: border .15s ease; width: 100%; }
-    input:focus, textarea:focus, select:focus { border-color: var(--gold); }
-    textarea { min-height: 110px; resize: vertical; }
+    .section-header {
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
 
-    .note { color: var(--muted); font-size: 13px; margin: 0; line-height: 1.5; }
-    .response { margin-top: 12px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); display: none; position: relative; z-index: 1; }
-    .response strong { color: #fff; }
-    .response.aprovado { border-color: rgba(198,166,103,0.55); background: rgba(198,166,103,0.08); }
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
-    .badge { border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; background: rgba(255,255,255,0.05); color: var(--muted); font-size: 13px; }
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 32px);
+    }
 
-    footer { border-top: 1px solid var(--border); padding: 26px 0 40px; background: #030303; color: var(--muted); font-size: 13px; }
-    footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-    footer nav { display: flex; gap: 16px; }
-    footer a { color: var(--muted); }
-    footer a:hover { color: #fff; }
-    .footer { padding: 24px 0 40px; color: var(--muted); font-size: 14px; text-align: center; }
+    .section-header p {
+      margin: 0;
+      font-size: 14px;
+    }
 
-    @media (min-width: 760px) { form { grid-template-columns: repeat(2, 1fr); } .full { grid-column: 1 / -1; } }
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: none; align-items: center; justify-content: center; padding: 18px; z-index: 10; }
-    .overlay.open { display: flex; }
-    .overlay-content { max-width: min(960px, 96vw); width: 100%; max-height: 90vh; overflow-y: auto; }
-    .close { background: transparent; border: 1px solid var(--border); color: var(--ink); border-radius: 12px; padding: 8px 12px; cursor: pointer; }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(14px, 2.6vw, 22px);
+    }
+
+    .pillar {
+      padding: clamp(16px, 2.4vw, 22px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        220px 160px at 18% 12%,
+        rgba(198, 166, 103, 0.18),
+        transparent 62%
+      );
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .pillar h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .pillar p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* PREVIEW */
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(18px, 4vw, 26px);
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--muted);
+    }
+
+    .bullet-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(130deg, var(--gold), var(--gold-2));
+      margin-top: 6px;
+    }
+
+    .preview {
+      padding: clamp(16px, 3vw, 22px);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.75));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .preview p {
+      margin: 0 0 12px;
+      font-size: 14px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .preview-card {
+      border-radius: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .preview-card .price {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* FORM VETTING */
+
+    .form-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(18px, 3vw, 26px);
+      align-items: flex-start;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    label {
+      font-size: 13px;
+      letter-spacing: 0.01em;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #0c0c0c;
+      color: var(--ink);
+      font-size: 14px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(216, 178, 106, 0.2);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .response {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      display: none;
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+    }
+
+    .response.aprovado {
+      border-color: rgba(198, 166, 103, 0.55);
+      background: rgba(198, 166, 103, 0.08);
+    }
+
+    .response.reprovado {
+      border-color: rgba(255, 120, 120, 0.6);
+      background: rgba(255, 80, 80, 0.08);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .timer-small {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+        monospace;
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 0 40px;
+      background: #030303;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: clamp(24px, 4vw, 40px);
+    }
+
+    footer .wrap {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    footer nav {
+      display: flex;
+      gap: 16px;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* RESPONSIVO */
+
+    @media (min-width: 760px) {
+      form .full {
+        grid-column: 1 / -1;
+      }
+    }
 
     @media (max-width: 960px) {
-      .block { padding: clamp(20px, 8vw, 60px) 0; }
-      .hero { grid-template-columns: 1fr; text-align: center; gap: 18px; }
-      .stack { align-items: center; }
-      .cta-row { justify-content: center; }
-      .hero-card::after { font-size: 48px; right: 12px; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .overlay { align-items: flex-start; overflow-y: auto; }
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .stack {
+        align-items: center;
+      }
+
+      .cta-row {
+        justify-content: center;
+      }
+
+      .hero-banner {
+        justify-content: center;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .form-section {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        text-align: center;
+        align-items: center;
+      }
     }
 
     @media (max-width: 720px) {
-      .top-line { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-      .cta-row { width: 100%; }
-      .btn { width: 100%; justify-content: center; }
-      .hero { gap: 12px; }
-      .panel.hero-card, form.panel { padding: 16px; }
-      .hero-card::after { display: none; }
+      .top-line {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .wrap {
+        width: 100%;
+        padding-inline: 18px;
+      }
     }
 
     @media (max-width: 540px) {
-      .wrap { padding: 18px; }
-      .hero h1 { font-size: clamp(24px, 7vw, 36px); }
-      .hero p { font-size: 15px; }
-      .hero-grid { grid-template-columns: 1fr; }
-      .preview-grid { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      .cta-row { gap: 10px; }
-      .badge-row { justify-content: flex-start; }
+      .hero-title {
+        font-size: clamp(24px, 7vw, 32px);
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pillars {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="hero section">
-    <div class="wrap stack center">
-      <div class="top-badges">
-        <span class="badge">Compra</span><span class="badge">Venda</span><span class="badge">SOMENTE ORIGINAIS</span>
   <div class="wrap">
+    <!-- TOPO -->
     <header class="block" aria-label="Cabeçalho">
       <div class="top-line">
-        <div class="logo">NOWAIT <span class="pill">Priority Access</span></div>
-        <div class="tagline"><span class="dot"></span> Private Luxury Market • Concierge • Off-market</div>
-      </div>
-    <img class="logo" src="ae-logo.png" alt="Aeterna — Real de Luxo" loading="eager" style="width: 380px; height: auto;" /> 
-      <h1>Participe do maior grupo de compra e venda do Brasil</h1>
-      <p>Acesso antecipado a peças raras, negociações discretas e oportunidades que não chegam ao mercado aberto.</p>
-
-      <div class="cards">
-        <div class="card"><h3>Preço Real</h3><p>Valor até 30% menor em comparação às grandes revendas.</p></div>
-        <div class="card"><h3>100k +</h3><p>Somente peças acima de 100k.</p></div>
-        <div class="card"><h3>Segurança</h3><p>Todos os membros passam por análise rigorosa.</p></div>
-  <section class="block" aria-label="NOWAIT hero">
-    <div class="wrap hero-grid">
-      <div class="stack" style="gap:18px;">
-        <div class="top-line">
-          <span class="logo">NOWAIT</span>
-          <span>priority access</span>
+        <div class="logo">
+          NOWAIT
+          <span class="pill">Priority Access</span>
         </div>
-        <div class="hero-card">
-          <div class="badge"><span class="dot"></span> Exclusividade não se espera. Se conquista.</div>
-          <h1>NOWAIT — Private Luxury Market</h1>
-          <p>Acesso reservado aos compradores sérios de relógios de luxo. Prioridade, discrição e velocidade em um só canal.</p>
-
-      <div class="hero block">
-        <div class="stack">
-          <p class="pill" style="display:inline-flex; gap:8px; align-items:center;">Acesso imediato • Curadoria humana • Envio discreto</p>
-          <h1>Seu ingresso para o mercado privado de luxo sem filas.</h1>
-          <p>NOWAIT conecta colecionadores e fornecedores de confiança com disponibilidade real, acordos seguros e concierge em tempo real. Experiência fluida, em português, com preview garantido antes de qualquer negociação.</p>
-          <div class="cta-row">
-            <button class="btn btn-gold" data-open-overlay>Solicitar Acesso</button>
-            <a class="btn btn-ghost" href="#diferenciais">Ver diferenciais</a>
-            <a class="btn btn-gold" href="https://wa.me/5511911030464" target="_blank" rel="noopener">Entrar no grupo Priority</a>
-            <button class="btn btn-ghost" data-open-overlay>Ver preview do app</button>
-          </div>
-          <div class="badge-row">
-            <span class="badge">Resposta em minutos</span>
-            <span class="badge">Envio global</span>
-            <span class="badge">Autenticação garantida</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cta-row">
-        <a href="#form" class="btn">Solicitar acesso agora</a>
-        <a href="https://wa.me/5511911030464?text=Ol%C3%A1%2C%20Tenho%20interesse%20de%20participar%20do%20grupo%0ANome%3A%0AInstagram%2Flinkedin%3A%0AEmpresa%20%2B%20cargo%20%28%20opcional%2C%20essa%20informa%C3%A7%C3%A3o%20pode%20facilitar%20sua%20aprova%C3%A7%C3%A3o%20%29%20%3A%0AModelo%20de%20interesse%3A%20%28%20ex%3A%20busco%20por%20Royal%20Oak%2011500%20%29" target="_blank" class="btn btn-whatsapp">Solicitar acesso via WhatsApp</a>
-      <div class="hero-visual">
-        <img src="aeterna-watches.png" alt="Relógio de luxo em close" />
-      </div>
-
-      <section class="card window">
-        <h2 class="center" style="margin:0 0 8px;font-size:var(--h2)">Últimas horas</h2>
-        <p class="center muted" style="margin:0 0 8px">Convite para preencher as últimas vagas encerra em:</p>
-        <div class="timer"><span>⏳</span><span id="count1">--:--:--</span></div>
-        <ul class="bullet">
-          <li>Ofertas antes do mercado</li>
-          <li>Preço real — sem margem</li>
-          <li>Atendimento individual</li>
-        </ul>
-        <div class="cta-row"><a href="#form" class="btn">Garantir meu lugar</a></div>
-        <p class="fine">*</p>
-      </section>
-    </div>
-  </header>
-  </section>
-
-  <main id="form" class="section">
-  <section id="diferenciais" class="block" aria-label="Diferenciais NOWAIT">
-    <div class="wrap">
-      <section class="form stack">
-        <h2 class="center" style="font-size:var(--h2);margin:0">Solicite seu acesso antes que acabe</h2>
-        <form id="leadForm" action="https://formsubmit.co/pziiin25@gmail.com" method="POST" class="grid" novalidate>
-          <div class="field">
-            <label class="label" for="nome">Nome completo</label>
-            <input id="nome" name="Nome" placeholder="Seu nome" required />
-        <div class="panel hero-card">
-          <div class="hero-grid">
-            <div class="hero-tile">
-              <strong>Relógios raros</strong>
-              <span>Audemars Piguet, Rolex, Patek — com prévia visual antes do pagamento.</span>
-            </div>
-            <div class="hero-tile">
-              <strong>Joias & High-Jewelry</strong>
-              <span>Van Cleef, Cartier, Tiffany com curadoria imediata.</span>
-            </div>
-            <div class="hero-tile">
-              <strong>Buy & Sell Discreto</strong>
-              <span>Negociação assistida, transporte segurado e documentos auditados.</span>
-            </div>
-            <div class="hero-tile">
-              <strong>Concierge</strong>
-              <span>Equipe 24/7 para localizar peças e organizar entrega.</span>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label" for="whats">WhatsApp (com DDD)</label>
-            <input id="whats" name="WhatsApp" inputmode="tel" placeholder="(11) 90000-0000" required />
+        <div class="tagline">
+          <span class="dot"></span>
+          Private Luxury Market • Concierge • Off-market
         </div>
       </div>
     </header>
 
-    <section class="block" aria-labelledby="como-funciona">
+    <!-- HERO PRINCIPAL (mistura dos 3) -->
+    <section class="block" id="topo" aria-label="Apresentação NOWAIT">
+      <div class="hero">
+        <!-- LADO ESQUERDO -->
+        <div class="stack">
+          <div class="badge-row-top">
+            <span class="badge-chip">Compra</span>
+            <span class="badge-chip">Venda</span>
+            <span class="badge-chip">Somente originais</span>
+          </div>
+          <p class="eyebrow">Exclusividade não se espera. Se conquista.</p>
+          <h1 class="hero-title">
+            Seu ingresso para o maior grupo de compra e venda de relógios de luxo do Brasil.
+          </h1>
+          <p class="hero-sub">
+            A <span>NOWAIT</span> conecta compradores sérios ao mercado privado:
+            peças acima de 100k, <span>sem vitrines, sem filas</span>, com negociação assistida e
+            preview antes de qualquer compromisso.
+          </p>
+          <p class="hero-secondary">
+            NOWAIT — Private Luxury Market. Prioridade, discrição e velocidade em um só canal.
+          </p>
+
+          <div class="cta-row">
+            <button class="btn btn-gold" data-scroll-to="#vetting">Solicitar acesso agora</button>
+            <a
+              class="btn btn-ghost"
+              href="https://wa.me/5511911030464?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20participar%20da%20NOWAIT.%20Segue%20meu%20perfil%3A"
+              target="_blank"
+              rel="noopener"
+            >
+              Entrar no grupo Priority
+            </a>
+          </div>
+
+          <div class="hero-banner">
+            <span>Curadoria focada em:</span>
+            <strong>Rolex • Patek Philippe • Audemars Piguet • Richard Mille</strong>
+          </div>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <aside class="hero-right" aria-label="Resumo NOWAIT">
+          <div class="hero-right-inner">
+            <div>
+              <div class="hero-right-title">NOWAIT — Private Luxury Market</div>
+              <div class="hero-right-main">Mercado privado, sem promessas vazias.</div>
+              <p class="hero-right-sub">
+                Acesso antecipado a peças raras, negociações discretas e oportunidades que não
+                chegam ao mercado aberto.
+              </p>
+            </div>
+
+            <div class="hero-stats">
+              <div class="hero-stat-card">
+                <div class="hero-stat-label">Preço real</div>
+                <div class="hero-stat-value">Até 30% abaixo</div>
+                <div class="muted" style="font-size:12px;">
+                  Em comparação com algumas grandes revendas tradicionais.
+                </div>
+              </div>
+              <div class="hero-stat-card">
+                <div class="hero-stat-label">Ticket mínimo</div>
+                <div class="hero-stat-value">+100k por peça</div>
+                <div class="muted" style="font-size:12px;">
+                  Foco em peças relevantes, sempre com procedência validada.
+                </div>
+              </div>
+              <div class="hero-stat-card">
+                <div class="hero-stat-label">Segurança</div>
+                <div class="hero-stat-value">Perfil verificado</div>
+                <div class="muted" style="font-size:12px;">
+                  Todos os membros passam por análise antes de receber o link.
+                </div>
+              </div>
+            </div>
+
+            <div class="timer-box">
+              <span>⏳ Convite prioritário encerra em:</span>
+              <span id="countdownMain">--:--:--</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section class="block" id="diferenciais" aria-label="Diferenciais NOWAIT">
+      <div class="section-header">
+        <p class="eyebrow">Diferenciais</p>
+        <h2>Concierge privado para quem compra acima de 100k.</h2>
+        <p class="muted">
+          Peças fora das vitrines, full set e entrega rápida, com validação de perfil e prévia
+          visual antes de qualquer negociação.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <article class="pillar">
+          <h3>Cartas reservadas</h3>
+          <p>
+            Inventário sigiloso, peças raras e em rotação rápida apresentadas primeiro aos membros
+            NOWAIT.
+          </p>
+        </article>
+        <article class="pillar">
+          <h3>Concierge individual</h3>
+          <p>
+            Uma linha direta para buscar, negociar e receber suas próximas peças com total
+            discrição.
+          </p>
+        </article>
+        <article class="pillar">
+          <h3>Velocidade &amp; confiança</h3>
+          <p>
+            Perfis alinhados, tickets claros e logística ágil, com seguro e acompanhamento humano
+            até a entrega.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA + PREVIEW -->
+    <section class="block" aria-label="Como funciona">
       <div class="grid-2">
         <div>
           <p class="pill">Processo NOWAIT</p>
-          <h2 id="como-funciona">Como funciona</h2>
+          <h2 style="margin:10px 0 12px;">Como funciona na prática</h2>
           <ul class="list">
-            <li><span class="bullet"></span><div><strong>Briefing rápido.</strong> Conte o que procura ou o que deseja vender, com budget e prazo.</div></li>
-            <li><span class="bullet"></span><div><strong>Preview imediato.</strong> Receba fotos, vídeos e detalhes de procedência antes de confirmar.</div></li>
-            <li><span class="bullet"></span><div><strong>Conexão direta.</strong> Falamos com fornecedores de confiança e organizamos pagamento e logística.</div></li>
-            <li><span class="bullet"></span><div><strong>Entrega segura.</strong> Seguro, tracking e assistência humana até a peça estar com você.</div></li>
+            <li>
+              <span class="bullet-dot"></span>
+              <div>
+                <strong>Briefing rápido.</strong>
+                Você indica modelo, faixa de valor e prazo.
+              </div>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <div>
+                <strong>Preview imediato.</strong>
+                Recebe fotos, vídeos e detalhes de procedência antes de confirmar.
+              </div>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <div>
+                <strong>Conexão direta.</strong>
+                Negociação com fornecedores validados em ambiente privado.
+              </div>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <div>
+                <strong>Entrega segura.</strong>
+                Seguro, tracking e assistência humana até a peça estar com você.
+              </div>
+            </li>
           </ul>
         </div>
+
         <div class="preview">
-          <h4>Preview em tempo real</h4>
-          <p class="muted" style="margin:0 0 12px;">Veja como entregamos informações antes de qualquer compromisso.</p>
+          <h4>Preview de oferta em tempo real</h4>
+          <p class="muted">
+            Exemplos de como as oportunidades aparecem antes de qualquer depósito ou compromisso.
+          </p>
           <div class="preview-grid">
             <div class="preview-card">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <strong>Royal Oak 15510ST</strong>
                 <span class="price">US$ 57k</span>
               </div>
-              <p class="muted" style="margin:6px 0 0;">Vídeo 4K, série 2023, lacrado, garantia 5 anos.</p>
+              <p class="muted" style="margin:6px 0 0;">
+                Série 2023, full set, vídeo 4K e histórico de revisão.
+              </p>
             </div>
             <div class="preview-card">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <strong>Kelly 28 Sellier</strong>
-                <span class="price">€ 22k</span>
+                <strong>Daytona 126500LN</strong>
+                <span class="price">R$ 670k</span>
               </div>
-              <p class="muted" style="margin:6px 0 0;">Couro Epsom Noir, hardware palladium, original box.</p>
+              <p class="muted" style="margin:6px 0 0;">
+                Full set, lacrado, comparação de preço com mercado global.
+              </p>
             </div>
             <div class="preview-card">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <strong>Panthère de Cartier</strong>
-                <span class="price">R$ 76k</span>
+                <strong>RM 67-01</strong>
+                <span class="price">Sob consulta</span>
               </div>
-              <p class="muted" style="margin:6px 0 0;">Duas fileiras de diamantes, inspeção GIA.</p>
+              <p class="muted" style="margin:6px 0 0;">
+                Rotas de entrega, seguro dedicado e validação de autenticidade.
+              </p>
             </div>
           </div>
-          <div class="field">
-            <label class="label" for="cidade">Cidade/Estado</label>
-            <input id="cidade" name="Cidade" placeholder="São Paulo / SP" required />
         </div>
       </div>
     </section>
 
-    <section class="block" aria-labelledby="curadoria">
-      <div class="grid-2">
-        <div class="panel" style="padding:22px;">
-          <p class="pill">Curadoria Nowait</p>
-          <h2 id="curadoria" style="margin:10px 0 12px;">Disponibilidade real, sem promessas vazias.</h2>
-          <p class="muted">Trabalhamos apenas com fontes auditadas e com histórico. Cada peça recebe checagem de autenticidade, histórico de manutenção e documentação, sempre acompanhada de prévia visual.</p>
-          <div class="badge-row">
-            <span class="badge">Marketplace privado</span>
-            <span class="badge">Lista de espera inteligente</span>
-            <span class="badge">Equipe humana</span>
-          </div>
-          <div class="field">
-            <label class="label" for="interesse">Interesse principal</label>
-            <select id="interesse" name="Interesse" required>
-              <option value="" disabled selected>Selecione</option>
-              <option>Rolex</option><option>Patek Philippe</option><option>Richard Mille</option>
-              <option>Audemars Piguet</option><option>Hermès</option><option>Van Cleef & Arpels</option><option>Outros</option>
-            </select>
-        </div>
-        <div class="cards">
-          <div class="card">
-            <h3>Relógios & High-end</h3>
-            <p>AP, Patek, Rolex, Richard Mille e independentes. Consultoria sobre preço justo e rota logística com seguro.</p>
-          </div>
-          <div class="field" style="grid-column:1/-1">
-            <label class="label" for="modelo">Modelo de interesse (opcional)</label>
-            <textarea id="modelo" name="Modelo" placeholder="Ex.: Daytona 126500LN, Nautilus 5711, RM 11-03"></textarea>
-          <div class="card">
-            <h3>Bolsas & Joias</h3>
-            <p>Hermès, Chanel, Van Cleef, Cartier. Reservas rápidas e sourcing global com preview antes da compra.</p>
-          </div>
-          <div class="consent" style="grid-column:1/-1">
-            <input type="checkbox" id="ok" name="Consentimento" required style="width:22px;height:22px;margin-top:2px">
-            <p><label for="ok">Autorizo contato por WhatsApp e concordo em receber ofertas privadas (você pode sair quando quiser).</label></p>
-          <div class="card">
-            <h3>Venda assistida</h3>
-            <p>Quer vender? Enviamos o passo a passo, fazemos pré-avaliação e conectamos apenas compradores verificados.</p>
-          </div>
-          <div class="cta-full" style="grid-column:1/-1">
-            <button class="btn" type="submit" style="width:100%">Entrar agora antes que acabe</button>
-            <p class="fine"><span>⏳</span> Janela encerra em <span id="count2">--:--:--</span></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="acesso">
-      <div class="cta-panel panel" style="padding:24px;">
-        <div>
+    <!-- FORMULÁRIO COM VETTING AUTOMÁTICO -->
+    <section class="block" id="vetting" aria-label="Formulário de acesso">
+      <div class="form-section">
+        <!-- LADO ESQUERDO: TEXTO -->
+        <div class="stack" style="gap:10px;">
           <p class="pill">Acesso prioritário</p>
-          <h2 id="acesso" style="margin:8px 0 12px;">Pronto para entrar?</h2>
-          <p class="muted">Envie seus dados ou fale agora no WhatsApp. Responderemos com preview das peças disponíveis para o seu perfil.</p>
-          <div class="cta-row">
-            <a class="btn btn-gold" href="https://wa.me/5511911030464" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-            <button class="btn btn-ghost" data-open-overlay>Ver preview</button>
-          </div>
-        </div>
-        <form id="leadForm" class="panel" style="padding:18px;">
-          <label>Nome completo
-            <input required name="nome" type="text" placeholder="Ex: Ana Ribeiro" />
-          </label>
-          <label>Instagram / LinkedIn
-            <input required name="instagram" type="text" placeholder="@usuario" />
-          </label>
-          <label>O que você procura?
-            <select name="interesse" required>
-              <option value="">Selecione</option>
-              <option>Relógios</option>
-              <option>Bolsas de luxo</option>
-              <option>Joias</option>
-              <option>Venda assistida</option>
-              <option>Outro</option>
-            </select>
-          </label>
-          <label>Mensagem
-            <textarea name="mensagem" placeholder="Conte sua necessidade, prazos e orçamento"></textarea>
-          </label>
-          <button class="btn btn-gold" type="submit">Solicitar acesso</button>
-          <small class="muted">Retornamos em até 15 minutos durante horário comercial.</small>
-        </form>
-      </section>
-      <section class="section" style="padding-left:0;padding-right:0">
-        <div class="stack">
-          <h2 style="font-size:var(--h2)">Garantias de Autenticidade</h2>
-          <ul class="bullet">
-            <li>Peças originais, lacradas e com documentação</li>
-            <li>Verificação por especialistas</li>
-            <li>Mais de 10 mil membros ativos</li>
-          </ul>
-      <div class="stack" style="gap:12px; max-width: 760px;">
-        <div class="eyebrow">diferenciais</div>
-        <h2 style="font-size: clamp(28px, 3.6vw, 36px); margin: 0;">Concierge privado para quem compra acima de 100k</h2>
-        <p class="note" style="font-size: 15px;">Peças fora das vitrines, full set e entrega rápida com validação imediata de perfil.</p>
-      </div>
-      <div class="pillars">
-        <article class="pillar">
-          <h3>Cartas reservadas</h3>
-          <p>Inventário sigiloso, peças raras e em rotação rápida apresentadas com prioridade.</p>
-        </article>
-        <article class="pillar">
-          <h3>Concierge individual</h3>
-          <p>Uma linha direta para negociar, pagar e receber com total discrição.</p>
-        </article>
-        <article class="pillar">
-          <h3>Velocidade &amp; confiança</h3>
-          <p>Elegibilidade instantânea, logística ágil e comunidade verificada.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+          <h2 style="margin:0;">Solicite seu acesso antes que a janela feche.</h2>
+          <p class="muted">
+            Preencha o formulário ao lado. Um algoritmo simples valida o mínimo de 100k por peça,
+            presença de Instagram e item de interesse. Se o perfil for compatível, o link da
+            comunidade aparece na hora.
+          </p>
 
-  <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal">
-      <button class="close" aria-label="Fechar" data-close-overlay>&times;</button>
-      <div class="stack" style="gap:8px; position: relative; z-index: 1;">
-        <div class="eyebrow">priority vetting</div>
-        <h2 id="modal-title">Entrar agora</h2>
-        <p>Automação interna valida a faixa mínima de 100k, presença de Instagram e item de interesse.</p>
+          <div class="badge-row">
+            <span class="badge">Ticket mínimo: 100k por peça</span>
+            <span class="badge">Validação instantânea</span>
+            <span class="badge">Link liberado em segundos</span>
+          </div>
+
+          <p class="note">
+            ⏳ Janela atual encerra em
+            <span id="countdownForm" class="timer-small">--:--:--</span>. Depois disso, a prioridade
+            pode mudar.
+          </p>
+        </div>
+
+        <!-- LADO DIREITO: FORM -->
+        <div class="panel" style="padding:18px 18px 20px;">
+          <form id="vettingForm" novalidate>
+            <div class="field">
+              <label for="nome">Nome completo*</label>
+              <input id="nome" name="nome" placeholder="Ex.: João Silva" required />
+            </div>
+
+            <div class="field">
+              <label for="cidade">Cidade / Estado*</label>
+              <input id="cidade" name="cidade" placeholder="Ex.: São Paulo / SP" required />
+            </div>
+
+            <div class="field">
+              <label for="instagram">Instagram*</label>
+              <input id="instagram" name="instagram" placeholder="@seuusuario" required />
+            </div>
+
+            <div class="field">
+              <label for="faixa">Faixa de aquisição por peça*</label>
+              <select id="faixa" name="faixa" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="100">+100k</option>
+                <option value="200">+200k</option>
+                <option value="500">+500k</option>
+                <option value="baixo">&lt; 100k</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="item">Item de interesse principal*</label>
+              <select id="item" name="item" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="Rolex">Rolex</option>
+                <option value="Patek Philippe">Patek Philippe</option>
+                <option value="Audemars Piguet">Audemars Piguet</option>
+                <option value="Richard Mille">Richard Mille</option>
+                <option value="Hermès">Hermès</option>
+                <option value="Van Cleef & Arpels">Van Cleef &amp; Arpels</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="contato">Preferência de contato*</label>
+              <select id="contato" name="contato" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telegram">Telegram</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="detalhes">Detalhes (modelo, orçamento, prazo) — opcional</label>
+              <textarea
+                id="detalhes"
+                name="detalhes"
+                placeholder="Ex.: Daytona platina, até R$700k, entrega ainda este ano."
+              ></textarea>
+            </div>
+
+            <button class="btn btn-gold full" type="submit">Enviar para análise agora</button>
+            <p class="note full">
+              Seus dados não são compartilhados com o grupo. O contato é sempre direto com o
+              concierge.
+            </p>
+          </form>
+
+          <div id="response" class="response" role="status" aria-live="polite"></div>
+        </div>
       </div>
     </section>
-
-      <form id="vettingForm" novalidate>
-        <div class="field">
-          <label for="nome">Nome completo*</label>
-          <input id="nome" name="nome" placeholder="Ex.: João Silva" required />
-        </div>
-        <div class="field">
-          <label for="cidade">Cidade / Estado*</label>
-          <input id="cidade" name="cidade" placeholder="Ex.: São Paulo / SP" required />
-        </div>
-      </section>
-        <div class="field">
-          <label for="instagram">Instagram*</label>
-          <input id="instagram" name="instagram" placeholder="@username" required />
-        </div>
-        <div class="field">
-          <label for="faixa">Faixa de aquisição*</label>
-          <select id="faixa" name="faixa" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="100">+100k</option>
-            <option value="200">+200k</option>
-            <option value="500">+500k</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="item">Item de interesse*</label>
-          <select id="item" name="item" required>
-            <option value="" disabled selected>Selecione</option>
-            <option>Rolex</option>
-            <option>Hermès</option>
-            <option>Audemars Piguet</option>
-            <option>Patek Philippe</option>
-            <option>Richard Mille</option>
-            <option>Van Cleef &amp; Arpels</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="contato">Preferência de contato*</label>
-          <select id="contato" name="contato" required>
-            <option value="" disabled selected>Selecione</option>
-            <option>WhatsApp</option>
-            <option>Telegram</option>
-          </select>
-    <footer class="footer">
-      NOWAIT • Private Luxury Market — Atendimento global com prévias de oferta garantidas.
-    </footer>
   </div>
 
-  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Preview do app">
-    <div class="overlay-content panel" style="padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
-        <div>
-          <p class="pill" style="margin:0 0 6px;">Preview NOWAIT</p>
-          <h3 style="margin:0;">Experiência antes de confirmar</h3>
-        </div>
-        <div class="field full">
-          <label for="detalhes">Item / detalhes (opcional)</label>
-          <textarea id="detalhes" name="detalhes" placeholder="Modelo desejado, prazo e condição esperada."></textarea>
-        <button class="close" data-close-overlay>Fechar</button>
-      </div>
-      <div class="grid-2" style="margin-top:16px;">
-        <div class="preview">
-          <h4 style="margin-top:0;">Lista privada</h4>
-          <div class="preview-grid">
-            <div class="preview-card">
-              <strong>Daytona 126500LN</strong>
-              <p class="muted" style="margin:6px 0 0;">Full set 2024 • 0% risco de falsa procedência • vídeo no ato</p>
-            </div>
-            <div class="preview-card">
-              <strong>Birkin 30 Togo</strong>
-              <p class="muted" style="margin:6px 0 0;">Entrega em 48h • recibo verificado • fotos 360°</p>
-            </div>
-          </div>
-        </div>
-        <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-          <button type="submit" class="btn btn-gold">Solicitar entrada</button>
-          <p class="note">Processo automático. Se aprovado, o link do grupo aparece na hora.</p>
-        <div class="preview">
-          <h4 style="margin-top:0;">Concierge conversa</h4>
-          <p class="muted" style="margin:0 0 10px;">Chats organizados por peça, com status, provas de autenticidade e prazo de entrega.</p>
-          <div class="hero-grid">
-            <div class="hero-tile">
-              <strong>Status</strong>
-              <span>Fonte confirmada • Preço bloqueado por 2h</span>
-            </div>
-            <div class="hero-tile">
-              <strong>Documentos</strong>
-              <span>Notas, séries e certificações em PDF antes de pagar</span>
-            </div>
-            <div class="hero-tile">
-              <strong>Entrega</strong>
-              <span>Seguro incluso, rota discreta e tempo estimado</span>
-            </div>
-          </div>
-        </div>
-      </form>
-      <div id="response" class="response" role="status"></div>
-      </div>
-    </div>
-  </main>
-  </div>
-
-  <footer class="section foot">
-    <div class="wrap center muted" style="font-size:13px">© Aeterna. Todos os direitos reservados.</div>
+  <!-- FOOTER -->
   <footer>
     <div class="wrap">
       <span>NOWAIT — Private Luxury Market</span>
       <nav>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos</a>
+        <a href="#topo">Início</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#vetting">Acesso</a>
       </nav>
     </div>
   </footer>
 
   <script>
-    (function(){
-      const KEY="aeterna_deadline";
-      const now=Date.now();
-      let deadline=localStorage.getItem(KEY);
-      if(!deadline){
-        deadline=(now + 48*60*60*1000).toString();
-        localStorage.setItem(KEY,deadline);
-      }
-      const pad=n=>String(n).padStart(2,"0");
-      function fmt(ms){
-        if(ms<0) return "00:00:00";
-        const h=Math.floor(ms/3.6e6);
-        const m=Math.floor((ms%3.6e6)/6e4);
-        const s=Math.floor((ms%6e4)/1e3);
-        return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    // Link da comunidade (TROCAR PELO SEU)
     const communityLink = "https://wa.me/5511911030464";
 
+    // =========================
+    // Countdown persistente (48h)
+    // =========================
+    (function setupCountdown() {
+      const KEY = "nowait_deadline";
+      const now = Date.now();
+      let deadline = localStorage.getItem(KEY);
+
+      if (!deadline) {
+        deadline = (now + 48 * 60 * 60 * 1000).toString();
+        localStorage.setItem(KEY, deadline);
+      }
+
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function format(ms) {
+        if (ms <= 0) return "00:00:00";
+        const h = Math.floor(ms / 3.6e6);
+        const m = Math.floor((ms % 3.6e6) / 6e4);
+        const s = Math.floor((ms % 6e4) / 1e3);
+        return `${pad(h)}:${pad(m)}:${pad(s)}`;
+      }
+
+      function tick() {
+        let left = parseInt(deadline, 10) - Date.now();
+        const out = format(left);
+
+        const main = document.getElementById("countdownMain");
+        const form = document.getElementById("countdownForm");
+        if (main) main.textContent = out;
+        if (form) form.textContent = out;
+
+        // Quando zerar, renova mais 24h pra manter urgência contínua
+        if (left <= 0) {
+          deadline = (Date.now() + 24 * 60 * 60 * 1000).toString();
+          localStorage.setItem(KEY, deadline);
+        }
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // =========================
+    // Scroll suave para seções
+    // =========================
+    document.querySelectorAll("[data-scroll-to]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = btn.getAttribute("data-scroll-to");
+        if (!target) return;
+        const el = document.querySelector(target);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    // =========================
+    // Lógica de vetting
+    // =========================
     const validItems = new Set([
       "Rolex",
-      "Hermès",
-      "Audemars Piguet",
       "Patek Philippe",
+      "Audemars Piguet",
       "Richard Mille",
+      "Hermès",
       "Van Cleef & Arpels",
-      "Outro",
+      "Outro"
     ]);
 
     function classifyProfile({ faixa, instagram, item }) {
+      if (faixa === "baixo") return false;
+
       const faixaNum = parseInt(faixa, 10);
       const instagramOk = typeof instagram === "string" && instagram.trim().length > 0;
       const faixaOk = Number.isFinite(faixaNum) && faixaNum >= 100;
       const itemOk = validItems.has(item);
+
       return faixaOk && instagramOk && itemOk;
     }
 
-    function renderResponse(approved) {
+    function renderResponse(approved, contato) {
       const response = document.getElementById("response");
       if (!response) return;
+
       response.style.display = "block";
-      response.className = approved ? "response aprovado" : "response recusado";
+      response.className = approved ? "response aprovado" : "response reprovado";
+
       if (approved) {
         response.innerHTML = `
           <strong>Aprovado.</strong><br />
-          Seu perfil é compatível com o acesso NOWAIT Priority Access.<br />
-          Clique abaixo para entrar na comunidade:<br />
-          <a class="btn btn-gold" style="margin-top:12px; display:inline-flex;" href="${communityLink}" target="_blank" rel="noopener">Entrar no grupo</a>
+          Seu perfil é compatível com o acesso <strong>NOWAIT Priority Access</strong>.<br /><br />
+          Clique abaixo para entrar diretamente na comunidade:<br />
+          <a class="btn btn-gold" style="margin-top:12px; display:inline-flex;" href="${communityLink}" target="_blank" rel="noopener">
+            Entrar na comunidade
+          </a>
+          <p class="note" style="margin-top:10px;">
+            Caso o link esteja expirado, nosso concierge fará contato pelo <strong>${contato}</strong>.
+          </p>
         `;
       } else {
         response.innerHTML = `
           <strong>Agradecemos seu interesse.</strong><br />
-          Neste momento, o clube está com vagas limitadas.<br />
-          Caso abra uma nova janela compatível com seu perfil, entraremos em contato.
+          Neste momento, o clube está com vagas limitadas e focado em tickets a partir de 100k por peça.<br /><br />
+          Caso haja uma nova janela compatível com seu perfil, poderemos entrar em contato futuramente.
         `;
       }
-      function tick(){
-        const left=parseInt(deadline,10)-Date.now();
-        const out=fmt(left);
-        const a=document.getElementById("count1");
-        const b=document.getElementById("count2");
-        if(a) a.textContent=out;
-        if(b) b.textContent=out;
-        if(left<=0){
-          const renew=Date.now()+24*60*60*1000;
-          localStorage.setItem(KEY,String(renew));
-        }
+
       response.setAttribute("tabindex", "-1");
-      response.focus({ preventScroll: true });
       response.scrollIntoView({ behavior: "smooth", block: "center" });
+      response.focus({ preventScroll: true });
     }
 
-    const overlay = document.getElementById("overlay");
-    const openButtons = document.querySelectorAll("[data-open-overlay]");
-    const closeButtons = document.querySelectorAll("[data-close-overlay]");
+    // =========================
+    // Submit do formulário
+    // =========================
+    (function setupForm() {
+      const form = document.getElementById("vettingForm");
+      if (!form) return;
 
-    openButtons.forEach((btn) => btn.addEventListener("click", () => {
-    openButtons.forEach(btn => btn.addEventListener("click", () => {
-      overlay.classList.add("open");
-      overlay.querySelector(".close").focus();
-      document.body.style.overflow = "hidden";
-      document.getElementById("nome")?.focus();
-    }));
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    closeButtons.forEach((btn) => btn.addEventListener("click", () => {
-    closeButtons.forEach(btn => btn.addEventListener("click", () => {
-      overlay.classList.remove("open");
-      document.body.style.overflow = "auto";
-    }));
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
 
-    overlay.addEventListener("click", (event) => {
-      if (event.target === overlay) {
-        overlay.classList.remove("open");
-        document.body.style.overflow = "auto";
-      }
-      tick();setInterval(tick,1000);
+        const data = {
+          nome: form.nome.value,
+          cidade: form.cidade.value,
+          instagram: form.instagram.value,
+          faixa: form.faixa.value,
+          item: form.item.value,
+          contato: form.contato.value,
+          detalhes: form.detalhes.value
+        };
+
+        const approved = classifyProfile(data);
+        renderResponse(approved, data.contato || "WhatsApp");
+
+        // Opcional: envio para sua base externa (exemplo: FormBold)
+        try {
+          fetch("https://formbold.com/s/oWyOb", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          }).catch(() => {});
+        } catch (_) {}
+
+        form.reset();
+      });
     })();
-    document.addEventListener('DOMContentLoaded',()=>{
-      const form=document.getElementById('leadForm');
-      form.addEventListener('submit',(e)=>{
-        const fd=new FormData(form);
-        const data={};
-        fd.forEach((val,key)=>{data[key]=val;});
-        fetch('https://formbold.com/s/oWyOb',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify(data)
-        }).catch((err)=>{console.error('FormBold',err);});
-        // não usamos preventDefault, pois queremos enviar para formsubmit.co
-      });
-    });
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href').slice(1);
-        const el=document.getElementById(id);
-        if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
-      });
-
-    document.getElementById("vettingForm").addEventListener("submit", (event) => {
-
-    document.getElementById("leadForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const form = event.currentTarget;
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const data = {
-        nome: form.nome.value,
-        cidade: form.cidade.value,
-        instagram: form.instagram.value,
-        faixa: form.faixa.value,
-        item: form.item.value,
-        contato: form.contato.value,
-        detalhes: form.detalhes.value,
-        interesse: form.interesse.value,
-        mensagem: form.mensagem.value,
-      };
-
-      const approved = classifyProfile(data);
-      renderResponse(approved);
-      fetch("https://formbold.com/s/oWyOb", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      }).catch((err) => console.error("FormBold", err));
-
-      form.reset();
-      alert("Recebemos seu pedido. Entraremos em contato com preview personalizado.");
-    });
   </script>
 </body>
 </html>
