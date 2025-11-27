@@ -25,9 +25,6 @@
   font-family: "Inter", sans-serif;
 }
 
-/* ============================
-   Fundo premium
-   ============================ */
 body {
   margin: 0;
   padding: 0;
@@ -35,7 +32,6 @@ body {
   color: var(--text);
 }
 
-/* Layout */
 .wrap {
   width: min(92%, 1180px);
   margin: 0 auto;
@@ -46,21 +42,28 @@ body {
 }
 
 /* ============================
-   HERO
+   NAV
    ============================ */
 .nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 14px 0;
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  color: var(--muted);
 }
 
+.nav-brand {
+  font-size: 18px;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+}
+
+/* ============================
+   HERO
+   ============================ */
 .hero {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 10px;
+  padding: 50px 0 70px;
 }
 
 .hero-title {
@@ -71,25 +74,33 @@ body {
 }
 
 .hero-sub {
-  color: var(--muted);
   font-size: 18px;
-  max-width: 580px;
-  margin: 0 auto 28px;
-}
-
-.proof {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 4px;
+  max-width: 600px;
+  margin: 0 auto 18px;
 }
 
-/* Botões hero */
+.hero-long {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.hero-warning {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.3px;
+}
+
+/* Botões */
 .btn-row {
   display: flex;
   justify-content: center;
   gap: 12px;
   margin-top: 26px;
-  flex-wrap: wrap;
 }
 
 .btn {
@@ -109,25 +120,10 @@ body {
   box-shadow: 0 14px 32px rgba(216,178,106,0.25);
 }
 
-.btn-main:hover {
-  transform: translateY(-2px);
-}
-
-.btn-soft {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-.section-title {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 28px;
-  line-height: 1.2;
-}
+.btn-main:hover { transform: translateY(-2px); }
 
 /* ============================
-   Linha dourada entre sessões
+   Divisor dourado
    ============================ */
 .section-divider {
   width: 100%;
@@ -137,8 +133,15 @@ body {
 }
 
 /* ============================
-   Cards Essência
+   Sessão Essência
    ============================ */
+.section-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  line-height: 1.2;
+}
+
 .grid {
   display: grid;
   gap: 22px;
@@ -154,18 +157,17 @@ body {
 
 .card h3 {
   font-size: 20px;
-  margin: 0 0 8px;
+  margin-bottom: 8px;
 }
 
 .card p {
-  margin: 0;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.45;
 }
 
 /* ============================
-   SLIDER minimalista premium
+   Slider Premium
    ============================ */
 .slider {
   display: flex;
@@ -175,9 +177,7 @@ body {
   padding: 10px 4px;
 }
 
-.slider::-webkit-scrollbar {
-  display: none;
-}
+.slider::-webkit-scrollbar { display: none; }
 
 .slide {
   min-width: 75%;
@@ -190,9 +190,7 @@ body {
   transition: transform .25s ease;
 }
 
-.slide:hover {
-  transform: translateY(-3px);
-}
+.slide:hover { transform: translateY(-3px); }
 
 .slide-title {
   font-size: 16px;
@@ -218,70 +216,73 @@ footer {
 /* ============================
    MOBILE
    ============================ */
-@media (max-width: 720px) {
+@media(max-width:720px){
 
-  .block {
-    padding: 60px 0 !important;
-  }
+  .block { padding: 60px 0 !important; }
 
-  .hero-title {
-    font-size: 28px !important;
-  }
+  .hero { padding: 40px 0 60px !important; }
 
-  .hero-sub {
-    font-size: 15px !important;
-    max-width: 90%;
-  }
+  .hero-title { font-size: 30px !important; }
+  .hero-sub { font-size: 15px !important; margin-bottom: 12px !important; }
+  .hero-long { font-size: 14.5px !important; margin-top: 8px !important; }
+  .hero-warning { font-size: 13px !important; margin-top: 10px !important; }
 
-  .card {
-    padding: 16px !important;
-  }
+  .card { padding: 16px !important; }
+  .card h3 { font-size: 17px !important; }
+  .card p { font-size: 14px !important; }
 
-  .card h3 {
-    font-size: 17px !important;
-  }
-
-  .card p {
-    font-size: 14px !important;
-  }
-
-  .section-title {
-    font-size: 22px !important;
-  }
+  .section-title { font-size: 22px !important; }
 }
 
 </style>
 </head>
+
 
 <body>
 
 <!-- NAV -->
 <div class="wrap">
   <div class="nav">
-    <span>NOWAIT</span>
-    <span>Concierge</span>
+    <span class="nav-brand">NOWAIT</span>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="wrap hero block">
-  <h1 class="hero-title">Acesso direto ao mercado mais desejado do luxo.</h1>
-  <p class="hero-sub">Peças selecionadas e curadoria especializada para quem busca excelência.</p>
-  <p class="proof">Mais de 5.000 itens entregues com excelência.</p>
+
+  <h1 class="hero-title">A maior comunidade de luxo do Brasil.</h1>
+
+  <p class="hero-sub">
+    Referência em relógios desde 2020 nos EUA, chegamos ao Brasil para trazer o valor real dos itens.
+  </p>
+
+  <p class="hero-long">
+    Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo — 
+    com curadoria especializada, disponibilidade real e negociação direta.
+  </p>
+
+  <p class="hero-warning">
+    Você nunca mais vai pagar valor de 2025 zero em um 2023 usado.
+  </p>
 
   <div class="btn-row">
-    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">Atendimento Concierge</a>
-    <a class="btn btn-soft" href="#essencia">Ver mais</a>
+    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">
+      Solicitar acesso via concierge
+    </a>
   </div>
+
 </section>
 
+
 <div class="section-divider"></div>
+
 
 <!-- ESSÊNCIA -->
 <section id="essencia" class="wrap block">
   <h2 class="section-title">Essência NOWAIT</h2>
 
   <div class="grid">
+
     <div class="card">
       <h3>Seleção refinada</h3>
       <p>Somente peças com padrão elevado e procedência clara.</p>
@@ -301,36 +302,76 @@ footer {
       <h3>Entrega confiável</h3>
       <p>Organização completa da entrega, início ao fim.</p>
     </div>
+
   </div>
 </section>
 
+
 <div class="section-divider"></div>
 
-<!-- SLIDER -->
+
+<!-- SLIDER - PEÇAS EM CIRCULAÇÃO -->
 <section class="wrap block">
   <h2 class="section-title">Peças em circulação</h2>
 
   <div class="slider">
+
+    <!-- SLIDE 1 — PATEK 5167 -->
     <div class="slide">
-      <div class="slide-title">Royal Oak 15510ST</div>
-      <div class="slide-info">Full set • 2023 • Vídeo 4K</div>
+      <img src="patek5167.jpg" alt="Patek Philippe 5167" style="border-radius:14px; margin-bottom:12px;">
+
+      <div class="slide-title">Patek Philippe 5167</div>
+      <div class="slide-info">Complete • 2015</div>
+
+      <div class="slide-price" style="color: var(--gold); font-weight:600; margin-top:10px;">
+        R$ 352.000,00
+      </div>
+
+      <div class="slide-tag" 
+           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
+                  padding:6px 10px; border-radius:10px; width:max-content;">
+        PRICE TO FLY 🚀
+      </div>
     </div>
 
+
+    <!-- SLIDE 2 — PATEK 5712/1A -->
     <div class="slide">
-      <div class="slide-title">Daytona 126500LN</div>
-      <div class="slide-info">Full set • 2024 • Zero riscos</div>
+      <img src="patek5712.jpg" 
+           alt="Patek Philippe 5712/1A Blue Dial"
+           style="border-radius:14px; margin-bottom:12px;">
+
+      <div class="slide-title">Patek Philippe 5712/1A</div>
+      <div class="slide-info">Blue Dial • Stainless Steel • 2009</div>
+
+      <div class="slide-tag" 
+           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
+                  padding:6px 10px; border-radius:10px; width:max-content;">
+        PRICE TO FLY 🚀
+      </div>
+
+      <div class="slide-tag" 
+           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
+                  padding:6px 10px; border-radius:10px; width:max-content;">
+        CHEAPEST ON THE WORLD 🌎
+      </div>
+
+      <div class="slide-price" 
+           style="color: var(--gold); font-weight:600; margin-top:12px;">
+        R$ 590.700,00
+      </div>
     </div>
 
-    <div class="slide">
-      <div class="slide-title">Patek Nautilus 5726A</div>
-      <div class="slide-info">Docs verificados • Pronto envio</div>
-    </div>
   </div>
 
   <div class="btn-row" style="margin-top:32px;">
-    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">Solicitar peça</a>
+    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">
+      Solicitar peça
+    </a>
   </div>
+
 </section>
+
 
 <footer>
   NOWAIT — Private Luxury Market<br>
