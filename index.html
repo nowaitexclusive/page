@@ -98,7 +98,7 @@
 
     .block {
       width: 100%;
-      padding: clamp(24px, 5vw, 80px) 0;
+      padding: clamp(48px, 10vw, 100px) 0;
       position: relative;
     }
 
@@ -114,109 +114,54 @@
       color: var(--muted);
     }
 
-    /* HEADER */
+    /* HEADER SIMPLES */
 
-    .top-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 12px;
-      flex-wrap: wrap;
-      row-gap: 8px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .logo-simple {
       font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .pill {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 14px;
-      background: rgba(255, 255, 255, 0.04);
-      font-size: 12px;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-    }
-
-    .tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(216, 178, 106, 0.8);
+    header.block {
+      padding-bottom: clamp(12px, 3vw, 24px);
+      padding-top: clamp(24px, 6vw, 32px);
     }
 
     /* HERO */
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: clamp(20px, 4vw, 48px);
-      align-items: stretch;
-      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
-    .stack {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      align-items: flex-start;
-      width: 100%;
+    .hero-inner {
+      max-width: 720px;
+      text-align: center;
     }
 
     .eyebrow {
-      letter-spacing: 0.3em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--gold);
-    }
-
-    .badge-row-top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .badge-chip {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 7px 12px;
-      background: rgba(255, 255, 255, 0.04);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
+      margin-bottom: 18px;
     }
 
     .hero-title {
-      font-size: clamp(28px, 3.4vw, 42px);
-      margin: 8px 0 2px;
-      line-height: 1.05;
-      text-wrap: balance;
+      font-size: clamp(32px, 7vw, 44px);
+      line-height: 1.14;
+      font-weight: 700;
+      margin: 0 0 22px;
     }
 
     .hero-sub {
-      font-size: 15px;
+      max-width: 620px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+      line-height: 1.55;
       color: var(--muted);
-      margin: 0;
-      text-wrap: pretty;
     }
 
     .hero-sub span {
@@ -227,155 +172,71 @@
     .hero-secondary {
       font-size: 14px;
       color: var(--muted);
+      margin: 0 auto 28px;
+      max-width: 540px;
     }
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
       align-items: center;
-      margin-top: 10px;
+      justify-content: center;
+      margin-top: 12px;
     }
 
     .btn {
-      border: none;
-      cursor: pointer;
       border-radius: 999px;
       padding: 13px 22px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.02em;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
       font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease,
+        background 0.15s ease;
       white-space: nowrap;
     }
 
-    .btn-gold {
-      background: linear-gradient(130deg, var(--gold), var(--gold-2));
-      color: #0b0b0b;
-      box-shadow: 0 18px 44px rgba(216, 178, 106, 0.28);
-    }
-
-    .btn-ghost {
+    .btn-outline {
       background: transparent;
       border: 1px solid var(--border);
       color: var(--ink);
     }
 
-    .btn:hover {
+    .btn-outline:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(216, 178, 106, 0.35);
       transform: translateY(-1px);
     }
 
-    .hero-banner {
-      font-size: 12px;
+    .btn-primary {
+      background: linear-gradient(130deg, var(--gold), var(--gold-2));
+      color: #0b0b0b;
+      border: 1px solid transparent;
+      box-shadow: 0 18px 44px rgba(216, 178, 106, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 50px rgba(216, 178, 106, 0.4);
+    }
+
+    .note {
       color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .hero-banner strong {
-      color: #fff;
-    }
-
-    .hero-right {
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.85));
-      padding: clamp(18px, 3vw, 26px);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-right::before {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      background: radial-gradient(
-        circle at 30% 10%,
-        rgba(198, 166, 103, 0.22),
-        transparent 55%
-      );
-      filter: blur(8px);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .hero-right-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 14px;
-    }
-
-    .hero-right-title {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-    }
-
-    .hero-right-main {
-      font-size: 20px;
-      margin: 2px 0 6px;
-    }
-
-    .hero-right-sub {
       font-size: 13px;
-      color: var(--muted);
+      margin-top: 16px;
     }
 
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 10px;
-    }
-
-    .hero-stat-card {
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 10px 12px;
-      font-size: 13px;
-    }
-
-    .hero-stat-label {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    .hero-stat-value {
-      font-weight: 600;
+    .timer-small {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
       color: var(--gold);
-      margin-bottom: 2px;
-    }
-
-    .timer-box {
-      margin-top: 6px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
       font-size: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.8);
-    }
-
-    .timer-box span#countdownMain {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-        monospace;
-      letter-spacing: 0.08em;
-      font-size: 12px;
-      color: var(--gold);
     }
 
     /* DIFERENCIAIS */
@@ -385,7 +246,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-bottom: 18px;
+      margin-bottom: 36px;
     }
 
     .section-header h2 {
@@ -398,10 +259,24 @@
       font-size: 14px;
     }
 
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .pillars {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: clamp(14px, 2.6vw, 22px);
+      gap: clamp(20px, 4vw, 32px);
     }
 
     .pillar {
@@ -438,7 +313,7 @@
       line-height: 1.6;
     }
 
-    /* PREVIEW */
+    /* COMO FUNCIONA + PREVIEW */
 
     .grid-2 {
       display: grid;
@@ -473,7 +348,7 @@
     }
 
     .preview {
-      padding: clamp(16px, 3vw, 22px);
+      padding: clamp(20px, 5vw, 32px);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       background: linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.75));
@@ -510,13 +385,20 @@
       font-weight: 700;
     }
 
-    /* FORM VETTING */
+    /* FORMULÁRIO DE VETTING */
 
     .form-section {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: clamp(18px, 3vw, 26px);
+      gap: clamp(28px, 6vw, 40px);
       align-items: flex-start;
+      width: 100%;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 4vw, 32px);
     }
 
     form {
@@ -528,7 +410,7 @@
     .field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       font-size: 14px;
     }
 
@@ -563,13 +445,6 @@
       resize: vertical;
     }
 
-    .note {
-      color: var(--muted);
-      font-size: 13px;
-      margin: 0;
-      line-height: 1.5;
-    }
-
     .response {
       margin-top: 12px;
       padding: 14px 16px;
@@ -592,43 +467,49 @@
       background: rgba(255, 80, 80, 0.08);
     }
 
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* BLOCO FINAL: GARANTIAS + CTA + FOOTER */
+
+    .bottom-panel {
+      padding: clamp(24px, 5vw, 32px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(18px, 4vw, 26px);
       align-items: center;
-      margin-top: 10px;
     }
 
-    .badge {
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
+    .bottom-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
       color: var(--muted);
-      font-size: 13px;
     }
 
-    .timer-small {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-        monospace;
-      color: var(--gold);
-      font-size: 12px;
+    .bottom-list li {
+      display: flex;
+      gap: 8px;
     }
 
-    /* FOOTER */
+    .bottom-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--gold);
+      margin-top: 7px;
+    }
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 26px 0 40px;
-      background: #030303;
+      padding: 18px 0 34px;
+      margin-top: clamp(16px, 3vw, 24px);
       color: var(--muted);
       font-size: 13px;
-      margin-top: clamp(24px, 4vw, 40px);
     }
 
-    footer .wrap {
-      flex-direction: row;
+    footer .footer-inner {
+      display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
@@ -653,24 +534,6 @@
     }
 
     @media (max-width: 960px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 20px;
-      }
-
-      .stack {
-        align-items: center;
-      }
-
-      .cta-row {
-        justify-content: center;
-      }
-
-      .hero-banner {
-        justify-content: center;
-      }
-
       .grid-2 {
         grid-template-columns: 1fr;
       }
@@ -683,36 +546,42 @@
         text-align: center;
         align-items: center;
       }
+
+      .bottom-panel {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .bottom-list li {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 720px) {
-      .top-line {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+      .wrap {
+        width: 100%;
+        padding-inline: 18px;
+      }
+
+      .hero-title {
+        font-size: clamp(28px, 7vw, 36px);
       }
 
       .btn {
         width: 100%;
-        justify-content: center;
       }
 
-      .wrap {
-        width: 100%;
+      .bottom-panel {
         padding-inline: 18px;
       }
     }
 
     @media (max-width: 540px) {
-      .hero-title {
-        font-size: clamp(24px, 7vw, 32px);
-      }
-
-      .preview-grid {
+      .pillars {
         grid-template-columns: 1fr;
       }
 
-      .pillars {
+      .preview-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -720,114 +589,69 @@
 </head>
 <body>
   <div class="wrap">
-    <!-- TOPO -->
+    <!-- HEADER LIMPO -->
     <header class="block" aria-label="Cabeçalho">
-      <div class="top-line">
-        <div class="logo">
-          NOWAIT
-          <span class="pill">Priority Access</span>
-        </div>
-        <div class="tagline">
-          <span class="dot"></span>
-          Private Luxury Market • Concierge • Off-market
-        </div>
-      </div>
+      <div class="logo-simple">NOWAIT</div>
     </header>
 
-    <!-- HERO PRINCIPAL (mistura dos 3) -->
-    <section class="block" id="topo" aria-label="Apresentação NOWAIT">
-      <div class="hero">
-        <!-- LADO ESQUERDO -->
-        <div class="stack">
-          <div class="badge-row-top">
-            <span class="badge-chip">Compra</span>
-            <span class="badge-chip">Venda</span>
-            <span class="badge-chip">Somente originais</span>
-          </div>
-          <p class="eyebrow">Exclusividade não se espera. Se conquista.</p>
-          <h1 class="hero-title">
-            Seu ingresso para o maior grupo de compra e venda de relógios de luxo do Brasil.
-          </h1>
-          <p class="hero-sub">
-            A <span>NOWAIT</span> conecta compradores sérios ao mercado privado:
-            peças acima de 100k, <span>sem vitrines, sem filas</span>, com negociação assistida e
-            preview antes de qualquer compromisso.
-          </p>
-          <p class="hero-secondary">
-            NOWAIT — Private Luxury Market. Prioridade, discrição e velocidade em um só canal.
-          </p>
+    <!-- HERO ESTILO HERMÈS -->
+    <section class="block hero" id="topo" aria-label="Apresentação NOWAIT">
+      <div class="hero-inner">
+        <p class="eyebrow">
+          Exclusividade não se espera. Se conquista.
+        </p>
 
-          <div class="cta-row">
-            <button class="btn btn-gold" data-scroll-to="#vetting">Solicitar acesso agora</button>
-            <a
-              class="btn btn-ghost"
-              href="https://wa.me/5511911030464?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20participar%20da%20NOWAIT.%20Segue%20meu%20perfil%3A"
-              target="_blank"
-              rel="noopener"
-            >
-              Entrar no grupo Priority
-            </a>
-          </div>
+        <h1 class="hero-title">
+          Seu acesso ao mercado privado de luxo.<br />
+          Discreto, selecionado e sem vitrines.
+        </h1>
 
-          <div class="hero-banner">
-            <span>Curadoria focada em:</span>
-            <strong>Rolex • Patek Philippe • Audemars Piguet • Richard Mille</strong>
-          </div>
+        <p class="hero-sub">
+          A <span>NOWAIT</span> conecta compradores sérios às peças que não chegam ao mercado aberto.
+          Sempre acima de 100k, sempre originais, sempre com preview antes de qualquer decisão.
+        </p>
+
+        <p class="hero-secondary">
+          NOWAIT — onde o mercado privado começa antes do mercado comum.
+        </p>
+
+        <!-- BOTÕES MINIMALISTAS -->
+        <div class="cta-row">
+          <a
+            href="https://wa.me/5511911030464?text=Ol%C3%A1%2C%20gostaria%20de%20acesso%20direto%20ao%20concierge%20NOWAIT."
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline"
+            style="min-width: 240px;"
+          >
+            Acesso direto com concierge
+          </a>
+
+          <button
+            class="btn btn-outline"
+            type="button"
+            data-scroll-to="#vetting"
+            style="min-width: 240px;"
+          >
+            Formulário de vetting
+          </button>
         </div>
 
-        <!-- LADO DIREITO -->
-        <aside class="hero-right" aria-label="Resumo NOWAIT">
-          <div class="hero-right-inner">
-            <div>
-              <div class="hero-right-title">NOWAIT — Private Luxury Market</div>
-              <div class="hero-right-main">Mercado privado, sem promessas vazias.</div>
-              <p class="hero-right-sub">
-                Acesso antecipado a peças raras, negociações discretas e oportunidades que não
-                chegam ao mercado aberto.
-              </p>
-            </div>
-
-            <div class="hero-stats">
-              <div class="hero-stat-card">
-                <div class="hero-stat-label">Preço real</div>
-                <div class="hero-stat-value">Até 30% abaixo</div>
-                <div class="muted" style="font-size:12px;">
-                  Em comparação com algumas grandes revendas tradicionais.
-                </div>
-              </div>
-              <div class="hero-stat-card">
-                <div class="hero-stat-label">Ticket mínimo</div>
-                <div class="hero-stat-value">+100k por peça</div>
-                <div class="muted" style="font-size:12px;">
-                  Foco em peças relevantes, sempre com procedência validada.
-                </div>
-              </div>
-              <div class="hero-stat-card">
-                <div class="hero-stat-label">Segurança</div>
-                <div class="hero-stat-value">Perfil verificado</div>
-                <div class="muted" style="font-size:12px;">
-                  Todos os membros passam por análise antes de receber o link.
-                </div>
-              </div>
-            </div>
-
-            <div class="timer-box">
-              <span>⏳ Convite prioritário encerra em:</span>
-              <span id="countdownMain">--:--:--</span>
-            </div>
-          </div>
-        </aside>
+        <p class="note">
+          ⏳ Janela atual de convites encerra em
+          <span id="countdownMain" class="timer-small">--:--:--</span>.
+        </p>
       </div>
     </section>
 
     <!-- DIFERENCIAIS -->
     <section class="block" id="diferenciais" aria-label="Diferenciais NOWAIT">
       <div class="section-header">
-        <p class="eyebrow">Diferenciais</p>
+        <span class="pill">Diferenciais NOWAIT</span>
         <h2>Concierge privado para quem compra acima de 100k.</h2>
         <p class="muted">
-          Peças fora das vitrines, full set e entrega rápida, com validação de perfil e prévia
-          visual antes de qualquer negociação.
+          Peças fora das vitrines, full set e entrega rápida, com validação de perfil e prévia visual
+          antes de qualquer negociação.
         </p>
       </div>
 
@@ -842,53 +666,50 @@
         <article class="pillar">
           <h3>Concierge individual</h3>
           <p>
-            Uma linha direta para buscar, negociar e receber suas próximas peças com total
-            discrição.
+            Uma linha direta para buscar, negociar e receber suas próximas peças com total discrição.
           </p>
         </article>
         <article class="pillar">
           <h3>Velocidade &amp; confiança</h3>
           <p>
-            Perfis alinhados, tickets claros e logística ágil, com seguro e acompanhamento humano
-            até a entrega.
+            Perfis alinhados, tickets claros e logística ágil, com seguro e acompanhamento humano até a
+            entrega.
           </p>
         </article>
       </div>
     </section>
 
     <!-- COMO FUNCIONA + PREVIEW -->
-    <section class="block" aria-label="Como funciona">
+    <section class="block" aria-label="Como funciona na prática">
       <div class="grid-2">
         <div>
-          <p class="pill">Processo NOWAIT</p>
-          <h2 style="margin:10px 0 12px;">Como funciona na prática</h2>
+          <span class="pill">Processo NOWAIT</span>
+          <h2 style="margin: 12px 0 12px;">Como funciona na prática</h2>
           <ul class="list">
             <li>
               <span class="bullet-dot"></span>
               <div>
-                <strong>Briefing rápido.</strong>
-                Você indica modelo, faixa de valor e prazo.
+                <strong>Briefing rápido.</strong> Você indica modelo, faixa de valor e prazo.
               </div>
             </li>
             <li>
               <span class="bullet-dot"></span>
               <div>
-                <strong>Preview imediato.</strong>
-                Recebe fotos, vídeos e detalhes de procedência antes de confirmar.
+                <strong>Preview imediato.</strong> Recebe fotos, vídeos e detalhes de procedência antes de
+                confirmar.
               </div>
             </li>
             <li>
               <span class="bullet-dot"></span>
               <div>
-                <strong>Conexão direta.</strong>
-                Negociação com fornecedores validados em ambiente privado.
+                <strong>Conexão direta.</strong> Negociação com fornecedores validados em ambiente privado.
               </div>
             </li>
             <li>
               <span class="bullet-dot"></span>
               <div>
-                <strong>Entrega segura.</strong>
-                Seguro, tracking e assistência humana até a peça estar com você.
+                <strong>Entrega segura.</strong> Seguro, tracking e assistência humana até a peça estar com
+                você.
               </div>
             </li>
           </ul>
@@ -932,35 +753,44 @@
       </div>
     </section>
 
-    <!-- FORMULÁRIO COM VETTING AUTOMÁTICO -->
+    <!-- FORMULÁRIO DE VETTING -->
     <section class="block" id="vetting" aria-label="Formulário de acesso">
       <div class="form-section">
-        <!-- LADO ESQUERDO: TEXTO -->
-        <div class="stack" style="gap:10px;">
-          <p class="pill">Acesso prioritário</p>
-          <h2 style="margin:0;">Solicite seu acesso antes que a janela feche.</h2>
+        <!-- Texto -->
+        <div class="stack">
+          <span class="pill">Acesso prioritário</span>
+          <h2 style="margin: 0;">Solicite seu acesso antes que a janela feche.</h2>
           <p class="muted">
-            Preencha o formulário ao lado. Um algoritmo simples valida o mínimo de 100k por peça,
+            Preencha o formulário ao lado. Um filtro simples valida o mínimo de 100k por peça,
             presença de Instagram e item de interesse. Se o perfil for compatível, o link da
             comunidade aparece na hora.
           </p>
 
-          <div class="badge-row">
-            <span class="badge">Ticket mínimo: 100k por peça</span>
-            <span class="badge">Validação instantânea</span>
-            <span class="badge">Link liberado em segundos</span>
-          </div>
+          <ul class="bottom-list">
+            <li>
+              <span class="bottom-dot"></span>
+              <span>Ticket mínimo: 100k por peça.</span>
+            </li>
+            <li>
+              <span class="bottom-dot"></span>
+              <span>Validação automática de perfil.</span>
+            </li>
+            <li>
+              <span class="bottom-dot"></span>
+              <span>Link liberado em segundos para aprovados.</span>
+            </li>
+          </ul>
 
           <p class="note">
             ⏳ Janela atual encerra em
-            <span id="countdownForm" class="timer-small">--:--:--</span>. Depois disso, a prioridade
-            pode mudar.
+            <span id="countdownForm" class="timer-small">--:--:--</span>. Depois disso, a prioridade pode
+            mudar.
           </p>
         </div>
 
-        <!-- LADO DIREITO: FORM -->
-        <div class="panel" style="padding:18px 18px 20px;">
-          <form id="vettingForm" novalidate>
+        <!-- Form -->
+        <div class="panel">
+          <form id="vettingForm" novalidate style="padding: 24px 20px 20px;">
             <div class="field">
               <label for="nome">Nome completo*</label>
               <input id="nome" name="nome" placeholder="Ex.: João Silva" required />
@@ -1019,7 +849,9 @@
               ></textarea>
             </div>
 
-            <button class="btn btn-gold full" type="submit">Enviar para análise agora</button>
+            <button class="btn btn-primary full" type="submit">
+              Enviar para análise agora
+            </button>
             <p class="note full">
               Seus dados não são compartilhados com o grupo. O contato é sempre direto com o
               concierge.
@@ -1030,22 +862,55 @@
         </div>
       </div>
     </section>
+
+    <!-- GARANTIAS + CTA + FOOTER COMPATOS -->
+    <section class="block" aria-label="Garantias e contato">
+      <div class="panel bottom-panel">
+        <div>
+          <h2 style="margin:0 0 10px;">Garantias de autenticidade e segurança.</h2>
+          <p class="muted" style="margin:0;">
+            Trabalhamos apenas com peças originais, fontes auditadas e logística acompanhada
+            pessoalmente. Cada negociação é tratada como se fosse da nossa própria coleção.
+          </p>
+          <ul class="bottom-list">
+            <li><span class="bottom-dot"></span><span>Peças full set, documentação verificada.</span></li>
+            <li><span class="bottom-dot"></span><span>Suporte humano do primeiro contato à entrega.</span></li>
+            <li><span class="bottom-dot"></span><span>Rotas de envio com seguro e rastreio.</span></li>
+          </ul>
+        </div>
+
+        <div class="stack" style="align-items:flex-start;">
+          <p class="muted" style="margin:0;">
+            Preferiu falar direto? Você pode acionar o concierge e receber um preview personalizado
+            antes mesmo de preencher o formulário.
+          </p>
+          <a
+            href="https://wa.me/5511911030464?text=Ol%C3%A1%2C%20quero%20falar%20com%20o%20concierge%20NOWAIT%20sobre%20pe%C3%A7as%20acima%20de%20100k."
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline"
+            style="min-width: 220px;"
+          >
+            Falar com o concierge
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-inner">
+          <span>NOWAIT — Private Luxury Market</span>
+          <nav>
+            <a href="#topo">Início</a>
+            <a href="#diferenciais">Diferenciais</a>
+            <a href="#vetting">Acesso</a>
+          </nav>
+        </div>
+      </footer>
+    </section>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <span>NOWAIT — Private Luxury Market</span>
-      <nav>
-        <a href="#topo">Início</a>
-        <a href="#diferenciais">Diferenciais</a>
-        <a href="#vetting">Acesso</a>
-      </nav>
-    </div>
-  </footer>
-
   <script>
-    // Link da comunidade (TROCAR PELO SEU)
+    // Link da comunidade (TROCAR PELO SEU SE QUISER UM GRUPO ESPECÍFICO)
     const communityLink = "https://wa.me/5511911030464";
 
     // =========================
@@ -1082,7 +947,7 @@
         if (main) main.textContent = out;
         if (form) form.textContent = out;
 
-        // Quando zerar, renova mais 24h pra manter urgência contínua
+        // Quando zerar, renova mais 24h para manter urgência
         if (left <= 0) {
           deadline = (Date.now() + 24 * 60 * 60 * 1000).toString();
           localStorage.setItem(KEY, deadline);
@@ -1144,7 +1009,7 @@
           <strong>Aprovado.</strong><br />
           Seu perfil é compatível com o acesso <strong>NOWAIT Priority Access</strong>.<br /><br />
           Clique abaixo para entrar diretamente na comunidade:<br />
-          <a class="btn btn-gold" style="margin-top:12px; display:inline-flex;" href="${communityLink}" target="_blank" rel="noopener">
+          <a class="btn btn-primary" style="margin-top:12px; display:inline-flex;" href="${communityLink}" target="_blank" rel="noopener">
             Entrar na comunidade
           </a>
           <p class="note" style="margin-top:10px;">
@@ -1192,7 +1057,7 @@
         const approved = classifyProfile(data);
         renderResponse(approved, data.contato || "WhatsApp");
 
-        // Opcional: envio para sua base externa (exemplo: FormBold)
+        // Opcional: envio para base externa (exemplo: FormBold)
         try {
           fetch("https://formbold.com/s/oWyOb", {
             method: "POST",
