@@ -1,247 +1,271 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOWAIT — Luxury Concierge</title>
 
-  <title>NOWAIT — Luxury Concierge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0b0b;
+  --ink: #f5f5f5;
+  --muted: #bfbfbf;
+  --gold: #d6b680;
+  --gold-dark: #b99a5f;
+  --card: #111;
+  --border: rgba(255,255,255,0.08);
+  --radius: 18px;
+  --shadow: 0 18px 60px rgba(0,0,0,0.45);
+  --maxw: 1180px;
+}
 
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --ink: #f5f5f5;
-      --muted: #c7c7c7;
-      --gold: #d3b47a; /* Hermes gold */
-      --border: rgba(255,255,255,0.08);
-      --panel: rgba(255,255,255,0.03);
-      --radius: 20px;
-      --shadow: 0 22px 60px rgba(0,0,0,0.45);
-      --maxw: 1180px;
-    }
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: "Inter", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-    }
+/* WRAPPER */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(24px, 6vw, 48px);
+}
 
-    .wrap {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: clamp(20px, 5vw, 40px);
-    }
+/* ANIMAÇÕES */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    /* HERO */
-    .hero {
-      padding: clamp(80px, 15vw, 160px) 0;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.1s ease forwards;
+}
+@keyframes fadeIn { to { opacity: 1; } }
 
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 58px);
-      font-weight: 500;
-      line-height: 1.1;
-      color: var(--ink);
-      letter-spacing: -0.02em;
-    }
+/* HERO */
+.hero {
+  padding: clamp(90px, 16vw, 160px) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
 
-    .hero p {
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: clamp(16px, 3vw, 20px);
-      color: var(--muted);
-    }
+.hero-title {
+  font-size: clamp(34px, 6.2vw, 58px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
 
-    .proof {
-      font-size: 15px;
-      color: var(--gold);
-      margin-top: 8px;
-      letter-spacing: 0.03em;
-    }
+.hero-sub {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: clamp(16px, 3.2vw, 20px);
+  color: var(--muted);
+}
 
-    .cta-row {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-    }
+.proof {
+  font-size: 15px;
+  color: var(--gold-dark);
+  letter-spacing: 0.025em;
+  margin-top: 6px;
+}
 
-    .btn {
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-size: 15px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--ink);
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: 0.2s;
-    }
-    .btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
+/* CTA */
+.btn-main {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #0a0a0a;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 12px 30px rgba(214,182,128,0.25);
+}
+.btn-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(214,182,128,0.35);
+}
 
-    /* SEÇÕES */
-    .block {
-      padding: clamp(60px, 14vw, 120px) 0;
-      border-bottom: 1px solid var(--border);
-    }
+/* SEÇÕES */
+.block {
+  padding: clamp(70px, 16vw, 130px) 0;
+  border-bottom: 1px solid var(--border);
+}
 
-    .section-title {
-      font-size: clamp(24px, 4vw, 34px);
-      margin-bottom: 24px;
-      font-weight: 500;
-    }
+.section-title {
+  font-size: clamp(26px, 4vw, 36px);
+  margin-bottom: 28px;
+  font-weight: 500;
+}
 
-    .grid {
-      display: grid;
-      gap: 24px;
-    }
+.grid {
+  display: grid;
+  gap: 22px;
+}
 
-    @media (min-width: 720px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-        gap: 34px;
-      }
-    }
+@media (min-width: 720px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; gap: 34px; }
+}
 
-    .card {
-      padding: 28px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+/* CARDS */
+.card {
+  padding: 28px;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-dark);
+}
 
-    .card h3 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-    }
+.card h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.card p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.55;
+}
 
-    .card p {
-      margin: 0;
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
+/* CTA FINAL */
+.final-block {
+  padding: clamp(90px, 18vw, 160px) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
 
-    /* FOOTER BLOCO FINAL */
-    .final-block {
-      padding: clamp(70px, 16vw, 160px) 0;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    footer {
-      margin-top: 40px;
-      padding: 24px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid var(--border);
-    }
-  </style>
+/* FOOTER */
+footer {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  border-top: 1px solid var(--border);
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="wrap hero">
-    <h1>Acesso direto ao mercado mais desejado do luxo.</h1>
+<!-- HERO -->
+<section class="wrap hero fade-in">
+  <h1 class="hero-title fade-up">
+    Acesso direto ao mercado mais desejado do luxo.
+  </h1>
 
-    <p>Peças selecionadas e curadoria especializada para quem busca excelência.</p>
+  <p class="hero-sub fade-up" style="animation-delay:0.15s">
+    Peças selecionadas e curadoria especializada para quem busca excelência.
+  </p>
 
-    <p class="proof">Mais de 5.000 itens entregues com excelência.</p>
+  <p class="proof fade-up" style="animation-delay:0.30s">
+    Mais de 5.000 itens entregues com excelência.
+  </p>
 
-    <div class="cta-row">
-      <a class="btn" href="https://wa.me/5511911030464" target="_blank">Acesso direto com concierge</a>
-    </div>
-  </section>
-
-  <!-- DIFERENCIAIS -->
-  <section class="wrap block">
-    <h2 class="section-title">Essência NOWAIT</h2>
-
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Seleção refinada</h3>
-        <p>Somente peças com procedência clara e padrão elevado.</p>
-      </div>
-
-      <div class="card">
-        <h3>Disponibilidade real</h3>
-        <p>Atualizações de inventário com oferta atual e verificada.</p>
-      </div>
-
-      <div class="card">
-        <h3>Processo simples</h3>
-        <p>Você informa o que busca. Nós localizamos e apresentamos as opções.</p>
-      </div>
-
-      <div class="card">
-        <h3>Entrega confiável</h3>
-        <p>Rota de entrega organizada do início ao fim, sempre acompanhada.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PREVIEW DE PEÇAS -->
-  <section class="wrap block">
-    <h2 class="section-title">Preview de peças</h2>
-
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Rolex Daytona 126500LN</h3>
-        <p>Full set • Ano 2024 • Pronta entrega.</p>
-      </div>
-
-      <div class="card">
-        <h3>Royal Oak 15510ST</h3>
-        <p>Garantia válida • Origem verificada.</p>
-      </div>
-
-      <div class="card">
-        <h3>Patek Philippe 5712</h3>
-        <p>Disponibilidade sob consulta imediata.</p>
-      </div>
-
-      <div class="card">
-        <h3>Hermès Kelly 28</h3>
-        <p>Epsom • Hardware palladium • Condição impecável.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL + GARANTIAS -->
-  <section class="wrap final-block">
-    <h2 class="section-title">Confiança construída peça por peça</h2>
-
-    <p class="proof">Mais de 5.000 entregas realizadas com excelência comprovada.</p>
-
-    <a class="btn" href="https://wa.me/5511911030464" target="_blank">
-      Acesso direto com concierge
+  <div class="fade-up" style="animation-delay:0.45s">
+    <a href="https://wa.me/5511911030464" target="_blank">
+      <button class="btn-main">Acesso direto com concierge</button>
     </a>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    NOWAIT — Luxury Concierge • © Todos os direitos reservados
-  </footer>
+<!-- DIFERENCIAIS -->
+<section class="wrap block fade-in">
+  <h2 class="section-title fade-up">Essência NOWAIT</h2>
+
+  <div class="grid grid-2">
+    <div class="card fade-up" style="animation-delay:0.1s">
+      <h3>Seleção refinada</h3>
+      <p>Somente peças com procedência clara e padrão elevado.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.2s">
+      <h3>Disponibilidade real</h3>
+      <p>Inventário atualizado com opções verificadas.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.3s">
+      <h3>Processo simples</h3>
+      <p>Você informa o que deseja. Nós apresentamos as melhores opções.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.4s">
+      <h3>Entrega confiável</h3>
+      <p>Entrega organizada ponta a ponta, com acompanhamento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="wrap block fade-in">
+  <h2 class="section-title fade-up">Preview de peças</h2>
+
+  <div class="grid grid-2">
+    <div class="card fade-up">
+      <h3>Rolex Daytona 126500LN</h3>
+      <p>Full set • Ano 2024 • Pronta entrega.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.1s">
+      <h3>Royal Oak 15510ST</h3>
+      <p>Garantia válida • Origem verificada.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.2s">
+      <h3>Patek Philippe 5712</h3>
+      <p>Disponibilidade sob consulta imediata.</p>
+    </div>
+
+    <div class="card fade-up" style="animation-delay:0.3s">
+      <h3>Hermès Kelly 28</h3>
+      <p>Epsom • Hardware palladium • Condição impecável.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL BLOCK -->
+<section class="wrap final-block fade-in">
+  <h2 class="section-title fade-up">Confiança construída peça por peça</h2>
+
+  <p class="proof fade-up" style="animation-delay:0.15s">
+    Mais de 5.000 entregas realizadas com excelência comprovada.
+  </p>
+
+  <div class="fade-up" style="animation-delay:0.3s">
+    <a href="https://wa.me/5511911030464" target="_blank">
+      <button class="btn-main">Acesso direto com concierge</button>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  NOWAIT — Luxury Concierge • © Todos os direitos reservados
+</footer>
 
 </body>
 </html>
