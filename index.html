@@ -1,392 +1,215 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NOWAIT — Private Luxury Market</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOWAIT — Luxury Market</title>
 
 <style>
-
-/* ============================
-   Paleta premium Hermès / AMEX
-   ============================ */
 :root {
-  --bg-dark: #050505;
-  --bg-mid: #0a0a0a;
-  --bg-soft: #0c0c0c;
+  --bg: #000;
+  --bg-soft: #0b0b0b;
+  --text: #eaeaea;
+  --muted: #b9b9b9;
   --gold: #d8b26a;
-  --gold-soft: rgba(216,178,106,0.45);
-  --text: #f2f2f2;
-  --muted: #bcbcbc;
-  --border: rgba(255,255,255,0.08);
-  --card: rgba(255,255,255,0.04);
-  --radius: 18px;
-  --shadow: 0 18px 60px rgba(0,0,0,0.35);
-  font-family: "Inter", sans-serif;
+  --radius: 22px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.45);
+  --maxw: 1180px;
+  --card: #111;
+  --glass: rgba(255,255,255,0.06);
 }
 
-
+/* GLOBAL */
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-mid) 45%, var(--bg-soft) 100%);
+  background: #000;
   color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
 }
 
-.wrap {
-  width: min(92%, 1180px);
+img {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+}
+
+/* NAV — GLASS PREMIUM */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 18px 0;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  background: rgba(0,0,0,0.42);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  z-index: 999;
+}
+
+.nav-wrap {
+  max-width: var(--maxw);
   margin: 0 auto;
+  padding: 0 22px;
+  text-align: center;
 }
 
-.block {
-  padding: 80px 0; /* reduzido */
-}
-
-
-/* ============================
-   NAV — AUMENTADO
-   ============================ */
-.nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
-}
-
-.nav-brand {
-  font-size: 22px;              /* aumentada */
+.logo {
+  color: #f5f5f5;
+  font-size: clamp(24px, 4vw, 32px);
   letter-spacing: 0.32em;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
-
-/* ============================
-   HERO — MAIS COMPACTO
-   ============================ */
+/* HERO */
 .hero {
-  text-align: center;
-  margin-top: 0;
-  padding: 36px 0 58px;         /* reduzido */
+  padding-top: 110px;
+  padding-bottom: 40px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: 22px;
+  padding-right: 22px;
 }
 
-.hero-title {
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 1.12;
-  margin-bottom: 12px;         /* menos espaço */
-}
-
-.hero-sub {
-  font-size: 17px;
-  color: var(--muted);
-  max-width: 600px;
-  margin: 0 auto 12px;
-  line-height: 1.35;           /* mais sofisticado */
-}
-
-.hero-long {
-  max-width: 620px;
-  margin: 8px auto 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.4;            /* mais compacto */
-}
-
-.hero-warning {
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--gold);
-  letter-spacing: 0.3px;
-}
-
-
-/* BOTÃO */
-.btn-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 14px 26px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  transition: 0.18s ease;
-}
-
-.btn-main {
-  background: linear-gradient(180deg, var(--gold), #b28940);
-  color: #0d0d0d;
-  box-shadow: 0 14px 32px rgba(216,178,106,0.25);
-}
-
-.btn-main:hover { transform: translateY(-2px); }
-
-
-/* ============================
-   Divisor dourado
-   ============================ */
-.section-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-  margin: 40px 0;
-}
-
-
-/* ============================
-   ESSÊNCIA — TEXTO MAIS COMPACTO
-   ============================ */
-.section-title {
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 22px;
+.hero h1 {
+  font-size: clamp(24px, 6vw, 40px);
   line-height: 1.2;
+  margin: 0 0 16px;
 }
 
-.grid {
+.hero p {
+  font-size: clamp(14px, 4vw, 17px);
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.highlight {
+  color: var(--gold);
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+/* BUTTON MAIN */
+.btn-primary {
+  width: 100%;
+  margin-top: 22px;
+  padding: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  background: linear-gradient(135deg, var(--gold), #b38a42);
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(216,178,106,0.28);
+}
+
+/* SECTION TITLE */
+.section-title {
+  font-size: clamp(20px, 5vw, 28px);
+  margin: 30px 0 14px;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+/* GRID OF ITEMS */
+.items {
   display: grid;
-  gap: 20px;
+  gap: 26px;
+  padding: 0 22px 40px;
+  max-width: var(--maxw);
+  margin: 0 auto;
 }
 
 .card {
   background: var(--card);
-  border: 1px solid var(--border);
+  padding: 16px;
   border-radius: var(--radius);
-  padding: 22px; /* reduzido */
+  border: 1px solid rgba(255,255,255,0.06);
   box-shadow: var(--shadow);
 }
 
 .card h3 {
-  font-size: 19px;
-  margin-bottom: 6px;
+  margin: 10px 0 6px;
+  font-size: 18px;
 }
 
-.card p {
-  color: var(--muted);
-  font-size: 14.5px;
-  line-height: 1.35;   /* mais sofisticado */
-}
-
-
-/* ============================
-   SLIDER PREMIUM
-   ============================ */
-.slider {
-  display: flex;
-  overflow-x: auto;
-  gap: 14px;
-  scroll-snap-type: x mandatory;
-  padding: 8px 2px;
-}
-
-.slider::-webkit-scrollbar { display: none; }
-
-.slide {
-  min-width: 75%;
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 18px;              /* reduzido */
-  border-radius: 16px;
-  scroll-snap-align: center;
-  box-shadow: var(--shadow);
-  transition: transform .25s ease;
-}
-
-.slide:hover { transform: translateY(-3px); }
-
-.slide-title {
-  font-size: 16px;
+.card .price {
+  font-size: 17px;
   font-weight: 600;
-}
-
-.slide-info {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.slide-price {
   color: var(--gold);
-  font-weight: 600;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
-
-/* ============================
-   FOOTER
-   ============================ */
+/* FOOTER */
 footer {
-  padding: 40px 0 60px;
   text-align: center;
+  padding: 30px 0;
+  margin-top: 30px;
+  font-size: 12px;
   color: var(--muted);
-  font-size: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
-
-
-/* ============================
-   MOBILE — AJUSTE FINO
-   ============================ */
-@media(max-width:720px){
-
-  .block { padding: 55px 0 !important; }
-
-  .hero { padding: 30px 0 50px !important; }
-
-  .hero-title { font-size: 28px !important; }
-  .hero-sub { font-size: 15px !important; margin-bottom: 8px !important; }
-  .hero-long { font-size: 14px !important; margin-top: 6px !important; }
-  .hero-warning { font-size: 13px !important; margin-top: 8px !important; }
-
-  .card { padding: 16px !important; }
-
-  .card h3 { font-size: 17px !important; }
-  .card p { font-size: 13.5px !important; }
-
-  .section-title { font-size: 22px !important; }
-}
-
 </style>
 </head>
-
-
 
 <body>
 
 <!-- NAV -->
-<div class="wrap">
-  <div class="nav">
-    <span class="nav-brand">NOWAIT</span>
+<header class="top-nav">
+  <div class="nav-wrap">
+    <span class="logo">NOWAIT</span>
   </div>
-</div>
-
+</header>
 
 <!-- HERO -->
-<section class="wrap hero block">
+<section class="hero">
+  <h1>A maior comunidade de luxo do Brasil.</h1>
 
-  <h1 class="hero-title">A maior comunidade de luxo do Brasil.</h1>
+  <p>Referência em relógios desde 2020 nos EUA, chegamos ao Brasil para trazer o valor real dos itens.</p>
 
-  <p class="hero-sub">
-    Referência em relógios desde 2020 nos EUA, chegamos ao Brasil para trazer o valor real dos itens.
+  <p>Faça parte da nossa comunidade para ter acesso às peças mais exclusivas do mundo.</p>
+
+  <button class="btn-primary" onclick="window.open('https://wa.me/5511911030464','_blank')">
+    Solicitar acesso via concierge
+  </button>
+
+  <p class="highlight">
+    “Você nunca mais vai pagar valor de 2025 zero em um 2023 usado.”
   </p>
-
-  <p class="hero-long">
-    Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo — 
-    com curadoria especializada, disponibilidade real e negociação direta.
-  </p>
-
-  <p class="hero-warning">
-    Você nunca mais vai pagar valor de 2025 zero em um 2023 usado.
-  </p>
-
-  <div class="btn-row">
-    <a class="btn btn-main" href="https://wa.me/5511911030464" target="_blank">
-      Solicitar acesso via concierge
-    </a>
-  </div>
-
 </section>
 
+<!-- ITEMS SECTION -->
+<h2 class="section-title">Peças em circulação</h2>
 
-<div class="section-divider"></div>
+<div class="items">
 
-
-<!-- ESSÊNCIA -->
-<section id="essencia" class="wrap block">
-  <h2 class="section-title">Essência NOWAIT</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Seleção refinada</h3>
-      <p>Somente peças com padrão elevado e procedência clara.</p>
-    </div>
-
-    <div class="card">
-      <h3>Disponibilidade real</h3>
-      <p>Inventário atualizado com peças em circulação global.</p>
-    </div>
-
-    <div class="card">
-      <h3>Processo simples</h3>
-      <p>Você informa o que busca. Nós apresentamos as melhores opções.</p>
-    </div>
-
-    <div class="card">
-      <h3>Entrega confiável</h3>
-      <p>Organização completa da entrega, início ao fim.</p>
-    </div>
-
-  </div>
-</section>
-
-
-<div class="section-divider"></div>
-
-
-<!-- SLIDER -->
-<section class="wrap block">
-  <h2 class="section-title">Peças em circulação</h2>
-
-  <div class="slider">
-
-    <!-- SLIDE 1 – PATEK 5167 -->
-    <div class="slide">
-      <img src="patek5167.jpeg" 
-           alt="Patek Philippe 5167"
-           style="border-radius:14px; margin-bottom:12px; width:100%;">
-
-      <div class="slide-title">Patek Philippe 5167</div>
-      <div class="slide-info">Complete • 2015</div>
-
-      <div class="slide-price">R$ 352.000,00</div>
-
-      <div class="slide-tag" 
-           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
-                  padding:6px 10px; border-radius:10px; width:max-content;">
-        PRICE TO FLY 🚀
-      </div>
-    </div>
-
-
-    <!-- SLIDE 2 – PATEK 5712 -->
-    <div class="slide">
-      <img src="patek5712.jpg" 
-           alt="Patek Philippe 5712/1A"
-           style="border-radius:14px; margin-bottom:12px; width:100%;">
-
-      <div class="slide-title">Patek Philippe 5712/1A</div>
-      <div class="slide-info">Blue Dial • Stainless Steel • 2009</div>
-
-      <div class="slide-tag" 
-           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
-                  padding:6px 10px; border-radius:10px; width:max-content;">
-        PRICE TO FLY 🚀
-      </div>
-
-      <div class="slide-tag" 
-           style="margin-top:6px; font-size:12px; color:#fff; background:rgba(255,255,255,0.06);
-                  padding:6px 10px; border-radius:10px; width:max-content;">
-        CHEAPEST ON THE WORLD 🌎
-      </div>
-
-      <div class="slide-price">R$ 590.700,00</div>
-    </div>
-
+  <!-- ITEM 1 (5167) -->
+  <div class="card">
+    <img src="5167.jpeg" alt="Patek 5167" />
+    <h3>Patek Philippe 5167<br>Complete 2015</h3>
+    <div class="price">R$ 352.000,00</div>
+    <p style="color: var(--gold); margin-top:6px;">PRICE TO FLY 🚀</p>
   </div>
 
-</section>
+  <!-- ITEM 2 (5712) -->
+  <div class="card">
+    <img src="5712.jpeg" alt="Patek 5712" />
+    <h3>Patek Philippe 5712/1A<br>Blue Dial Stainless Steel 2009</h3>
+    <div class="price">R$ 590.700,00</div>
+    <p style="color: var(--gold); margin-top:6px;">CHEAPEST ON THE WORLD 🌎</p>
+  </div>
 
+</div>
 
+<!-- FOOTER -->
 <footer>
-  NOWAIT — Private Luxury Market<br>
-  Atendimento via concierge
+  NOWAIT • Mais de 5.000 itens entregues desde 2020.
 </footer>
-
 
 </body>
 </html>
