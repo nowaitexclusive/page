@@ -203,6 +203,54 @@
     @media (max-width: 720px) {
       .hero-title { font-size: 27px; }
       .section-title { text-align: center; }
+
+      .form-card {
+  background: #101010;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.form-card label {
+  font-size: 14px;
+  color: #f5f5f5;
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 500;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  background: #0c0c0c;
+  border: 1px solid rgba(255,255,255,0.07);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s border;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+  border-color: var(--gold);
+}
+
+.success-msg {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--gold);
+  font-size: 14px;
+  display: none;
+}
+
     }
   </style>
 </head>
@@ -233,6 +281,74 @@
           Solicitar acesso via concierge
         </button>
       </div>
+
+<section class="section">
+  <div class="wrap">
+
+    <h2 class="section-title" style="text-align:center;margin-bottom:26px;">
+      Solicitar acesso — NOWAIT
+    </h2>
+
+    <form id="nowaitForm" class="form-card">
+
+      <label>Nome completo</label>
+      <input type="text" name="nome" required placeholder="Seu nome">
+
+      <label>WhatsApp</label>
+      <input type="text" name="contato" required placeholder="(11) 99999-9999">
+
+      <label>Interesse</label>
+      <select name="interesse" required>
+        <option value="">Selecione…</option>
+        <option>Comprar</option>
+        <option>Vender</option>
+        <option>Acesso Priority</option>
+        <option>Concierge</option>
+      </select>
+
+      <label>Mensagem</label>
+      <textarea name="mensagem" rows="4" placeholder="Modelo desejado, orçamento, ano, referência…"></textarea>
+
+      <button class="btn-main" type="submit">Enviar Solicitação</button>
+    </form>
+
+    <p id="nowaitSuccess" class="success-msg">Enviado com sucesso!</p>
+
+  </div>
+</section>
+
+      
+      <script>
+document.getElementById("nowaitForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+
+  const endpoint = "https://script.google.com/macros/s/AKfycbxc02_R1S_bBZMY_sK0EX-ckCst0e21E8wps2bVXhliYKmPb2XLxbbG3xwcFyZQ9Khb/exec"; // cole aqui a URL do Apps Script
+
+  try {
+    const resp = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    const json = await resp.json().catch(() => ({}));
+
+    if (resp.ok && json.status === "OK") {
+      document.getElementById("nowaitSuccess").style.display = "block";
+      form.reset();
+    } else {
+      alert("Houve um problema ao enviar. Tente novamente em instantes.");
+      console.error("Erro Apps Script:", json);
+    }
+  } catch (err) {
+    alert("Falha de conexão. Verifique sua internet e tente novamente.");
+    console.error("Erro de rede:", err);
+  }
+});
+</script>
+
 
       <p class="hero-highlight">“Você nunca mais vai pagar o valor de itens sem uso em peças já usadas ”</p>
     </section>
