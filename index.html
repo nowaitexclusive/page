@@ -16,7 +16,7 @@
       --radius: 20px;
       --shadow: 0 18px 40px rgba(0,0,0,0.45);
       --maxw: 1180px;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-family: "Inter", sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -27,7 +27,6 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      font-family: "Inter", sans-serif;
     }
 
     .wrap {
@@ -111,7 +110,7 @@
       opacity: 0.8;
     }
 
-    /* ESSÊNCIA */
+    /* SECTIONS */
     .section {
       padding: 48px 0;
     }
@@ -119,9 +118,59 @@
     .section-title {
       font-size: 24px;
       margin-bottom: 18px;
-      text-align: left;
+      text-align: center;
     }
 
+    /* FORM CARD */
+    .form-card {
+      background: #101010;
+      padding: 26px 26px 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-card label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .form-card input,
+    .form-card select,
+    .form-card textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255,255,255,0.07);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: .25s border;
+    }
+
+    .form-card input:focus,
+    .form-card select:focus,
+    .form-card textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .success-msg {
+      text-align: center;
+      margin-top: 16px;
+      color: var(--gold);
+      font-size: 14px;
+      display: none;
+    }
+
+    /* ESSÊNCIA */
     .essencia-grid {
       display: grid;
       gap: 18px;
@@ -147,7 +196,7 @@
       color: var(--muted);
     }
 
-    /* PEÇAS */
+    /* ITEMS */
     .items-grid {
       display: grid;
       gap: 22px;
@@ -167,17 +216,12 @@
       margin-bottom: 10px;
     }
 
-    .item-title { font-size: 17px; margin: 0 0 4px; }
-    .item-sub { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
-    .item-price { font-size: 16px; font-weight: 600; color: var(--gold); margin: 0 0 6px; }
-    .item-tag { font-size: 13px; color: var(--gold); margin: 0; }
+    .item-title { font-size: 17px; }
+    .item-sub { font-size: 13px; color: var(--muted); }
+    .item-price { font-size: 16px; font-weight: 600; color: var(--gold); }
+    .item-tag { font-size: 13px; color: var(--gold); }
 
-    .items-cta {
-      text-align: center;
-      margin-top: 26px;
-    }
-
-    /* FOOTER PREMIUM */
+    /* FOOTER */
     .footer {
       margin-top: 40px;
       padding: 32px 0 40px;
@@ -187,107 +231,48 @@
       border-top: 1px solid rgba(216,178,106,0.22);
     }
 
-    .footer-content {
-      font-size: 13px;
-      opacity: .9;
-    }
-
-    .footer-small {
-      display: block;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--muted);
-      opacity: .7;
-    }
+    .footer-content { font-size: 13px; opacity: .9; }
+    .footer-small { display: block; margin-top: 6px; font-size: 11px; color: var(--muted); opacity: .7; }
 
     @media (max-width: 720px) {
       .hero-title { font-size: 27px; }
       .section-title { text-align: center; }
-
-      .form-card {
-  background: #101010;
-  padding: 28px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.form-card label {
-  font-size: 14px;
-  color: #f5f5f5;
-  margin-bottom: 6px;
-  display: block;
-  font-weight: 500;
-}
-
-.form-card input,
-.form-card select,
-.form-card textarea {
-  width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 18px;
-  border-radius: 12px;
-  background: #0c0c0c;
-  border: 1px solid rgba(255,255,255,0.07);
-  color: #fff;
-  font-size: 15px;
-  outline: none;
-  transition: 0.25s border;
-}
-
-.form-card input:focus,
-.form-card textarea:focus,
-.form-card select:focus {
-  border-color: var(--gold);
-}
-
-.success-msg {
-  text-align: center;
-  margin-top: 16px;
-  color: var(--gold);
-  font-size: 14px;
-  display: none;
-}
-
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <header class="top-nav">
-    <div class="wrap nav-inner">
-      <div class="logo">NOWAIT</div>
-    </div>
-  </header>
+<!-- NAV -->
+<header class="top-nav">
+  <div class="wrap nav-inner">
+    <div class="logo">NOWAIT</div>
+  </div>
+</header>
 
-  <main>
+<main>
 
-    <!-- HERO -->
-    <section class="hero-section wrap">
-      <h1 class="hero-title">A maior comunidade de luxo do Brasil.</h1>
+<!-- HERO -->
+<section class="hero-section wrap">
+  <h1 class="hero-title">A maior comunidade de luxo do Brasil.</h1>
+  <p class="hero-sub">Referência desde 2020 nos EUA, chegamos ao Brasil para trazer itens a preço de custo dos eua, 20% abaixo das grandes revendas Brasileiras.</p>
+  <p class="hero-text">Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo com curadoria especializada, e entrega internacional em até 72h.</p>
 
-      <p class="hero-sub">Referência desde 2020 nos EUA, chegamos ao Brasil para trazer itens a preço de custo dos eua, 20% abaixo das grandes revendas Brasileiras.</p>
+  <div class="hero-cta">
+    <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+      Solicitar acesso via concierge
+    </button>
+  </div>
 
-      <p class="hero-text">
-        Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo com curadoria especializada, e entrega internacional em até 72h.
-      </p>
+  <p class="hero-highlight">“Você nunca mais vai pagar o valor de itens sem uso em peças já usadas ”</p>
+</section>
 
-      <div class="hero-cta">
-        <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-          Solicitar acesso via concierge
-        </button>
-      </div>
 
+<!-- FORM -->
 <section class="section">
   <div class="wrap">
 
-    <h2 class="section-title" style="text-align:center;margin-bottom:26px;">
-      Solicitar acesso — NOWAIT
-    </h2>
+    <h2 class="section-title">Solicitar acesso — NOWAIT</h2>
 
     <form id="nowaitForm" class="form-card">
 
@@ -310,6 +295,7 @@
       <textarea name="mensagem" rows="4" placeholder="Modelo desejado, orçamento, ano, referência…"></textarea>
 
       <button class="btn-main" type="submit">Enviar Solicitação</button>
+
     </form>
 
     <p id="nowaitSuccess" class="success-msg">Enviado com sucesso!</p>
@@ -317,15 +303,90 @@
   </div>
 </section>
 
-      
-      <script>
+
+<!-- ESSÊNCIA -->
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Padrão NOWAIT.</h2>
+
+    <div class="essencia-grid">
+      <article class="essencia-card">
+        <h3>Seleção refinada</h3>
+        <p>Somente itens originais, verificados por nossa equipe de relojoeiros certificados.</p>
+      </article>
+
+      <article class="essencia-card">
+        <h3>Garantia e segurança</h3>
+        <p>Sistema rigoroso de segurança e garantia das peças para entregar sempre o melhor aos nossos clientes e amigos.</p>
+      </article>
+
+      <article class="essencia-card">
+        <h3>Processo simples</h3>
+        <p>Você informa o que busca. Nós encontramos as melhores opções.</p>
+      </article>
+
+      <article class="essencia-card">
+        <h3>Entrega mais rápido do Brasil</h3>
+        <p>Receba itens de fora do país em até 72h</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- PEÇAS -->
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Algumas de nossas ofertas</h2>
+
+    <div class="items-grid">
+
+      <article class="item-card">
+        <img src="patek5167.jpeg" alt="Patek Philippe 5167" />
+        <h3 class="item-title">Patek Philippe 5167</h3>
+        <p class="item-sub">Complete 2015</p>
+        <p class="item-price">R$ 352.000,00</p>
+        <p class="item-tag">PRICE TO FLY 🚀</p>
+        <p class="item-tag">50k abaixo do mercado</p>
+      </article>
+
+      <article class="item-card">
+        <img src="patek5712.jpg" alt="Patek Philippe 5712 Blue Dial" />
+        <h3 class="item-title">Patek Philippe 5712/1A</h3>
+        <p class="item-sub">Completo</p>
+        <p class="item-price">R$ 590.700,00</p>
+        <p class="item-tag">CHEAPEST ON THE WORLD 🌎</p>
+        <p class="item-tag">Quase 200k abaixo do mercado</p>
+      </article>
+
+    </div>
+
+    <div class="items-cta">
+      <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+        Solicitar peça via concierge
+      </button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    NOWAIT — Private Luxury Market
+    <span class="footer-small">Mais de 5.000 itens entregues desde 2020</span>
+  </div>
+</footer>
+
+<script>
 document.getElementById("nowaitForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const form = e.target;
   const data = Object.fromEntries(new FormData(form));
 
-  const endpoint = "https://script.google.com/macros/s/AKfycbxc02_R1S_bBZMY_sK0EX-ckCst0e21E8wps2bVXhliYKmPb2XLxbbG3xwcFyZQ9Khb/exec"; // cole aqui a URL do Apps Script
+  const endpoint = "https://script.google.com/macros/s/AKfycbxc02_R1S_bBZMY_sK0EX-ckCst0e21E8wps2bVXhliYKmPb2XLxbbG3xwcFyZQ9Khb/exec";
 
   try {
     const resp = await fetch(endpoint, {
@@ -340,94 +401,12 @@ document.getElementById("nowaitForm").addEventListener("submit", async (e) => {
       form.reset();
     } else {
       alert("Houve um problema ao enviar. Tente novamente em instantes.");
-      console.error("Erro Apps Script:", json);
     }
   } catch (err) {
     alert("Falha de conexão. Verifique sua internet e tente novamente.");
-    console.error("Erro de rede:", err);
   }
 });
 </script>
-
-
-      <p class="hero-highlight">“Você nunca mais vai pagar o valor de itens sem uso em peças já usadas ”</p>
-    </section>
-
-    <!-- ESSÊNCIA -->
-    <section class="section">
-      <div class="wrap">
-        <h2 class="section-title">Padrão NOWAIT.</h2>
-
-        <div class="essencia-grid">
-          <article class="essencia-card">
-            <h3>Seleção refinada</h3>
-            <p>Somente itens originais, verificados por nossa equipe de relojoeiros certificados.</p>
-          </article>
-
-          <article class="essencia-card">
-            <h3>Garantia e segurança</h3>
-            <p>Sistema rigoroso de segurança e garantia das peças para entregar sempre o melhor aos nossos clientes e amigos.</p>
-          </article>
-
-          <article class="essencia-card">
-            <h3>Processo simples</h3>
-            <p>Você informa o que busca. Nós encontramos as melhores opções.</p>
-          </article>
-
-          <article class="essencia-card">
-            <h3>Entrega mais rápido do Brasil</h3>
-            <p>Receba itens de fora do país em até 72h</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PEÇAS -->
-    <section class="section">
-      <div class="wrap">
-        <h2 class="section-title">Algumas de nossas ofertas</h2>
-
-        <div class="items-grid">
-
-          <!-- 5167.jpeg -->
-          <article class="item-card">
-            <img src="patek5167.jpeg" alt="Patek Philippe 5167" />
-            <h3 class="item-title">Patek Philippe 5167</h3>
-            <p class="item-sub">Complete 2015</p>
-            <p class="item-price">R$ 352.000,00</p>
-            <p class="item-tag">PRICE TO FLY 🚀</p>
-            <p class="item-tag">50k abaixo do mercado</p>
-          </article>
-
-          <!-- 5712 -->
-          <article class="item-card">
-            <img src="patek5712.jpg" alt="Patek Philippe 5712 Blue Dial" />
-            <h3 class="item-title">Patek Philippe 5712/1A</h3>
-            <p class="item-sub">Completo</p>
-            <p class="item-price">R$ 590.700,00</p>
-            <p class="item-tag">CHEAPEST ON THE WORLD 🌎</p>
-            <p class="item-tag">Quase 200k abaixo do mercado</p>
-          </article>
-
-        </div>
-
-        <div class="items-cta">
-          <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-            Solicitar peça via concierge
-          </button>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-content">
-      NOWAIT — Private Luxury Market
-      <span class="footer-small">Mais de 5.000 itens entregues desde 2020</span>
-    </div>
-  </footer>
 
 </body>
 </html>
