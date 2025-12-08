@@ -6,7 +6,7 @@
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    if(!f._fbq)f._fbq=n;n.push=n.loaded=!0;n.version='2.0';
     n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
@@ -26,16 +26,17 @@
 
   <style>
     :root {
-      --bg: #000;
-      --bg-soft: #050505;
+      --bg: #050508;
+      --bg-alt: #030305;
       --text: #f5f5f5;
       --muted: #b7b7b7;
       --gold: #d8b26a;
       --gold-soft: #b4893f;
-      --card: #101010;
+      --card: #0c0c11;
       --border: rgba(255,255,255,0.08);
-      --radius: 22px;
-      --shadow-soft: 0 22px 60px rgba(0,0,0,0.55);
+      --radius-lg: 26px;
+      --radius: 18px;
+      --shadow-soft: 0 26px 80px rgba(0,0,0,0.7);
       --maxw: 1180px;
       font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     }
@@ -45,7 +46,10 @@
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at 0% 0%, #151515 0, #000 45%, #000 100%);
+      background:
+        radial-gradient(circle at 0% 0%, #262640 0, transparent 45%),
+        radial-gradient(circle at 100% 0%, #412654 0, transparent 45%),
+        radial-gradient(circle at 50% 100%, #151520 0, #000 55%);
       color: var(--text);
       overflow-x: hidden;
       font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -63,10 +67,10 @@
       top: 0;
       left: 0;
       width: 100%;
-      padding: 20px 0;
+      padding: 18px 0;
       backdrop-filter: blur(14px) saturate(180%);
       -webkit-backdrop-filter: blur(14px) saturate(180%);
-      background: rgba(0,0,0,0.4);
+      background: rgba(3,3,10,0.75);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 100;
       transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease;
@@ -74,13 +78,13 @@
 
     .top-nav.shrink {
       padding: 10px 0;
-      background: rgba(0,0,0,0.85);
-      border-bottom-color: rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.94);
+      border-bottom-color: rgba(255,255,255,0.18);
     }
 
     .nav-inner {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
     }
 
@@ -88,97 +92,131 @@
       letter-spacing: 0.32em;
       text-transform: uppercase;
       font-weight: 600;
-      font-size: 26px;
+      font-size: 22px;
       cursor: default;
       user-select: none;
     }
 
-    /* SCROLL SNAP (DESKTOP) */
-    main {
-      position: relative;
-    }
-
-    @media (min-width: 900px) {
-      main {
-        scroll-snap-type: y mandatory;
-      }
-      section.section-full {
-        min-height: 100vh;
-        scroll-snap-align: start;
-      }
-    }
-
-    /* HERO */
-    .hero-section {
-      padding-top: 140px;
-      padding-bottom: 60px;
+    .nav-links {
       display: flex;
+      gap: 14px;
+      font-size: 13px;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
     }
 
-    .hero-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      padding: 24px 18px 26px;
-      border-radius: 32px;
-      background: radial-gradient(circle at 0% 0%, rgba(216,178,106,0.08), rgba(0,0,0,0.9));
-      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-      border: 1px solid rgba(216,178,106,0.16);
-      overflow: hidden;
+    .nav-link {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
     }
 
-    .hero-glow {
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 20% 0%, rgba(216,178,106,0.10), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
-      transform-origin: center;
-      animation: heroGlow 12s ease-in-out infinite alternate;
+    .nav-link:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
     }
 
-    @keyframes heroGlow {
-      0% { transform: translate3d(-10px,-10px,0) scale(1); opacity: .65; }
-      100% { transform: translate3d(12px,12px,0) scale(1.05); opacity: .9; }
+    .nav-pill {
+      padding: 7px 16px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.16);
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+
+    .nav-pill:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* HERO NEXIO STYLE */
+    main { position: relative; }
+
+    .hero-section {
+      padding-top: 130px;
+      padding-bottom: 80px;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+      }
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge-soft {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(3,3,8,0.9);
+      font-size: 11px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #34d399;
     }
 
     .hero-title {
-      font-size: 36px;
-      line-height: 1.18;
+      font-size: 38px;
+      line-height: 1.15;
       margin: 0 0 12px;
       font-weight: 700;
-      background: linear-gradient(120deg, #ffffff, var(--gold));
+      background: linear-gradient(120deg, #ffffff, #e5d4ff, var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-sub {
-      margin: 0 auto 12px;
+    .hero-sub,
+    .hero-text {
       max-width: 620px;
       color: var(--muted);
       line-height: 1.45;
-      font-size: 16px;
-    }
-
-    .hero-text {
-      margin: 0 auto 16px;
-      max-width: 620px;
-      color: var(--muted);
-      line-height: 1.4;
       font-size: 15px;
+      margin: 0 0 10px;
     }
 
     .hero-cta {
-      margin-top: 24px;
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-cta {
+        justify-content: center;
+      }
     }
 
     .btn-main {
-      width: 100%;
-      max-width: 360px;
       padding: 14px 26px;
       background: linear-gradient(135deg, var(--gold), var(--gold-soft));
       border-radius: 999px;
@@ -197,7 +235,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, rgba(255,255,255,0.35), transparent 60%);
+      background: linear-gradient(120deg, rgba(255,255,255,0.28), transparent 60%);
       opacity: 0;
       transform: translateX(-100%);
       transition: transform 0.35s ease, opacity 0.35s ease;
@@ -205,14 +243,9 @@
     }
 
     .btn-main:hover {
-      transform: translateY(-3px) scale(1.01);
+      transform: translateY(-2px) scale(1.01);
       box-shadow: 0 22px 55px rgba(216,178,106,0.45);
       filter: brightness(1.02);
-    }
-
-    .btn-main:active {
-      transform: translateY(0px) scale(0.99);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
     }
 
     .btn-main:hover::after {
@@ -220,29 +253,148 @@
       transform: translateX(0%);
     }
 
+    .btn-ghost {
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(7,7,16,0.7);
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.32);
+      background: rgba(15,15,25,0.9);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
     .hero-highlight {
-      margin-top: 16px;
+      margin-top: 14px;
       font-size: 11px;
       color: var(--gold);
-      opacity: 0.9;
-      max-width: 95%;
-      margin-left: auto;
-      margin-right: auto;
+      opacity: 0.92;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 360px;
     }
 
-    /* SEÇÕES GENÉRICAS */
-    .section {
-      padding: 48px 0;
+    @media (max-width: 900px) {
+      .hero-highlight {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* HERO – LADO DIREITO (TILES) */
+    .hero-tiles-wrapper {
       position: relative;
+      padding: 26px;
+      border-radius: 32px;
+      background: radial-gradient(circle at 50% 0%, #5345ff 0, #151527 38%, #050509 100%);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.9);
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .hero-tiles-glow {
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,0.18), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(238,171,255,0.32), transparent 60%);
+      opacity: 0.75;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .tiles-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      transform-style: preserve-3d;
+    }
+
+    .tile {
+      background: rgba(8,8,18,0.94);
+      border-radius: 18px;
+      padding: 10px 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .tile-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+
+    .tile-main {
+      font-size: 12px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .tile-badge {
+      font-size: 9px;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    .tile::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.28), transparent 60%);
+      opacity: 0;
+      transform: translateX(-120%);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.9);
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(10,10,24,0.96);
+    }
+
+    .tile:hover::after {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+
+    @media (max-width: 900px) {
+      .hero-section { padding-top: 120px; }
+      .hero-layout { gap: 28px; }
+      .hero-tiles-wrapper { margin-top: 6px; }
+    }
+
+    /* SEÇÕES COMUNS */
+    .section {
+      padding: 52px 0;
     }
 
     .section-title {
       font-size: 24px;
       margin-bottom: 18px;
-      text-align: left;
     }
 
     /* ESSÊNCIA */
@@ -251,9 +403,15 @@
       gap: 18px;
     }
 
+    @media (min-width: 800px) {
+      .essencia-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     .essencia-card {
-      background: linear-gradient(145deg, #090909, #111);
-      padding: 20px;
+      background: var(--card);
+      padding: 18px 18px 20px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
@@ -274,9 +432,9 @@
     }
 
     .essencia-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-      border-color: rgba(216,178,106,0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.75);
+      border-color: rgba(216,178,106,0.4);
     }
 
     .essencia-card:hover::before {
@@ -300,18 +458,25 @@
     .items-grid {
       display: grid;
       gap: 22px;
-      margin-top: 10px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 800px) {
+      .items-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     .item-card {
-      background: linear-gradient(145deg, #090909, #111111);
-      border-radius: var(--radius);
+      background: var(--card);
+      border-radius: var(--radius-lg);
       padding: 16px 16px 18px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
       transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .item-card::before {
@@ -326,9 +491,9 @@
     }
 
     .item-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.72);
-      border-color: rgba(216,178,106,0.45);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.9);
+      border-color: rgba(216,178,106,0.4);
     }
 
     .item-card:hover::before {
@@ -338,13 +503,13 @@
 
     .item-card img {
       width: 100%;
-      border-radius: 16px;
+      border-radius: 20px;
       margin-bottom: 10px;
       display: block;
     }
 
     .item-title {
-      font-size: 17px;
+      font-size: 18px;
       margin: 0 0 4px;
     }
 
@@ -369,7 +534,134 @@
 
     .items-cta {
       text-align: center;
-      margin-top: 26px;
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-secondary {
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(8,8,16,0.85);
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(16,16,24,0.96);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* NOVAS SEÇÕES (COMO FUNCIONA / POR QUE / COMUNIDADE) */
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+
+    .pill {
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(10,10,20,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+
+    .steps-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 800px) {
+      .steps-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .step-card {
+      background: var(--card);
+      padding: 18px 18px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(216,178,106,0.4);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.8);
+    }
+
+    .step-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 26px;
+    }
+
+    @media (min-width: 900px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+        align-items: center;
+      }
+    }
+
+    .stat-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 700px) {
+      .stat-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    .stat-card {
+      background: rgba(8,8,15,0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 16px 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
     }
 
     /* FOOTER */
@@ -377,8 +669,8 @@
       margin-top: 40px;
       padding: 32px 0 40px;
       text-align: center;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(12px) saturate(160%);
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(14px) saturate(160%);
       border-top: 1px solid rgba(216,178,106,0.24);
     }
 
@@ -395,7 +687,152 @@
       opacity: .8;
     }
 
-    /* MICROINTERAÇÕES GERAIS: REVEAL */
+    /* OVERLAYS (MODAIS) */
+    .overlay-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 10% 0%, rgba(216,178,106,0.12), transparent 60%), rgba(0,0,0,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .overlay-backdrop.active {
+      display: flex;
+    }
+
+    .overlay-card {
+      max-width: 600px;
+      width: 100%;
+      background: #050509;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.95);
+      padding: 22px 22px 20px;
+      position: relative;
+      animation: overlayIn .32s ease-out;
+    }
+
+    @keyframes overlayIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .overlay-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      background: rgba(15,15,24,0.95);
+      color: var(--muted);
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .overlay-close:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .overlay-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .overlay-title {
+      font-size: 20px;
+      margin: 0 0 6px;
+    }
+
+    .overlay-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .overlay-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .overlay-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* LOGIN OVERLAY */
+    .login-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 720px) {
+      .login-grid {
+        grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .field input {
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(7,7,15,0.96);
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .field input:focus {
+      border-color: rgba(216,178,106,0.8);
+      box-shadow: 0 0 0 1px rgba(216,178,106,0.4);
+      background: rgba(10,10,20,1);
+    }
+
+    .link-muted {
+      font-size: 11px;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .link-muted:hover {
+      color: #fff;
+    }
+
+    /* REVEAL */
     .reveal {
       opacity: 0;
       transform: translateY(18px);
@@ -407,50 +844,9 @@
       transform: translateY(0);
     }
 
-    /* SCROLL DOTS (INDICADOR LATERAL) */
-    .scroll-dots {
-      position: fixed;
-      right: 22px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 90;
-    }
-
-    .scroll-dots a {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: transparent;
-      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .scroll-dots a.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      transform: scale(1.4);
-    }
-
     @media (max-width: 720px) {
-      .hero-section {
-        padding-top: 120px;
-        padding-bottom: 40px;
-      }
-      .hero-inner {
-        border-radius: 24px;
-        padding: 18px 14px 22px;
-      }
-      .hero-title {
-        font-size: 27px;
-      }
       .section-title {
         text-align: center;
-      }
-      .scroll-dots {
-        display: none;
       }
     }
   </style>
@@ -462,49 +858,96 @@
   <header class="top-nav">
     <div class="wrap nav-inner">
       <div class="logo">NOWAIT</div>
+      <nav class="nav-links">
+        <span class="nav-link" data-scroll="#padrao">Padrão</span>
+        <span class="nav-link" data-scroll="#ofertas">Ofertas</span>
+        <span class="nav-link" data-scroll="#como-funciona">Como funciona</span>
+        <span class="nav-pill" id="btn-open-login">Área de membros</span>
+      </nav>
     </div>
   </header>
-
-  <!-- INDICADOR DE SEÇÃO LATERAL -->
-  <nav class="scroll-dots">
-    <a href="#hero" class="dot active" data-target="hero"></a>
-    <a href="#padrao" class="dot" data-target="padrao"></a>
-    <a href="#ofertas" class="dot" data-target="ofertas"></a>
-  </nav>
 
   <main>
 
     <!-- HERO -->
-    <section id="hero" class="hero-section wrap section-full">
-      <div class="hero-inner reveal" data-parallax>
-        <div class="hero-glow"></div>
+    <section class="hero-section">
+      <div class="wrap hero-layout">
+        <!-- Lado esquerdo -->
+        <div>
+          <div class="hero-badges reveal">
+            <span class="badge-soft">
+              <span class="badge-dot"></span> Entrega internacional em até 72h
+            </span>
+            <span class="badge-soft">Mais de 5.000 itens entregues desde 2020</span>
+          </div>
 
-        <h1 class="hero-title">
-          O mercado global ao seu alcance
-        </h1>
+          <h1 class="hero-title reveal">
+            O mercado global ao seu alcance
+          </h1>
 
-        <p class="hero-sub">
-          Peças 100% originais, logística própria e entrega internacional em até 72h. Operamos desde 2020 nos EUA, conectando você ao preço real — sem espera, sem intermediários, sem margem inflada do varejo brasileiro.
-        </p>
+          <p class="hero-sub reveal">
+            Peças 100% originais, logística própria e entrega internacional em até 72h. Operamos desde 2020 nos EUA, conectando você ao preço real — sem espera, sem intermediários, sem margem inflada do varejo brasileiro.
+          </p>
 
-        <p class="hero-text">
-          Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo com curadoria especializada, e entrega internacional em até 72h.
-        </p>
+          <p class="hero-text reveal">
+            Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo com curadoria especializada, e entrega internacional em até 72h.
+          </p>
 
-        <div class="hero-cta">
-          <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-            Solicitar acesso via concierge
-          </button>
+          <div class="hero-cta reveal">
+            <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+              Solicitar acesso via concierge
+            </button>
+            <button class="btn-ghost" data-scroll="#como-funciona">
+              Ver como funciona
+            </button>
+          </div>
+
+          <p class="hero-highlight reveal">
+            “Você nunca mais vai pagar o valor de itens sem uso em peças usadas ”
+          </p>
         </div>
 
-        <p class="hero-highlight">
-          “Você nunca mais vai pagar o valor de itens sem uso em peças usadas ”
-        </p>
+        <!-- Lado direito – tiles estilo Nexio -->
+        <div class="hero-tiles-wrapper reveal">
+          <div class="hero-tiles-glow"></div>
+          <div class="tiles-grid">
+            <div class="tile">
+              <div class="tile-label">Origem</div>
+              <div class="tile-main">Mercado global</div>
+              <div class="tile-badge">Rolex · Patek · AP · RM</div>
+            </div>
+            <div class="tile">
+              <div class="tile-label">Modelo</div>
+              <div class="tile-main">Sem vitrine</div>
+              <div class="tile-badge">Atendimento 1:1</div>
+            </div>
+            <div class="tile">
+              <div class="tile-label">Prazo</div>
+              <div class="tile-main">Até 72h</div>
+              <div class="tile-badge">Logística própria</div>
+            </div>
+            <div class="tile">
+              <div class="tile-label">Preço</div>
+              <div class="tile-main">Abaixo do BR</div>
+              <div class="tile-badge">Sem margem inflada</div>
+            </div>
+            <div class="tile">
+              <div class="tile-label">Controle</div>
+              <div class="tile-main">Concierge NOWAIT</div>
+              <div class="tile-badge">Verificação completa</div>
+            </div>
+            <div class="tile">
+              <div class="tile-label">Perfil</div>
+              <div class="tile-main">Alta renda</div>
+              <div class="tile-badge">Comunidade privada</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ESSÊNCIA -->
-    <section id="padrao" class="section section-full">
+    <!-- Padrão NOWAIT -->
+    <section id="padrao" class="section">
       <div class="wrap">
         <h2 class="section-title reveal">Padrão NOWAIT.</h2>
 
@@ -536,13 +979,13 @@ Logística própria. Zero espera.</p>
       </div>
     </section>
 
-    <!-- PEÇAS -->
-    <section id="ofertas" class="section section-full">
+    <!-- Ofertas -->
+    <section id="ofertas" class="section">
       <div class="wrap">
         <h2 class="section-title reveal">Algumas de nossas ofertas</h2>
 
         <div class="items-grid">
-          <article class="item-card reveal">
+          <article class="item-card reveal" data-modal="rm">
             <img src="patek5167.jpeg" alt="Patek Philippe 5167" />
             <h3 class="item-title">Patek Philippe 5167</h3>
             <p class="item-sub">Complete 2015</p>
@@ -551,7 +994,7 @@ Logística própria. Zero espera.</p>
             <p class="item-tag">50k abaixo do mercado</p>
           </article>
 
-          <article class="item-card reveal">
+          <article class="item-card reveal" data-modal="pp">
             <img src="patek5712.jpg" alt="Patek Philippe 5712 Blue Dial" />
             <h3 class="item-title">Patek Philippe 5712/1A</h3>
             <p class="item-sub">Completo</p>
@@ -565,6 +1008,135 @@ Logística própria. Zero espera.</p>
           <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
             Solicitar peça via concierge
           </button>
+          <button class="btn-secondary" id="btn-open-modelos">
+            Conheça a história do RM 67-02 Sebastian e do Patek 5712
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section id="como-funciona" class="section">
+      <div class="wrap">
+        <div class="pill-row reveal">
+          <span class="pill">Fluxo NOWAIT</span>
+          <span class="pill">Concierge dedicado</span>
+        </div>
+
+        <h2 class="section-title reveal">Como funciona na prática</h2>
+
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <div class="step-label">Passo 1</div>
+            <div class="step-title">Você informa o que busca</div>
+            <div class="step-text">
+              Referência, orçamento, prazo e qualquer detalhe de preferência. Tudo direto com o concierge, sem burocracia.
+            </div>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-label">Passo 2</div>
+            <div class="step-title">Nós buscamos no mercado global</div>
+            <div class="step-text">
+              Acessamos nossa rede internacional para encontrar as melhores oportunidades em Rolex, Patek, Audemars Piguet, Richard Mille e mais.
+            </div>
+          </div>
+
+          <div class="step-card reveal">
+            <div class="step-label">Passo 3</div>
+            <div class="step-title">Entrega internacional em até 72h</div>
+            <div class="step-text">
+              Logística própria, acompanhamento em tempo real e entrega discreta. Você recebe a peça com segurança e sem espera.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE O VALOR É MENOR -->
+    <section id="porque-menor" class="section">
+      <div class="wrap two-col">
+        <div>
+          <div class="pill-row reveal">
+            <span class="pill">Preço real de mercado</span>
+            <span class="pill">Sem vitrine, sem showroom</span>
+          </div>
+
+          <h2 class="section-title reveal">Por que você paga menos que nas revendas brasileiras?</h2>
+
+          <p class="hero-text reveal">
+            Trabalhamos com compra internacional, operação enxuta e logística própria. Isso elimina camadas de revenda, aluguel de vitrine e custos desnecessários que normalmente são repassados para o cliente final.
+          </p>
+
+          <p class="hero-text reveal">
+            O resultado: acesso ao valor real das peças no mercado global, com curadoria especializada e segurança total em cada etapa.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card reveal">
+            <div class="stat-value">Sem margem inflada</div>
+            Operação desenhada para reduzir intermediários e manter a peça o mais próxima possível do preço global.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Logística própria</div>
+            Controle de ponta a ponta, o que diminui custos de transporte, evita retrabalho e aumenta a previsibilidade.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Sem vitrine física</div>
+            Nenhum custo de shopping, vitrine ou estrutura de loja tradicional embutido no valor da peça.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Curadoria direta</div>
+            Relojoeiros e parceiros especializados avaliando cada peça antes de qualquer proposta ao cliente.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMUNIDADE NOWAIT -->
+    <section id="comunidade" class="section">
+      <div class="wrap two-col">
+        <div>
+          <div class="pill-row reveal">
+            <span class="pill">Comunidade privada</span>
+            <span class="pill">Alta renda</span>
+          </div>
+
+          <h2 class="section-title reveal">A comunidade NOWAIT</h2>
+
+          <p class="hero-text reveal">
+            Mais do que intermediar peças, criamos uma rede de clientes que valorizam tempo, privacidade e acesso inteligente ao mercado de luxo global.
+          </p>
+
+          <p class="hero-text reveal">
+            Dentro da comunidade, você recebe oportunidades antes de chegarem ao público, ofertas pontuais em peças específicas e um canal direto com quem realmente conhece o mercado.
+          </p>
+
+          <div class="hero-cta reveal">
+            <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+              Solicitar acesso à comunidade
+            </button>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card reveal">
+            <div class="stat-value">+5.000</div>
+            Itens entregues desde 2020, com histórico real de operação em alto volume.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Perfil selecionado</div>
+            Foco em clientes que buscam segurança, liquidez e assertividade nas compras.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Acesso antecipado</div>
+            Peças especiais, combinações raras e oportunidades de arbitragem de preço.
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-value">Atendimento 1:1</div>
+            Concierge dedicado para entender perfil, carteira e objetivos antes de qualquer negociação.
+          </div>
         </div>
       </div>
     </section>
@@ -579,6 +1151,90 @@ Logística própria. Zero espera.</p>
     </div>
   </footer>
 
+  <!-- OVERLAY MODELOS – RM 67-02 & PATEK 5712 -->
+  <div class="overlay-backdrop" id="overlay-modelos">
+    <div class="overlay-card">
+      <button class="overlay-close" data-close>×</button>
+
+      <div class="overlay-tag">História das peças</div>
+      <h3 class="overlay-title">RM 67-02 “Sebastian Ogier” & Patek Philippe 5712</h3>
+      <p class="overlay-sub">
+        Dois ícones modernos: um dos Richard Mille mais leves já produzidos e um dos Patek mais desejados da linha Nautilus.
+      </p>
+
+      <div class="overlay-body">
+        <div>
+          <strong>RM 67-02 “Sebastian Ogier”</strong><br>
+          Desenvolvido para o piloto de rally Sebastian Ogier, o RM 67-02 é um estudo extremo em leveza e performance.  
+          Caixa em materiais compostos de alta tecnologia, pulseira elástica que “abraça” o pulso e construção pensada para suportar impacto em alta velocidade.  
+          É um dos modelos mais procurados por colecionadores que buscam esportividade máxima, tecnologia de ponta e presença imediata no pulso.
+        </div>
+        <div>
+          <strong>Patek Philippe 5712</strong><br>
+          O 5712 é um dos pilares da linha Nautilus, com a clássica assimetria de mostrador desenhada por Gérald Genta.  
+          Movimento 240 PS IRM C LU, perfil fino e proporções que fazem dele uma peça versátil, elegante e altamente colecionável.  
+          Em muitos mercados, é visto como referência de liquidez e preservação de valor no longo prazo, com curva de valorização consistente entre colecionadores.
+        </div>
+      </div>
+
+      <div class="overlay-footer">
+        <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+          Consultar disponibilidade via concierge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERLAY LOGIN -->
+  <div class="overlay-backdrop" id="overlay-login">
+    <div class="overlay-card">
+      <button class="overlay-close" data-close>×</button>
+
+      <div class="overlay-tag">Área de membros</div>
+      <h3 class="overlay-title">Acesso à comunidade NOWAIT</h3>
+      <p class="overlay-sub">
+        Entre com sua conta ou solicite acesso para a comunidade privada de clientes NOWAIT.
+      </p>
+
+      <div class="overlay-body login-grid">
+        <div>
+          <div class="field">
+            <label for="login-email">E-mail</label>
+            <input id="login-email" type="email" placeholder="voce@exemplo.com" />
+          </div>
+          <div class="field">
+            <label for="login-senha">Senha</label>
+            <input id="login-senha" type="password" placeholder="Sua senha" />
+          </div>
+          <button class="btn-main" style="width:100%; margin-top:4px;">
+            Entrar
+          </button>
+          <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+            <span class="link-muted">Esqueci minha senha</span>
+            <span class="link-muted" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
+              Solicitar acesso VIP
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:13px; color:var(--muted); margin:0 0 8px;">
+            A área de membros foi pensada para clientes que operam com frequência no mercado global de luxo e desejam:
+          </p>
+          <ul style="font-size:13px; color:var(--muted); margin:0 0 10px; padding-left:18px; line-height:1.45;">
+            <li>Acesso antecipado a oportunidades específicas;</li>
+            <li>Visão consolidada das peças já negociadas;</li>
+            <li>Comunicação direta com o concierge responsável;</li>
+            <li>Organização da carteira de relógios com foco em liquidez.</li>
+          </ul>
+          <p style="font-size:12px; color:var(--muted); opacity:.9; margin:0;">
+            O acesso é liberado caso a caso, de acordo com o histórico e o perfil de cada cliente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // NAVBAR SHRINK
     document.addEventListener("scroll", () => {
@@ -591,7 +1247,7 @@ Logística própria. Zero espera.</p>
       }
     });
 
-    // REVEAL ANIMATION (IntersectionObserver)
+    // REVEAL
     const revealEls = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -604,62 +1260,63 @@ Logística própria. Zero espera.</p>
 
     revealEls.forEach(el => io.observe(el));
 
-    // PARALLAX SIMPLES NO HERO
-    const parallaxEls = document.querySelectorAll("[data-parallax]");
-    if (parallaxEls.length) {
-      window.addEventListener("mousemove", (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5);
-        const y = (e.clientY / window.innerHeight - 0.5);
-        parallaxEls.forEach(el => {
-          const strength = 8;
-          const tx = -x * strength;
-          const ty = -y * strength;
-          el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
-        });
-      });
+    // SCROLL SUAVE PELOS BOTÕES
+    function smoothScrollTo(selector) {
+      const target = document.querySelector(selector);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
-    // SCROLL DOTS: ATIVAÇÃO POR SEÇÃO
-    const dots = document.querySelectorAll(".scroll-dots a.dot, .scroll-dots a");
-    const sections = [
-      { id: "hero", el: document.getElementById("hero") },
-      { id: "padrao", el: document.getElementById("padrao") },
-      { id: "ofertas", el: document.getElementById("ofertas") }
-    ].filter(s => s.el);
-
-    function setActiveDot(id) {
-      dots.forEach(dot => {
-        if (dot.dataset.target === id) {
-          dot.classList.add("active");
-        } else {
-          dot.classList.remove("active");
-        }
+    document.querySelectorAll("[data-scroll]").forEach(el => {
+      el.addEventListener("click", () => {
+        const sel = el.getAttribute("data-scroll");
+        smoothScrollTo(sel);
       });
+    });
+
+    // OVERLAYS – MODELOS
+    const overlayModelos = document.getElementById("overlay-modelos");
+    const overlayLogin = document.getElementById("overlay-login");
+    const btnOpenModelos = document.getElementById("btn-open-modelos");
+    const btnOpenLogin = document.getElementById("btn-open-login");
+
+    function openOverlay(overlay) {
+      if (!overlay) return;
+      overlay.classList.add("active");
     }
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          setActiveDot(id);
+    function closeOverlay(overlay) {
+      if (!overlay) return;
+      overlay.classList.remove("active");
+    }
+
+    // Abrir overlay modelos – botão dedicado
+    if (btnOpenModelos) {
+      btnOpenModelos.addEventListener("click", () => openOverlay(overlayModelos));
+    }
+
+    // Abrir overlay modelos – clique nos cards
+    document.querySelectorAll(".item-card[data-modal]").forEach(card => {
+      card.addEventListener("click", () => openOverlay(overlayModelos));
+    });
+
+    // Abrir login
+    if (btnOpenLogin) {
+      btnOpenLogin.addEventListener("click", () => openOverlay(overlayLogin));
+    }
+
+    // Fechar overlays
+    document.querySelectorAll(".overlay-backdrop").forEach(backdrop => {
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) {
+          closeOverlay(backdrop);
         }
       });
-    }, { threshold: 0.4 });
-
-    sections.forEach(s => sectionObserver.observe(s.el));
-
-    // CLIQUE SUAVE NOS DOTS
-    dots.forEach(dot => {
-      dot.addEventListener("click", (e) => {
-        const targetId = dot.dataset.target;
-        const target = document.getElementById(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+      backdrop.querySelectorAll("[data-close]").forEach(btn => {
+        btn.addEventListener("click", () => closeOverlay(backdrop));
       });
     });
   </script>
-
 </body>
 </html>
