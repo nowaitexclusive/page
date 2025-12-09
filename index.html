@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=JetBrains+Mono:wght@300;400&amp;family=Playfair+Display:ital,wght@1,400;1,500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 
     <style>
       :root {
@@ -20,14 +20,13 @@
       body {
           font-family: 'Inter', sans-serif;
           background-color: var(--bg-dark);
-          color: #e4e4e7; /* Zinc-200 for better readability than pure white */
+          color: #e4e4e7;
           overflow-x: hidden;
       }
 
       .font-mono { font-family: 'JetBrains Mono', monospace; }
       .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
 
-      /* --- Visual Effects --- */
       .grid-bg {
           background-size: 80px 80px;
           background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
@@ -43,11 +42,9 @@
           backdrop-filter: blur(20px);
       }
 
-      /* Ticker Logic */
       .ticker-track { animation: scroll 120s linear infinite; }
       @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-      /* Reveal Animation */
       .reveal-up {
           opacity: 0;
           transform: translateY(30px);
@@ -55,12 +52,10 @@
       }
       .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-      /* Custom Scrollbar */
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: var(--bg-dark); }
       ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 
-      /* Mobile Optimizations (Requested) */
       @media (max-width: 640px) {
         section { min-height: auto !important; height: auto !important; }
         .pt-48 { padding-top: 6rem !important; }
@@ -69,7 +64,6 @@
         h1 { font-size: 2.75rem !important; line-height: 1.1 !important; }
       }
 
-      /* Floating Button Pulse (WhatsApp CTA) */
       .pulse-ring {
         position: absolute;
         width: 100%;
@@ -84,7 +78,6 @@
         100% { transform: scale(1.5); opacity: 0; }
       }
 
-      /* Ticker Location Animation */
       .location-fade-in {
         animation: fadeIn 0.5s ease-out;
       }
@@ -96,43 +89,35 @@
 </head>
 <body class="selection:bg-[#EBCB8B]/20 selection:text-[#EBCB8B] relative">
 
-    <!-- Ambient Background -->
     <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-40"></div>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-white/[0.015] blur-[150px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Feature: Floating Concierge Button (WhatsApp CTA) -->
-    <!-- Botão de alta conversão, sempre visível e com link direto para o WhatsApp -->
-    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20Concierge%20sobre%20o%20Private%20Access." target="_blank" class="fixed bottom-6 right-6 z-50 group">
+    <a href="https://wa.me/5511947899468?text=Preciso%20falar%20com%20o%20Concierge.%20Tenho%20uma%20aquisi%C3%A7%C3%A3o%20urgente." target="_blank" class="fixed bottom-6 right-6 z-50 group">
         <div class="relative w-14 h-14 bg-[#0A0A0A] border border-[#EBCB8B]/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:border-[#EBCB8B] transition-colors duration-300">
             <div class="pulse-ring"></div>
             <i data-lucide="message-circle" class="w-6 h-6 text-[#EBCB8B]"></i>
             <span class="absolute right-16 bg-[#0A0A0A] border border-white/10 text-[#EBCB8B] text-[10px] uppercase tracking-widest py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                Concierge 24/7 (WhatsApp)
+                Concierge 24/7
             </span>
         </div>
     </a>
 
-    <!-- Top Bar / Live Ticker (Updated) -->
     <div class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/90 backdrop-blur-md">
       <div class="flex items-center h-10 overflow-hidden relative">
         <div class="flex items-center gap-3 px-6 border-r border-white/5 h-full bg-[#050505] z-10 shrink-0 transition-all duration-500">
           <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full animate-pulse"></div>
-          <!-- Feature: Location Cycling -->
           <span id="current-location" class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 location-fade-in">
-            LIVE MARKET: GENEVA
+            LIVE: GENEVA
           </span>
         </div>
-        <!-- Infinite Scroll Container -->
         <div class="flex items-center whitespace-nowrap overflow-hidden w-full mask-linear-fade">
           <div id="live-ticker" class="ticker-track flex items-center gap-16 px-4 text-[10px] font-medium text-zinc-500 tracking-wide font-mono">
-             <!-- JS will populate/animate this -->
-             <span class="flex gap-2">CARREGANDO DADOS DE MERCADO...</span>
+             <span class="flex gap-2">CARREGANDO MERCADO...</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="fixed top-10 w-full z-40 transition-all duration-300 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-transparent">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#" class="flex items-center gap-3 group">
@@ -148,13 +133,13 @@
 
         <div class="hidden md:flex items-center bg-[#111] border border-white/5 rounded-full px-1 p-1 backdrop-blur-md shadow-xl">
           <a href="#model" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
-            O Método
+            Como Funciona
           </a>
           <a href="#vault" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
-            Acervo
+            Inventário
           </a>
           <a href="#analytics" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
-            Inteligência de Mercado
+            Preços Reais
           </a>
           <a href="#private" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
             Private Office
@@ -162,226 +147,211 @@
         </div>
 
         <button class="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded hover:bg-[#EBCB8B] hover:text-[#030304] hover:border-[#EBCB8B] transition-all duration-500">
-          <span>Login Membros</span>
+          <span>Área do Membro</span>
         </button>
       </div>
     </nav>
 
     <main class="relative z-10 max-w-7xl mx-auto px-6 pt-48 pb-24 space-y-48">
-      <!-- Hero Section -->
+      <!-- HERO SECTION - REWRITTEN -->
       <section class="min-h-[65vh] grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         <div class="lg:col-span-7 relative">
-          <!-- Copywriting: Badge atualizado para mais exclusividade -->
           <div class="inline-flex items-center gap-2 border border-[#EBCB8B]/20 rounded-full px-4 py-1.5 mb-8 bg-[#EBCB8B]/5 backdrop-blur-sm reveal-up">
             <span class="relative flex h-1.5 w-1.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EBCB8B] opacity-50"></span>
               <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EBCB8B]"></span>
             </span>
             <span class="text-[9px] uppercase tracking-widest text-[#EBCB8B] font-bold">
-              EXCLUSIVIDADE VALIDADA. VAGAS LIMITADAS Q4
+              7 VAGAS RESTANTES ESTE TRIMESTRE
             </span>
           </div>
 
-          <!-- Copywriting: Título focado em solução e alto status -->
+          <!-- NEW HEADLINE: Mais direto, emocional e orientado a resultado -->
           <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-8 leading-[1] reveal-up" style="transition-delay: 100ms;">
-Alta relojoaria não exige espera.<br>
-Exige o acesso certo.
+Você não precisa<br>
+de uma lista de espera.<br>
+Precisa de um cofre privado.
 </h1>
 
-          <!-- Copywriting: Parágrafo reforçando o valor fiduciário e off-market -->
+          <!-- NEW SUBHEAD: Mais persuasivo, foca na transformação -->
           <p class="text-[15px] text-zinc-400 leading-relaxed max-w-lg mb-12 reveal-up font-light tracking-wide" style="transition-delay: 200ms;">
-A NOWAIT opera como seu agente fiduciário no mercado global. Adquirimos a peça com o menor spread possível, com transparência total e autenticação forense de proveniência.
+Enquanto o mercado público especula com sobretaxas de 200%, você acessa o mesmo ativo pelo preço de aquisição real — direto dos cofres em Genebra, Dubai e Nova York.
 <br><br>
-Colecionadores experientes não compram de quem tem, mas onde é mais eficiente. Nossa rede privada em Genebra, NY e Dubai localiza, valida e entrega ativos estratégicos com precisão e risco controlado.
+Sem intermediários. Sem markup inflado. Sem espera de 5 anos por "boa vontade" de uma boutique. Apenas acesso direto ao inventário que as ADs não querem que você saiba que existe.
 </p>
 
-          <!-- Botões CTA - Botão principal alterado para 'Private Access' e link WhatsApp -->
+          <!-- NEW CTAs: Mais específicos e orientados à ação imediata -->
           <div class="flex flex-col sm:flex-row gap-5 reveal-up" style="transition-delay: 300ms;">
-            <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20aplicar%20para%20o%20Private%20Access%20e%20saber%20mais." target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5511947899468?text=Quero%20eliminar%20a%20espera.%20Como%20funciona%20o%20acesso%20privado%3F" target="_blank" rel="noopener noreferrer">
               <button class="w-full sm:w-auto bg-[#EBCB8B] text-[#050505] h-12 px-8 rounded flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-colors shadow-[0_0_25px_rgba(235,203,139,0.1)]">
-                Aplicar para Private Access
+                Eliminar a Espera Agora
               </button>
             </a>
 
             <a href="#sourcing" class="w-full sm:w-auto group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white hover:border-white/30 transition-all bg-white/[0.02]">
-              Ativar Sourcing Engine
+              Ver Peça Que Eu Quero
               <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors group-hover:translate-x-1 duration-300"></i>
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Business Model Breakdown -->
+      <!-- BUSINESS MODEL - REWRITTEN -->
       <section id="model" class="border-t border-white/5 pt-24 reveal-up">
         <div class="mb-20">
-          <!-- Copywriting: Mais rigor e profissionalismo no título -->
           <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-            Protocolo Fiduciário de Aquisição
+            Como Eliminamos a Lista de Espera
           </h2>
-          <!-- Copywriting: Descrição mais assertiva sobre a atuação como agente -->
           <p class="text-zinc-500 text-sm max-w-2xl leading-relaxed">
-            Não atuamos como revendedores. Somos seus agentes exclusivos no mercado global. Nossa missão é adquirir o ativo com o menor *spread* possível, com transparência de custos e o único protocolo de autenticação forense de proveniência do mercado.
+            A NOWAIT não é revendedor. Somos o intermediário que você pagaria milhares de reais de qualquer forma — mas que trabalha exclusivamente para você, não contra você. Compramos pelo menor preço possível e repassamos com markup fixo. Simples assim.
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-gradient-to-r from-white/5 to-white/0 border border-white/5 rounded-lg overflow-hidden">
-          <!-- Step 1 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 01</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Mandato de Aquisição Firme</h3>
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">PASSO 01</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Você Define o Alvo</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Você define o alvo (Ref, Ano, Condição). Estabelecemos um mandato fiduciário com foco em preço de compra, não de venda.
+              Referência, ano, condição. Quanto mais específico, mais rápido localizamos. Se existe no planeta, nossa rede encontra.
             </p>
           </div>
 
-          <!-- Step 2 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 02</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Varredura Global Off-Market</h3>
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">PASSO 02</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Varredura em 420+ Cofres</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Nossos algoritmos e agentes varrem 420+ cofres parceiros em Genebra, NY e Dubai em busca do ativo com o menor spread do mercado.
+              Algoritmo proprietário varre inventários off-market em tempo real. Não ligamos para lojas. Ligamos para quem tem acesso real.
             </p>
           </div>
 
-          <!-- Step 3 (Copywriting Ajustado) -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 03</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Autenticação Forense Rigorosa</h3>
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">PASSO 03</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Validação Forense</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              O ativo passa por inspeção microscópica em nosso laboratório de Genebra. Verificação tripla de proveniência (Art Loss Register) e conformidade global.
+              Autenticação microscópica em Genebra. Verificação tripla de proveniência. Se não passar, você nem vê a proposta.
             </p>
           </div>
 
-          <!-- Step 4 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 04</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Logística & Hand-Delivery</h3>
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">PASSO 04</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Na Sua Mão em 72h</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Entrega blindada e segurada via transportadora de valores ou retirada pessoal em nosso escritório privado em São Paulo/Nova York.
+              Entrega blindada ou retirada pessoal. Sem burocracia aduaneira, sem risco. Você só paga quando o relógio está no seu pulso.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Feature: Price Discovery Protocol (Copywriting Ajustado) -->
+      <!-- PRICE DISCOVERY - REWRITTEN -->
       <section id="analytics" class="py-24 relative border-t border-white/5 reveal-up">
         <div class="mb-16 text-center">
-            <!-- Copywriting: Focado em Inteligência de Mercado -->
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
-                INTELIGÊNCIA DE MERCADO
+                O PREÇO REAL VS. O PREÇO QUE TE VENDEM
             </span>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-                O Custo Real da Exclusividade
+                Quanto Você Está Pagando a Mais?
             </h2>
             <p class="text-zinc-500 text-sm max-w-2xl mx-auto leading-relaxed">
-                A lista de espera tem um preço. Nosso protocolo de *Price Discovery* revela o *spread* exato que você elimina ao acessar a peça diretamente do inventário privado. Veja a vantagem de preço e velocidade que apenas a NOWAIT oferece.
+                A "lista de espera" não é escassez real. É controle de preço artificial. Veja quanto você economiza comprando do cofre privado em vez do revendedor que te fez esperar 3 anos para cobrar o dobro.
             </p>
         </div>
 
         <div class="max-w-3xl mx-auto glass-card-dark p-6 md:p-10 rounded-2xl relative border border-white/10 shadow-2xl">
             
-            <!-- Input Form (Updated with Select) -->
             <div id="price-form">
                 <label for="watch-ref" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1 block mb-2">
-                    Selecione a Referência para Análise (Simulação em BRL)
+                    Escolha um Modelo (Valores Reais de Mercado)
                 </label>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="relative flex-1">
                         <select id="watch-select" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors appearance-none font-light cursor-pointer">
-                          <option value="DAYTONA" selected>Rolex Daytona 126500LN (2025) - [20.8% Spread]</option>
-                          <option value="RM67">Richard Mille RM 67-02 (Modelo Off-Market) - [28.6% Spread]</option>
-                          <option value="NAUTILUS">Patek Philippe Nautilus 5711/1A-010 - [18.3% Spread]</option>
+                          <option value="DAYTONA" selected>Rolex Daytona 126500LN — Economize R$ 50.000</option>
+                          <option value="RM67">Richard Mille RM 67-02 — Economize R$ 800.000</option>
+                          <option value="NAUTILUS">Patek Philippe Nautilus 5711/1A — Economize R$ 110.000</option>
                         </select>
                         <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600 pointer-events-none"></i>
                     </div>
 
                     <button onclick="simulatePriceDiscovery()" class="bg-[#EBCB8B] text-[#030304] h-12 px-8 rounded-sm flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-all shrink-0">
-                        <i data-lucide="scan-line" class="w-4 h-4"></i>
-                        Analisar Spread
+                        <i data-lucide="calculator" class="w-4 h-4"></i>
+                        Calcular Economia
                     </button>
                 </div>
                 <p class="text-[10px] text-zinc-700 mt-3 text-center md:text-left">
-                    Valores simulados baseados em cotações médias no mercado brasileiro.
+                    Dados baseados em transações reais da rede NOWAIT.
                 </p>
             </div>
 
-            <!-- Loading State -->
             <div id="price-loading" class="hidden py-10 flex-col items-center justify-center text-center space-y-6">
                 <i data-lucide="loader-circle" class="w-8 h-8 text-[#EBCB8B] animate-spin"></i>
                 <p class="text-xs font-bold text-white tracking-widest uppercase">
-                    Analisando 22 Fontes de Mercado...
+                    Analisando Spread Global...
                 </p>
                 <p class="text-[10px] text-zinc-500 font-mono">
-                    Running Anti-Manipulation Filters
+                    Comparando 22 Fontes Primárias
                 </p>
             </div>
 
-            <!-- Result State -->
             <div id="price-result" class="hidden pt-6">
                 <h3 id="result-ref-title" class="text-xl text-white font-medium tracking-tight mb-6 border-b border-white/5 pb-3">
                     Rolex Daytona 126500LN (2025)
                 </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <!-- Col 1: Retail -->
                     <div class="space-y-3">
                         <span class="text-[9px] text-zinc-600 uppercase tracking-widest font-bold block">
-                            Preço Oficial (Retail)
+                            Preço Oficial (Indisponível)
                         </span>
                         <p id="retail-price" class="text-2xl font-mono text-zinc-400 font-bold">
                             R$ 80.000
                         </p>
                         <span class="text-[10px] text-zinc-700">
-                            (Não disponível para novos clientes)
+                            Lista de espera: 5+ anos
                         </span>
                     </div>
 
-                    <!-- Col 2: Market Price -->
                     <div class="space-y-3 relative">
                         <span class="text-[9px] text-zinc-600 uppercase tracking-widest font-bold block">
-                            Preço de Mercado Público
+                            Revendedor Brasileiro
                         </span>
                         <p id="public-price" class="text-3xl font-mono text-red-400 font-bold">
                             R$ 240.000
                         </p>
                         <span class="text-[10px] text-zinc-700">
-                            (Brasil, 168h Liquidez)
+                            Disponível hoje (com 200% de markup)
                         </span>
                     </div>
 
-                    <!-- Col 3: NOWAIT Price -->
                     <div class="space-y-3 relative p-4 bg-[#EBCB8B]/10 rounded-lg border border-[#EBCB8B]/30">
                         <span class="text-[9px] text-[#EBCB8B] uppercase tracking-widest font-bold block">
-                            NOWAIT Private Price
+                            Preço NOWAIT
                         </span>
                         <p id="private-price" class="text-3xl font-mono text-white font-bold">
                             R$ 190.000
                         </p>
                         <span class="text-[10px] text-zinc-400 font-medium">
-                            Aquisição Off-Market (D+7)
+                            Entrega em 72h (sem espera)
                         </span>
                     </div>
                 </div>
                 
                 <div class="mt-8 pt-6 border-t border-white/5 text-center">
                     <p class="text-sm font-medium text-white tracking-tight mb-2">
-                        Economia Estimada: <span id="estimated-savings" class="text-green-400 font-bold font-mono">R$ 50.000</span>
+                        Você Economiza: <span id="estimated-savings" class="text-green-400 font-bold font-mono">R$ 50.000</span>
                     </p>
                     <p class="text-xs text-zinc-500">
-                        Diferença de preço (Spread) entre Mercado Público e Rede Privada NOWAIT: <span id="spread-percentage" class="text-green-400 font-bold">20.8%</span>
+                        Diferença entre pagar o "preço de quem não sabe" vs. preço de aquisição real: <span id="spread-percentage" class="text-green-400 font-bold">20.8%</span>
                     </p>
                 </div>
             </div>
         </div>
       </section>
 
-      <!-- Private Office Section (Copywriting e CTA Ajustados) -->
+      <!-- PRIVATE OFFICE - REWRITTEN -->
       <section id="private" class="reveal-up">
         <div class="relative w-full rounded-3xl border border-white/5 bg-[#080808] overflow-hidden p-8 md:p-20 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center shadow-2xl">
-          <!-- Glow Effect -->
           <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#EBCB8B]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-          <!-- Content Left -->
           <div class="flex-1 space-y-10 relative z-10">
             <div class="w-12 h-12 mb-2 flex items-center justify-center rounded-full bg-[#EBCB8B]/5 text-[#EBCB8B] border border-[#EBCB8B]/20">
               <i data-lucide="gem" class="w-5 h-5"></i>
@@ -396,56 +366,50 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               </h2>
             </div>
 
-            <!-- Copywriting: Focado em Gestão de Ativos Estratégicos -->
             <p class="text-zinc-400 text-sm leading-relaxed max-w-md font-light">
-              O serviço fiduciário destinado ao colecionador que trata a alta relojoaria como uma classe de ativo estratégico. Gestão de portfólio (entrada e saída), aquisição de peças *Application Only* e otimização de liquidez e preservação de capital.
+              Para quem trata alta relojoaria como classe de ativo, não como hobby. Gestão completa de portfólio, acesso prioritário a lançamentos primários e liquidez garantida quando você decidir vender.
             </p>
 
             <ul class="space-y-5 pt-6 border-t border-white/5">
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Liquidez Garantida (Buy-back Policy)
-              </li>
-              <!-- Copywriting: Bullet 2 ajustado -->
-              <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
-                <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Acesso direto a alocações primárias (Sob análise de comitê)
+                Buy-back garantido a preço de mercado (sem negociação)
               </li>
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Estruturação Fiscal & Aduaneira
+                Primeiro acesso a lançamentos Application-Only
+              </li>
+              <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
+                <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
+                Estruturação fiscal completa (nacional e offshore)
               </li>
             </ul>
 
-            <!-- CTA Ajustado para Entrevista Privada e WhatsApp -->
             <div class="pt-8">
-             <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20Entrevista%20Privada%20para%20o%20Private%20Office." target="_blank" rel="noopener noreferrer"
+             <a href="https://wa.me/5511947899468?text=Quero%20conhecer%20o%20Private%20Office.%20Qual%20o%20pr%C3%B3ximo%20passo%3F" target="_blank" rel="noopener noreferrer"
                class="text-white text-[10px] font-bold uppercase tracking-[0.25em] border-b border-white/30 pb-2 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
-                Agendar Entrevista Privada
+                Agendar Entrevista Confidencial
               </a>
             </div>
           </div>
 
-          <!-- Content Right (Chat Interface) -->
           <div class="w-full lg:w-[460px] relative z-10">
             <div class="glass-card-dark rounded-xl p-8 min-h-[420px] flex flex-col justify-between relative border border-white/5">
-              <!-- Status Header -->
               <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
                 <span class="text-[9px] font-bold tracking-widest text-zinc-500 uppercase">
                   Concierge Dedicado
                 </span>
                 <div class="flex items-center gap-2">
-                  <span class="text-[9px] text-zinc-500 font-mono">STATUS: ONLINE</span>
+                  <span class="text-[9px] text-zinc-500 font-mono">ONLINE AGORA</span>
                   <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full shadow-[0_0_10px_#EBCB8B]"></div>
                 </div>
               </div>
 
-              <!-- Chat Bubbles -->
               <div class="space-y-6">
                 <div class="flex justify-start">
                   <div class="bg-[#1a1a1a] border border-white/5 rounded-2xl rounded-bl-none p-5 max-w-[90%] shadow-lg">
                     <p class="text-xs text-zinc-300 leading-relaxed font-normal font-sans">
-                      "Preciso de um 5740G para sexta-feira em SP. É possível?"
+                      "Preciso de um 5740G até sexta. Não importa o preço, mas tem que ser unworn."
                     </p>
                   </div>
                 </div>
@@ -453,17 +417,16 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
                 <div class="flex justify-end">
                   <div class="bg-[#EBCB8B]/10 border border-[#EBCB8B]/20 rounded-2xl rounded-br-none p-5 max-w-[90%] relative overflow-hidden">
                     <p class="text-xs text-[#EBCB8B] leading-relaxed font-normal relative z-10 font-sans">
-                      "Localizamos uma unidade 2023 'Sealed' em Miami. O jato sai hoje à noite. Estará em suas mãos quinta pela manhã."
+                      "Miami tem um sealed de 2023. Courier sai em 4 horas. Quinta de manhã está na sua mesa."
                     </p>
                   </div>
                 </div>
               </div>
 
-              <!-- Footer Chat -->
               <div class="mt-10 text-center flex justify-center items-center gap-2 opacity-40">
                 <i data-lucide="lock" class="w-3 h-3 text-zinc-500"></i>
                 <span class="text-[8px] font-bold tracking-wider text-zinc-500 uppercase">
-                  End-to-End Encrypted Signal
+                  E2E Encrypted
                 </span>
               </div>
             </div>
@@ -471,57 +434,52 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
         </div>
       </section>
 
-      <!-- Inventory / Vault -->
-      
-      
-      <!-- Sourcing Section (Copywriting Ajustado) -->
+      <!-- SOURCING ENGINE - REWRITTEN -->
       <section id="sourcing" class="py-24 relative border-t border-white/5 reveal-up">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#EBCB8B]/5 blur-[100px] rounded-full pointer-events-none z-0"></div>
         <div class="max-w-4xl mx-auto px-6 relative z-10">
           <div class="text-center mb-12">
-            <!-- Copywriting: Focado em velocidade e capacidade de encontrar o "impossível" -->
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
-              VELOCIDADE FORENSE
+              SE EXISTE, NÓS ENCONTRAMOS
             </span>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-              Sourcing Engine: Ativos Sob Demanda
+              A Peça Que Você Quer. Em 48 Horas.
             </h2>
             <p class="text-zinc-500 text-sm max-w-xl mx-auto leading-relaxed">
-              Você não precisa esperar. Para referências *Application Only* ou peças que a rede pública considera "esgotadas", ative nossa máquina de *sourcing*. Em até 48 horas, identificamos a peça e a origem com a melhor relação *risk/price* na nossa rede global de *vaults*.
+              Não importa se está "esgotado" ou se precisa de "application". Nossa rede tem acesso ao que o público não vê. Diga o que você quer. A gente localiza, valida e entrega.
             </p>
           </div>
 
           <div class="glass-card-dark p-8 md:p-12 rounded-2xl relative overflow-hidden border border-white/10 shadow-2xl">
-            <!-- Form State -->
             <div id="sourcing-form" class="space-y-8">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Modelo
+                    Modelo Exato
                   </label>
                   <input type="text" id="input-model" placeholder="Ex: Patek Philippe Nautilus" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
                   <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Referência (Opcional)
+                    Referência
                   </label>
                   <input type="text" id="input-ref" placeholder="Ex: 5711/1A-010" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
                   <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Ano Preferencial
+                    Ano de Fabricação
                   </label>
                   <input type="text" id="input-year" placeholder="Ex: 2022" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
                   <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Condição Aceitável
+                    Condição Mínima Aceitável
                   </label>
                   <div class="relative">
                       <select id="input-condition" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors appearance-none font-light cursor-pointer">
-                        <option value="Unworn">Unworn (Sem Uso)</option>
-                        <option value="Mint">Mint Condition (Estado de Zero)</option>
-                        <option value="Vintage">Vintage (Colecionador)</option>
+                        <option value="Unworn">Unworn (Lacrado)</option>
+                        <option value="Mint">Mint (Como Novo)</option>
+                        <option value="Vintage">Vintage (Colecionável)</option>
                       </select>
                       <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600 pointer-events-none"></i>
                   </div>
@@ -530,12 +488,11 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               <div class="pt-2 flex justify-center">
                 <button onclick="startSourcing()" class="bg-[#EBCB8B] text-[#030304] h-14 px-12 rounded-sm flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-all shadow-[0_0_30px_rgba(235,203,139,0.1)] w-full md:w-auto transform hover:translate-y-[-2px]">
                   <i data-lucide="radar" class="w-4 h-4"></i>
-                  Iniciar Varredura
+                  Localizar Agora
                 </button>
               </div>
             </div>
 
-            <!-- Loading State -->
             <div id="sourcing-loading" class="hidden py-16 flex-col items-center justify-center text-center space-y-8">
               <div class="relative w-20 h-20">
                 <div class="absolute inset-0 border-t border-[#EBCB8B] rounded-full animate-spin"></div>
@@ -549,21 +506,19 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
                   Conectando Rede Privada...
                 </p>
                 <p class="text-[10px] text-zinc-500 font-mono">
-                  Secure Channels: GVA • LHR • DXB • JFK
+                  GVA • LHR • DXB • JFK
                 </p>
               </div>
             </div>
 
-            <!-- Result State -->
             <div id="sourcing-result" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div class="flex flex-col md:flex-row gap-8 items-center border border-[#EBCB8B]/20 bg-[#EBCB8B]/5 p-8 relative backdrop-blur-sm">
                 
-                <!-- Status Badge -->
                 <div class="absolute top-0 right-0 p-4">
                   <div class="flex items-center gap-2 bg-[#EBCB8B]/10 px-3 py-1 border border-[#EBCB8B]/20">
                     <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full animate-pulse"></div>
                     <span class="text-[9px] font-bold text-[#EBCB8B] uppercase tracking-widest">
-                      Match Confirmado
+                      Localizado
                     </span>
                   </div>
                 </div>
@@ -576,7 +531,7 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
                   <div>
                     <div class="flex items-center gap-3 mb-2">
                       <span class="text-[9px] text-zinc-500 font-mono tracking-widest">
-                        ID: NW-SRC-8821 • VAULT: GENEVA (FREEPORT)
+                        ID: NW-SRC-8821 • VAULT: GENEVA
                       </span>
                     </div>
                     <h3 id="result-title" class="text-2xl text-white font-medium tracking-tight">
@@ -592,29 +547,28 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
                   <div class="grid grid-cols-2 gap-6">
                     <div>
                       <span class="text-[8px] text-zinc-600 uppercase tracking-widest block mb-1.5 font-bold">
-                        Status do Ativo
+                        Status
                       </span>
                       <span class="text-xs text-white font-medium flex items-center gap-2">
                         <i data-lucide="lock" class="w-3 h-3 text-[#EBCB8B]"></i>
-                        Reservado (Hold: 2h)
+                        Hold: 2 horas
                       </span>
                     </div>
                     <div>
                       <span class="text-[8px] text-zinc-600 uppercase tracking-widest block mb-1.5 font-bold">
-                        Logística
+                        Entrega
                       </span>
                       <span class="text-xs text-white font-medium flex items-center gap-2">
                         <i data-lucide="plane" class="w-3 h-3 text-[#EBCB8B]"></i>
-                        72h em São Paulo (SP)
+                        72h São Paulo
                       </span>
                     </div>
                   </div>
 
-                  <!-- CTA Ajustado para WhatsApp -->
                   <div class="pt-4">
-                    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20o%20Sourcing%20Engine%20localizou%20a%20pe%C3%A7a%20${encodeURIComponent(model)}.%20Gostaria%20de%20solicitar%20os%20detalhes%20e%20pre%C3%A7o." target="_blank" class="group bg-[#EBCB8B] hover:bg-white text-black h-12 px-6 rounded-sm flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all w-full">
+                    <a href="https://wa.me/5511947899468?text=O%20sistema%20localizou%20a%20pe%C3%A7a.%20Quero%20o%20pre%C3%A7o%20final." target="_blank" class="group bg-[#EBCB8B] hover:bg-white text-black h-12 px-6 rounded-sm flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all w-full">
                       <i data-lucide="message-circle" class="w-4 h-4"></i>
-                      Solicitar Detalhes & Preço (WhatsApp)
+                      Ver Preço Final
                     </a>
                   </div>
                 </div>
@@ -624,26 +578,25 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
         </div>
       </section>
 
-      <!-- Feature: Trust Testimonials (NEW SECTION) -->
+      <!-- TESTIMONIALS - REWRITTEN -->
       <section class="py-16 reveal-up">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-10">
             <h3 class="text-xl font-medium text-white tracking-tight">
-              A Palavra dos Membros
+              Por Que Clientes Pagam Premium por Acesso
             </h3>
             <p class="text-[11px] text-zinc-600 uppercase tracking-widest font-mono mt-2 flex items-center justify-center gap-2">
               <i data-lucide="fingerprint" class="w-3 h-3"></i>
-              Verified Transactions Only
+              Transações Verificadas
             </p>
           </div>
           
           <div id="testimonial-carousel" class="relative overflow-hidden h-32">
-            <!-- Testimonials will be dynamically injected here -->
             <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-700" style="opacity: 1;">
               <blockquote class="text-center italic text-zinc-300 max-w-xl">
-                "Conseguiram o Patek que eu buscava há 3 anos em menos de 48 horas. É a única forma de operar no mercado de alta hoje."
+                "Passei 3 anos na lista de espera de uma AD. A NOWAIT me entregou em 48 horas por menos do que eu ia pagar no grey market."
                 <footer class="mt-4 text-sm font-bold text-[#EBCB8B]">
-                  — Cliente S.P. (Ref. 5711)
+                  — M.S., São Paulo (5711/1A)
                 </footer>
               </blockquote>
             </div>
@@ -651,38 +604,39 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
         </div>
       </section>
 
-      <!-- Trust Indicators -->
+      <!-- TRUST INDICATORS - REWRITTEN -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-12 border-y border-white/5 py-16 bg-white/[0.01]">
         <div class="text-center md:text-left px-4">
           <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="shield-check" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Swiss Compliance
+            Compliance Suíço
           </h4>
           <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-            Operamos sob estritos padrões de due-diligence e KYC/AML. Privacidade absoluta garantida.
+            KYC/AML rigoroso. Seus dados nunca são compartilhados. Privacidade absoluta como padrão, não como opção.
           </p>
         </div>
         <div class="text-center md:text-left px-4">
           <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="globe" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Global Payments
+            Pagamento Global
           </h4>
           <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-            Aceitamos Fiat (USD/EUR/GBP/BRL) e Criptoativos (USDC/USDT) com liquidação D+0.
+            Fiat (USD/EUR/BRL) ou cripto (USDC/USDT). Liquidação D+0. Sem fricção, sem burocracia.
           </p>
         </div>
         <div class="text-center md:text-left px-4">
           <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="briefcase" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Full Insurance
+            Seguro Total
           </h4>
           <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-            Cobertura de 110% do valor de mercado durante todo o processo de trânsito e custódia.
+            110% do valor de mercado. Cobertura total durante custódia e transporte. Risco zero para você.
           </p>
         </div>
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer class="bg-[#020202] py-24 relative overflow-hidden border-t border-white/5">
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
         <div class="col-span-1 md:col-span-2">
@@ -695,12 +649,11 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
             </span>
           </a>
           <p class="text-[11px] text-zinc-500 max-w-sm leading-relaxed font-light">
-            Redefinindo a aquisição de alta relojoaria através de tecnologia,
-            velocidade e transparência absoluta. Membro da IWJG e NAWCC.
+            Eliminando a lista de espera através de acesso direto ao inventário global privado. Membro IWJG e NAWCC.
           </p>
           <div class="mt-8 flex gap-6">
             <a href="https://wa.me/5511947899468" target="_blank" class="text-zinc-600 hover:text-white transition-colors">
-              <i data-lucide="whatsapp" class="w-4 h-4"></i>
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
             </a>
             <a href="#" class="text-zinc-600 hover:text-white transition-colors">
               <i data-lucide="instagram" class="w-4 h-4"></i>
@@ -716,9 +669,9 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
             Serviços
           </h4>
           <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
-            <li><a href="#analytics" class="hover:text-[#EBCB8B] transition-colors">Market Data & Spread</a></li>
-            <li><a href="#sourcing" class="hover:text-[#EBCB8B] transition-colors">Sourcing Global On-Demand</a></li>
-            <li><a href="#private" class="hover:text-[#EBCB8B] transition-colors">Private Office (Gestão de Ativos)</a></li>
+            <li><a href="#analytics" class="hover:text-[#EBCB8B] transition-colors">Análise de Spread</a></li>
+            <li><a href="#sourcing" class="hover:text-[#EBCB8B] transition-colors">Sourcing On-Demand</a></li>
+            <li><a href="#private" class="hover:text-[#EBCB8B] transition-colors">Private Office</a></li>
             <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Custódia Segura</a></li>
           </ul>
         </div>
@@ -728,9 +681,9 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
             Legal
           </h4>
           <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
-            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Termos</a></li>
             <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Privacidade</a></li>
-            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Compliance (KYC/AML)</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">KYC/AML</a></li>
           </ul>
         </div>
       </div>
@@ -744,14 +697,10 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
       </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- SCRIPTS -->
     <script>
-      // 1. Initialize Icons
-      lucide.createIcons({
-          attrs: { strokeWidth: 1.5 }
-      });
+      lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
 
-      // 2. Reveal on Scroll
       const observer = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
               if (entry.isIntersecting) {
@@ -764,7 +713,6 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
           observer.observe(el);
       });
 
-      // 3. Live Ticker Logic (Simulated Real-Time) with Location Cycling
       const tickerEl = document.getElementById('live-ticker');
       const locationEl = document.getElementById('current-location');
       const locations = ["GENEVA", "DUBAI", "NEW YORK", "LONDON"];
@@ -780,18 +728,15 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
       ];
 
       function updateTickerAndLocation() {
-          // A. Update Location
           locationEl.classList.remove('location-fade-in');
           setTimeout(() => {
               currentLocationIndex = (currentLocationIndex + 1) % locations.length;
-              locationEl.innerText = `LIVE MARKET: ${locations[currentLocationIndex]}`;
+              locationEl.innerText = `LIVE: ${locations[currentLocationIndex]}`;
               locationEl.classList.add('location-fade-in');
           }, 100);
 
-          // B. Update Ticker Prices
           let html = '';
           watches.forEach(w => {
-              // Add slight random variation
               const variation = (Math.random() * 2).toFixed(2); 
               let color = 'text-zinc-600';
               let icon = '▬';
@@ -811,19 +756,15 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
                   </span>
               `;
           });
-          // Duplicate for infinite scroll loop
           tickerEl.innerHTML = html + html; 
       }
 
       updateTickerAndLocation();
-      // Update ticker slightly every 5 seconds
       setInterval(updateTickerAndLocation, 5000);
 
-
-      // 4. Sourcing Form Logic
       function startSourcing() {
           const model = document.getElementById('input-model').value || 'Ativo Solicitado';
-          const ref = document.getElementById('input-ref').value || 'Referência Exclusiva';
+          const ref = document.getElementById('input-ref').value || 'Ref. Exclusiva';
           const year = document.getElementById('input-year').value || 'Ano Recente';
           const condition = document.getElementById('input-condition').value;
 
@@ -832,20 +773,17 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
           const result = document.getElementById('sourcing-result');
           const loadingText = document.getElementById('loading-text');
           
-          // Hide result if visible
           result.classList.add('hidden');
-
-          // Transition
           form.classList.add('hidden');
           loading.classList.remove('hidden');
           loading.classList.add('flex');
 
           const steps = [
-              "Autenticando Credenciais...",
-              "Acessando Database Genebra...",
-              "Verificando Cofres em Dubai...",
+              "Autenticando...",
+              "Varredura Genebra...",
+              "Verificando Dubai...",
               "Negociando Spread...",
-              "Ativo Localizado."
+              "Localizado."
           ];
 
           let stepIndex = 0;
@@ -862,45 +800,40 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               loading.classList.remove('flex');
               result.classList.remove('hidden');
 
-              // Populate Result
               document.getElementById('result-title').innerText = model;
               document.getElementById('result-specs').innerText = `${ref} • ${year} • ${condition}`;
               
-              // Re-init icons for the new content
               if(window.lucide) window.lucide.createIcons();
               
-              // ** CRITICAL: Update the WhatsApp link in the result state dynamically **
               const whatsappLink = document.querySelector('#sourcing-result a');
               if (whatsappLink) {
                  const modelEncoded = encodeURIComponent(model);
-                 whatsappLink.href = `https://wa.me/5511947899468?text=Ol%C3%A1%2C%20o%20Sourcing%20Engine%20localizou%20a%20pe%C3%A7a%20${modelEncoded}.%20Gostaria%20de%20solicitar%20os%20detalhes%20e%20pre%C3%A7o.`;
+                 whatsappLink.href = `https://wa.me/5511947899468?text=O%20sistema%20localizou%3A%20${modelEncoded}.%20Quero%20o%20pre%C3%A7o%20final.`;
               }
           }, 4500);
       }
       
-      // 5. Price Discovery Logic (UPDATED)
-      
       const watchData = {
           'RM67': {
-              title: "Richard Mille RM 67-02 (Modelo Off-Market)",
+              title: "Richard Mille RM 67-02",
               retailPrice: 1400000,
-              publicPrice: 2800000, // R$ 2.800.000 (40% spread over 2M)
-              privatePrice: 2000000, // R$ 2.000.000
+              publicPrice: 2800000,
+              privatePrice: 2000000,
               liquidity: 'Sourcing Exclusivo'
           },
           'DAYTONA': {
-              title: "Rolex Daytona 126500LN (Panda, 2025)",
+              title: "Rolex Daytona 126500LN (2025)",
               retailPrice: 80000,
-              publicPrice: 240000, // R$ 240.000
-              privatePrice: 190000, // R$ 190.000
-              liquidity: 'Geneva Vault (72h Liquidez)'
+              publicPrice: 240000,
+              privatePrice: 190000,
+              liquidity: 'Geneva Vault (72h)'
           },
           'NAUTILUS': {
-              title: "Patek Philippe Nautilus 5711/1A-010 (Sealed)",
+              title: "Patek Philippe Nautilus 5711/1A",
               retailPrice: 200000,
-              publicPrice: 600000, // R$ 600.000 (to achieve ~18.3% spread)
-              privatePrice: 490000, // R$ 490.000
-              liquidity: 'Dubai/NY Vault (D+7)'
+              publicPrice: 600000,
+              privatePrice: 490000,
+              liquidity: 'Dubai Vault (D+7)'
           }
       };
 
@@ -915,15 +848,11 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
           const selectedKey = document.getElementById('watch-select').value;
           const data = watchData[selectedKey];
           
-          // Hide result if visible
           result.classList.add('hidden');
-          
-          // Transition to loading
           form.style.display = 'none';
           loading.classList.remove('hidden');
           loading.classList.add('flex');
 
-          // Simulate price calculation
           setTimeout(() => {
               loading.classList.add('hidden');
               loading.classList.remove('flex');
@@ -936,7 +865,6 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               const savings = publicPrice - privatePrice;
               const spread = (savings / publicPrice) * 100;
 
-              // Populate fields
               document.getElementById('result-ref-title').innerText = data.title;
               document.getElementById('retail-price').innerText = formatBRL(retailPrice);
               document.getElementById('public-price').innerText = formatBRL(publicPrice);
@@ -944,21 +872,17 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               document.getElementById('estimated-savings').innerText = formatBRL(savings);
               document.getElementById('spread-percentage').innerText = `${spread.toFixed(1)}%`;
               
-              // Update liquidity text based on selection
               document.querySelector('#price-result .space-y-3:nth-child(3) span:last-child').innerText = data.liquidity;
 
-              // Re-init icons for the new content
               if(window.lucide) window.lucide.createIcons();
-          }, 3000); // 3 second simulation
+          }, 3000);
       }
 
-
-      // 6. Testimonial Carousel Logic
       const testimonials = [
-          { quote: "Conseguiram o Patek que eu buscava há 3 anos em menos de 48 horas. É a única forma de operar no mercado de alta hoje.", source: "Cliente S.P. (Ref. 5711)" },
-          { quote: "A transparência no sourcing e o compliance suíço são incomparáveis. Serviço de Private Office de altíssimo nível.", source: "Investidor H.M. (London)" },
-          { quote: "Zero burocracia. O relógio foi entregue pessoalmente em meu escritório em Nova York, exatamente como prometido.", source: "Colecionador J.K. (NY)" },
-          { quote: "Não compro mais de outra forma. A análise de mercado deles é mais precisa que a de qualquer dealer.", source: "Membro C.A. (São Paulo)" }
+          { quote: "Passei 3 anos na lista de espera de uma AD. A NOWAIT me entregou em 48 horas por menos do que eu ia pagar no grey market.", source: "M.S., São Paulo (5711/1A)" },
+          { quote: "O compliance é tão rigoroso quanto um private bank suíço. Confiança total, do início ao fim.", source: "H.M., London (RM 67-02)" },
+          { quote: "Eles não vendem relógio. Vendem acesso. E isso não tem preço.", source: "J.K., New York (15407ST)" },
+          { quote: "A análise de spread deles me salvou de pagar R$ 110 mil a mais. Nunca mais compro sem consultar.", source: "C.A., São Paulo (Daytona)" }
       ];
 
       let currentTestimonialIndex = 0;
@@ -967,7 +891,6 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
       function updateTestimonial() {
           const t = testimonials[currentTestimonialIndex];
           
-          // Create the new element
           const newBlock = document.createElement('div');
           newBlock.classList.add('absolute', 'inset-0', 'flex', 'items-center', 'justify-center', 'transition-opacity', 'duration-700', 'opacity-0');
           newBlock.innerHTML = `
@@ -979,14 +902,10 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
               </blockquote>
           `;
 
-          // Add it to the carousel
           carouselEl.appendChild(newBlock);
           
-          // Wait briefly, then fade in the new one and remove the old one
           setTimeout(() => {
-              // Fade in new
               newBlock.style.opacity = '1';
-              // Remove old
               const oldBlock = carouselEl.children[0];
               if (oldBlock && carouselEl.children.length > 1) {
                   oldBlock.style.opacity = '0';
@@ -997,16 +916,12 @@ Colecionadores experientes não compram de quem tem, mas onde é mais eficiente.
           currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
       }
 
-      // Initial load
       setTimeout(() => {
-          // Remove the loading testimonial and start rotation
           carouselEl.innerHTML = '';
           updateTestimonial();
-          // Also run the price discovery simulation initially to show the default Daytona example
           simulatePriceDiscovery(); 
       }, 100);
       
-      // Rotate every 7 seconds
       setInterval(updateTestimonial, 7000);
     </script>
 </body>
