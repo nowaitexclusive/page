@@ -1,7 +1,8 @@
-<html lang="pt-BR" class="scroll-smooth antialiased"><head>
+<html lang="pt-BR" class="scroll-smooth antialiased">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOWAIT | Premier Horology Access</title>
+    <title>NOWAIT | Private Horology Network</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,403 +11,454 @@
 
     <style>
       :root {
-          --bg-dark: #030304;
+          --bg-dark: #050505;
           --gold-accent: #EBCB8B;
-          --grid-line: rgba(255, 255, 255, 0.02);
+          --gold-dim: #ae9259;
+          --grid-line: rgba(255, 255, 255, 0.03);
       }
 
       body {
           font-family: 'Inter', sans-serif;
           background-color: var(--bg-dark);
-          color: #ffffff;
+          color: #e4e4e7; /* Zinc-200 for better readability than pure white */
           overflow-x: hidden;
       }
 
       .font-mono { font-family: 'JetBrains Mono', monospace; }
       .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
 
-      /* Custom Grids & Backgrounds - Subtler */
+      /* --- Visual Effects --- */
       .grid-bg {
-          background-size: 60px 60px; /* Bigger grid for cleaner look */
+          background-size: 80px 80px;
           background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
                             linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-          mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
-          -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
-      }
-
-      /* Glass & Borders */
-      .glass-card {
-          background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
-          border: 1px solid rgba(255,255,255,0.06);
-          backdrop-filter: blur(12px);
+          mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+          -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
       }
 
       .glass-card-dark {
-          background: #050505;
-          border: 1px solid rgba(255,255,255,0.06);
-          box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);
+          background: rgba(10, 10, 10, 0.6);
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: 0 25px 50px -12px rgba(0,0,0,0.9);
+          backdrop-filter: blur(20px);
       }
 
-      /* Ticker Animation - Smooth */
-      .ticker-track { animation: scroll 80s linear infinite; } /* Slower for elegance */
+      /* Ticker Logic */
+      .ticker-track { animation: scroll 120s linear infinite; }
       @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-      /* Horology Mechanism Animation - Elegant & Slow */
-      .mech-ring { transform-origin: center; }
-      .spin-cw-slow { animation: spin 120s linear infinite; }
-      .spin-ccw-medium { animation: spin 60s linear infinite reverse; }
-      .spin-cw-fast { animation: spin 30s linear infinite; }
-      .pulse-opacity { animation: pulse 6s ease-in-out infinite; }
-
-      @keyframes spin { 100% { transform: rotate(360deg); } }
-      @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
-
-      /* Reveal Animations */
+      /* Reveal Animation */
       .reveal-up {
           opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
       .reveal-up.active { opacity: 1; transform: translateY(0); }
 
       /* Custom Scrollbar */
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: var(--bg-dark); }
-      ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
-    </style>
-  </head>
-  <body class="selection:bg-[#EBCB8B]/20 selection:text-[#EBCB8B] relative">
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-30"></div>
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none z-0"></div>
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 
-    <!-- Top Bar / Expanded Ticker -->
-    <div class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#030304]/90 backdrop-blur-md">
+      /* Mobile Optimizations (Requested) */
+      @media (max-width: 640px) {
+        section { min-height: auto !important; height: auto !important; }
+        .pt-48 { padding-top: 6rem !important; }
+        .pb-24 { padding-bottom: 4rem !important; }
+        .space-y-48 > :not([hidden]) ~ :not([hidden]) { margin-top: 8rem !important; }
+        h1 { font-size: 2.75rem !important; line-height: 1.1 !important; }
+      }
+
+      /* Floating Button Pulse */
+      .pulse-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 1px solid var(--gold-accent);
+        opacity: 0;
+        animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.9); opacity: 1; }
+        100% { transform: scale(1.5); opacity: 0; }
+      }
+
+      /* Ticker Location Animation */
+      .location-fade-in {
+        animation: fadeIn 0.5s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+</head>
+<body class="selection:bg-[#EBCB8B]/20 selection:text-[#EBCB8B] relative">
+
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-40"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-white/[0.015] blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- Feature: Floating Concierge Button -->
+    <a href="https://wa.me/5511947899468" target="_blank" class="fixed bottom-6 right-6 z-50 group">
+        <div class="relative w-14 h-14 bg-[#0A0A0A] border border-[#EBCB8B]/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:border-[#EBCB8B] transition-colors duration-300">
+            <div class="pulse-ring"></div>
+            <i data-lucide="message-circle" class="w-6 h-6 text-[#EBCB8B]"></i>
+            <span class="absolute right-16 bg-[#0A0A0A] border border-white/10 text-[#EBCB8B] text-[10px] uppercase tracking-widest py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                Concierge Online
+            </span>
+        </div>
+    </a>
+
+    <!-- Top Bar / Live Ticker (Updated) -->
+    <div class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/90 backdrop-blur-md">
       <div class="flex items-center h-10 overflow-hidden relative">
-        <div class="flex items-center gap-3 px-6 border-r border-white/5 h-full bg-[#030304] z-10 shrink-0">
-          <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full"></div>
-          <span class="text-[10px] font-medium uppercase tracking-widest text-zinc-300">
-            Global Market Pulse
+        <div class="flex items-center gap-3 px-6 border-r border-white/5 h-full bg-[#050505] z-10 shrink-0 transition-all duration-500">
+          <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full animate-pulse"></div>
+          <!-- Feature: Location Cycling -->
+          <span id="current-location" class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 location-fade-in">
+            LIVE MARKET: GENEVA
           </span>
         </div>
         <!-- Infinite Scroll Container -->
         <div class="flex items-center whitespace-nowrap overflow-hidden w-full mask-linear-fade">
-          <div class="ticker-track flex items-center gap-12 px-4 text-[10px] font-medium text-zinc-500 tracking-wide">
-            <!-- Set 1 -->
-            <span class="flex gap-2 text-zinc-400">
-              Patek Philippe 5711/1A
-              <span class="text-zinc-600">▲ +2.4%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              AP Royal Oak 15407ST
-              <span class="text-zinc-600">▲ +5.1%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              Rolex Daytona 116500
-              <span class="text-zinc-600">▼ -0.8%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              F.P. Journe Chrono
-              <span class="text-zinc-600">▲ +12.5%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              Richard Mille 35-02
-              <span class="text-zinc-600">▬ 0.0%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              A. Lange Odysseus
-              <span class="text-zinc-600">▲ +1.2%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              Patek Philippe 5740G
-              <span class="text-zinc-600">▲ +3.8%</span>
-            </span>
-            <!-- Set 2 -->
-            <span class="flex gap-2 text-zinc-400">
-              Patek Philippe 5711/1A
-              <span class="text-zinc-600">▲ +2.4%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              AP Royal Oak 15407ST
-              <span class="text-zinc-600">▲ +5.1%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              Rolex Daytona 116500
-              <span class="text-zinc-600">▼ -0.8%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              F.P. Journe Chrono
-              <span class="text-zinc-600">▲ +12.5%</span>
-            </span>
-            <span class="flex gap-2 text-zinc-400">
-              Richard Mille 35-02
-              <span class="text-zinc-600">▬ 0.0%</span>
-            </span>
+          <div id="live-ticker" class="ticker-track flex items-center gap-16 px-4 text-[10px] font-medium text-zinc-500 tracking-wide font-mono">
+             <!-- JS will populate/animate this -->
+             <span class="flex gap-2">CARREGANDO DADOS DE MERCADO...</span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-10 w-full z-40 transition-all duration-300 bg-gradient-to-b from-[#030304] via-[#030304]/80 to-transparent">
+    <nav class="fixed top-10 w-full z-40 transition-all duration-300 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-transparent">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#" class="flex items-center gap-3 group">
           <div class="relative w-5 h-5 flex items-center justify-center">
             <div class="absolute w-full h-full border border-white/10 rounded-full group-hover:scale-110 transition-transform duration-700 ease-out"></div>
-            <div class="w-px h-2 bg-white/80"></div>
-            <div class="h-px w-2 bg-white/80 absolute"></div>
+            <div class="w-px h-2 bg-[#EBCB8B]"></div>
+            <div class="h-px w-2 bg-[#EBCB8B] absolute"></div>
           </div>
-          <span class="text-sm font-semibold tracking-[0.2em] text-white">
+          <span class="text-sm font-semibold tracking-[0.25em] text-white">
             NOWAIT
           </span>
         </a>
 
-        <div class="hidden md:flex items-center bg-white/[0.03] border border-white/[0.05] rounded-full px-1 p-1 backdrop-blur-md">
-          <a href="#model" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+        <div class="hidden md:flex items-center bg-[#111] border border-white/5 rounded-full px-1 p-1 backdrop-blur-md shadow-xl">
+          <a href="#model" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
             O Método
           </a>
-          <a href="#vault" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+          <a href="#vault" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
             Acervo
           </a>
-          <a href="#private" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+          <a href="#analytics" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
+            Análise de Spread
+          </a>
+          <a href="#private" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
             Private Office
           </a>
         </div>
 
-        <button class="text-[11px] font-semibold text-white flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded hover:bg-[#EBCB8B] hover:text-[#030304] hover:border-[#EBCB8B] transition-all duration-500 tracking-wide">
-          <span>Client Portal</span>
+        <button class="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded hover:bg-[#EBCB8B] hover:text-[#030304] hover:border-[#EBCB8B] transition-all duration-500">
+          <span>Login Membros</span>
         </button>
       </div>
     </nav>
 
     <main class="relative z-10 max-w-7xl mx-auto px-6 pt-48 pb-24 space-y-48">
       <!-- Hero Section -->
-      <section class="min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div class="order-2 lg:order-1 relative">
-          <div class="inline-flex items-center gap-2 border border-white/10 rounded-full px-4 py-1.5 mb-8 bg-white/[0.02] backdrop-blur-sm reveal-up">
+      <section class="min-h-[65vh] grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div class="lg:col-span-7 relative">
+          <div class="inline-flex items-center gap-2 border border-[#EBCB8B]/20 rounded-full px-4 py-1.5 mb-8 bg-[#EBCB8B]/5 backdrop-blur-sm reveal-up">
             <span class="relative flex h-1.5 w-1.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EBCB8B] opacity-50"></span>
               <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EBCB8B]"></span>
             </span>
-            <span class="text-[10px] uppercase tracking-widest text-zinc-400 font-medium">
-              Exclusividade sem filas
+            <span class="text-[9px] uppercase tracking-widest text-[#EBCB8B] font-bold">
+              Membership Open for Q4 2024
             </span>
           </div>
 
-          <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-8 leading-[1.05] reveal-up" style="transition-delay: 100ms;">
-            Acesso Irrestrito
+          <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-8 leading-[1] reveal-up" style="transition-delay: 100ms;">
+            O fim das
             <br>
-            <span class="text-zinc-600 font-serif-italic">
-              ao mercado global.
+            listas de espera.
+            <br>
+            <span class="text-zinc-600 font-serif-italic text-4xl sm:text-6xl">
+              O tempo é o único luxo real.
             </span>
           </h1>
 
-          <p class="text-[15px] text-zinc-400 leading-relaxed max-w-lg mb-10 reveal-up font-light tracking-wide" style="transition-delay: 200ms;">
-            Esqueça listas de espera e barreiras geográficas. Nossa rede conecta
-            você diretamente a 100% dos ativos de alta relojoaria existentes no
-            mundo.
-            <br>
-            <br>
-            Seja uma referência catalogada ou um 'Piece Unique' off-market,
-            garantimos o acesso, a autenticidade e a entrega em tempo recorde.
+          <p class="text-[15px] text-zinc-400 leading-relaxed max-w-lg mb-12 reveal-up font-light tracking-wide" style="transition-delay: 200ms;">
+            Nossa rede proprietária conecta você diretamente aos inventários ocultos ("Off-Market") de Genebra, Nova York e Dubai. 
+            <br><br>
+            Sem histórico de compra exigido. Sem jogos de relacionamento. Apenas acesso direto ao ativo.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-5 reveal-up" style="transition-delay: 300ms;">
-            <a href="https://wa.me/5511947899468?text=Olá,%20gostaria%20de%20adquirir%20um%20item." target="_blank" rel="noopener noreferrer">
-  <button class="bg-[#EBCB8B] text-[#030304] h-12 px-8 rounded flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest hover:bg-[#d6b97e] transition-colors shadow-[0_0_20px_rgba(235,203,139,0.15)]">
-    Solicitar acesso a comunidade
-  </button>
-</a>
+            <a href="https://wa.me/5511947899468?text=Olá,%20gostaria%20de%20aplicar%20para%20o%20Membership." target="_blank" rel="noopener noreferrer">
+              <button class="w-full sm:w-auto bg-[#EBCB8B] text-[#050505] h-12 px-8 rounded flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-colors shadow-[0_0_25px_rgba(235,203,139,0.1)]">
+                Aplicar para Membership
+              </button>
+            </a>
 
-            <a href="#sourcing"
-   class="group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-white hover:border-white/30 transition-all">
-
-  Buscar por uma peça
-  <i data-lucide="arrow-down" class="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors"></i>
-</a>
-
+            <a href="#sourcing" class="w-full sm:w-auto group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white hover:border-white/30 transition-all bg-white/[0.02]">
+              Sourcing Engine
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors group-hover:translate-x-1 duration-300"></i>
+            </a>
           </div>
-        </div>
-
-        <!-- The Abstract Horology Graphic (Fixed: Elegant, not Hacker) -->
         </div>
       </section>
 
-      <!-- Business Model Breakdown (Refined Copy) -->
-      <section id="model" class="border-t border-white/5 pt-24">
+      <!-- Business Model Breakdown -->
+      <section id="model" class="border-t border-white/5 pt-24 reveal-up">
         <div class="mb-20">
           <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-            Protocolo de Aquisição
+            Protocolo Fiduciário
           </h2>
           <p class="text-zinc-500 text-sm max-w-2xl leading-relaxed">
-            Operamos com transparência total para garantir a qualidade e a
-            exclusividade do seu ativo. Cada etapa é desenhada para certificar
-            que você está adquirindo uma peça perfeita.
+            Não somos revendedores. Somos seus agentes no mercado global. Operamos com transparência radical de custos e autenticação forense.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-lg overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-gradient-to-r from-white/5 to-white/0 border border-white/5 rounded-lg overflow-hidden">
           <!-- Step 1 -->
-          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
-              ETAPA 01
-            </span>
-            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
-              Mandato de Compra
-            </h3>
-            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-              Você define a referência exata (ex: 5711/1A-014). Não aceitamos
-              "listas de interesse". Trabalhamos apenas com ordens firmes de
-              aquisição.
+          <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 01</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Mandato de Aquisição</h3>
+            <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+              Você define o alvo (Ref, Ano, Condição). Estabelecemos um mandato firme. Não trabalhamos com especulação.
             </p>
           </div>
 
           <!-- Step 2 -->
-          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
-              ETAPA 02
-            </span>
-            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
-              Localização Global
-            </h3>
-            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-              Nossa inteligência de mercado varre inventários privados em
-              Londres, MIA, Dubai e NY para identificar disponibilidade imediata
-              e preço justo.
+          <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 02</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Varredura Global</h3>
+            <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+              Nossos algoritmos e agentes varrem 420+ cofres parceiros em busca do ativo com o menor spread do mercado.
             </p>
           </div>
 
           <!-- Step 3 -->
-          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
-              ETAPA 03
-            </span>
-            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
-              Autenticação
-            </h3>
-            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-              Rigidez absoluta. O ativo passa por tripla verificação: Mestre
-              Relojoeiro (Mecânica), Análise Microscópica
-              (Polimento/Originalidade) e Database Global (Proveniência/Roubo).
+          <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 03</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Autenticação Forense</h3>
+            <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+              O relógio viaja para nosso laboratório em Genebra para inspeção microscópica e verificação de proveniência (Art Loss Register).
             </p>
           </div>
 
           <!-- Step 4 -->
-          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
-            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
-              ETAPA 04
-            </span>
-            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
-              Logística Blindada
-            </h3>
-            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-              Transporte segurado até seu endereço, ou
-              retirada em cofre privado.
+          <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 04</span>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Hand-Delivery</h3>
+            <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+              Entrega blindada via transportadora de valores ou retirada pessoal em nosso escritório privado em São Paulo.
             </p>
           </div>
+        </div>
+      </section>
+
+      <!-- Feature: Price Discovery Protocol (UPDATED) -->
+      <section id="analytics" class="py-24 relative border-t border-white/5 reveal-up">
+        <div class="mb-16 text-center">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
+                PRICE DISCOVERY PROTOCOL
+            </span>
+            <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
+                Análise de Spread Exclusiva
+            </h2>
+            <p class="text-zinc-500 text-sm max-w-2xl mx-auto leading-relaxed">
+                Veja a diferença entre o preço de mercado público brasileiro e o valor de aquisição via nossa rede privada.
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto glass-card-dark p-6 md:p-10 rounded-2xl relative border border-white/10 shadow-2xl">
+            
+            <!-- Input Form (Updated with Select) -->
+            <div id="price-form">
+                <label for="watch-ref" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1 block mb-2">
+                    Selecione a Referência para Análise (Simulação em BRL)
+                </label>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="relative flex-1">
+                        <select id="watch-select" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors appearance-none font-light cursor-pointer">
+                          <option value="DAYTONA" selected>Rolex Daytona 126500LN (2025) - [20.8% Spread]</option>
+                          <option value="RM67">Richard Mille RM 67-02 (Modelo Off-Market) - [28.6% Spread]</option>
+                          <option value="NAUTILUS">Patek Philippe Nautilus 5711/1A-010 - [18.3% Spread]</option>
+                        </select>
+                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600 pointer-events-none"></i>
+                    </div>
+
+                    <button onclick="simulatePriceDiscovery()" class="bg-[#EBCB8B] text-[#030304] h-12 px-8 rounded-sm flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-all shrink-0">
+                        <i data-lucide="scan-line" class="w-4 h-4"></i>
+                        Analisar Spread
+                    </button>
+                </div>
+                <p class="text-[10px] text-zinc-700 mt-3 text-center md:text-left">
+                    Valores simulados baseados em cotações médias no mercado brasileiro.
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="price-loading" class="hidden py-10 flex-col items-center justify-center text-center space-y-6">
+                <i data-lucide="loader-circle" class="w-8 h-8 text-[#EBCB8B] animate-spin"></i>
+                <p class="text-xs font-bold text-white tracking-widest uppercase">
+                    Analisando 22 Fontes de Mercado...
+                </p>
+                <p class="text-[10px] text-zinc-500 font-mono">
+                    Running Anti-Manipulation Filters
+                </p>
+            </div>
+
+            <!-- Result State -->
+            <div id="price-result" class="hidden pt-6">
+                <h3 id="result-ref-title" class="text-xl text-white font-medium tracking-tight mb-6 border-b border-white/5 pb-3">
+                    Rolex Daytona 126500LN (2025)
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <!-- Col 1: Retail -->
+                    <div class="space-y-3">
+                        <span class="text-[9px] text-zinc-600 uppercase tracking-widest font-bold block">
+                            Preço Oficial (Retail)
+                        </span>
+                        <p id="retail-price" class="text-2xl font-mono text-zinc-400 font-bold">
+                            R$ 80.000
+                        </p>
+                        <span class="text-[10px] text-zinc-700">
+                            (Não disponível para novos clientes)
+                        </span>
+                    </div>
+
+                    <!-- Col 2: Market Price -->
+                    <div class="space-y-3 relative">
+                        <span class="text-[9px] text-zinc-600 uppercase tracking-widest font-bold block">
+                            Preço de Mercado Público
+                        </span>
+                        <p id="public-price" class="text-3xl font-mono text-red-400 font-bold">
+                            R$ 240.000
+                        </p>
+                        <span class="text-[10px] text-zinc-700">
+                            (Brasil, 168h Liquidez)
+                        </span>
+                    </div>
+
+                    <!-- Col 3: NOWAIT Price -->
+                    <div class="space-y-3 relative p-4 bg-[#EBCB8B]/10 rounded-lg border border-[#EBCB8B]/30">
+                        <span class="text-[9px] text-[#EBCB8B] uppercase tracking-widest font-bold block">
+                            NOWAIT Private Price
+                        </span>
+                        <p id="private-price" class="text-3xl font-mono text-white font-bold">
+                            R$ 190.000
+                        </p>
+                        <span class="text-[10px] text-zinc-400 font-medium">
+                            Aquisição Off-Market (D+7)
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <p class="text-sm font-medium text-white tracking-tight mb-2">
+                        Economia Estimada: <span id="estimated-savings" class="text-green-400 font-bold font-mono">R$ 50.000</span>
+                    </p>
+                    <p class="text-xs text-zinc-500">
+                        Diferença de preço (Spread) entre Mercado Público e Rede Privada NOWAIT: <span id="spread-percentage" class="text-green-400 font-bold">20.8%</span>
+                    </p>
+                </div>
+            </div>
         </div>
       </section>
 
       <!-- Private Office Section -->
       <section id="private" class="reveal-up">
-        <!-- Container mimicking the dark card style -->
-        <div class="relative w-full rounded-3xl border border-white/5 bg-[#050505] overflow-hidden p-8 md:p-20 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center shadow-2xl">
+        <div class="relative w-full rounded-3xl border border-white/5 bg-[#080808] overflow-hidden p-8 md:p-20 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center shadow-2xl">
           <!-- Glow Effect -->
           <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#EBCB8B]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
           <!-- Content Left -->
           <div class="flex-1 space-y-10 relative z-10">
-            <div class="w-12 h-12 mb-2 flex items-center justify-center rounded-full bg-[#EBCB8B]/10 text-[#EBCB8B] border border-[#EBCB8B]/20">
-              <i data-lucide="crown" class="w-5 h-5"></i>
+            <div class="w-12 h-12 mb-2 flex items-center justify-center rounded-full bg-[#EBCB8B]/5 text-[#EBCB8B] border border-[#EBCB8B]/20">
+              <i data-lucide="gem" class="w-5 h-5"></i>
             </div>
 
             <div class="space-y-2">
               <h2 class="text-4xl text-white font-medium tracking-tight">
                 NOWAIT
               </h2>
-              <h2 class="text-4xl text-zinc-500 font-serif-italic tracking-wide">
+              <h2 class="text-4xl text-zinc-600 font-serif-italic tracking-wide">
                 Private Office
               </h2>
             </div>
 
             <p class="text-zinc-400 text-sm leading-relaxed max-w-md font-light">
-              Um serviço desenhado para colecionadores que tratam relógios como
-              classe de ativos. Oferecemos gestão de portfólio, *sourcing* de
-              peças *off-catalog* e consultoria de investimento.
+              Para o colecionador que vê a relojoaria como classe de ativos alternativa. 
+              Oferecemos gestão de portfólio (entrada e saída), *sourcing* de peças *Application Only* e estratégias de preservação de capital.
             </p>
 
             <ul class="space-y-5 pt-6 border-t border-white/5">
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Liquidez Garantida (Buy-back em 48h)
+                Liquidez Garantida (Buy-back Policy)
               </li>
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Acesso prioritário a peças "Application Only"
+                Acesso a alocações primárias (Sob análise)
               </li>
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Consultoria Jurídica e Aduaneira
+                Estruturação Fiscal & Aduaneira
               </li>
             </ul>
 
             <div class="pt-8">
-             <a href="https://wa.me/5511947899468?text=Olá,%20gostaria%20de%20fazer%20parte%20do%20Club."
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="text-white text-[11px] font-bold uppercase tracking-[0.25em] border-b border-white/30 pb-2 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
-
-  Aplicar para Membership
-</a>
-
+             <a href="https://wa.me/5511947899468" target="_blank" rel="noopener noreferrer"
+               class="text-white text-[10px] font-bold uppercase tracking-[0.25em] border-b border-white/30 pb-2 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
+                Agendar Entrevista
+              </a>
             </div>
           </div>
 
-          <!-- Content Right (Chat Interface - Elegant version) -->
+          <!-- Content Right (Chat Interface) -->
           <div class="w-full lg:w-[460px] relative z-10">
-            <div class="glass-card-dark rounded-xl p-8 min-h-[420px] flex flex-col justify-between relative border border-white/10">
+            <div class="glass-card-dark rounded-xl p-8 min-h-[420px] flex flex-col justify-between relative border border-white/5">
               <!-- Status Header -->
               <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
-                <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
-                  Concierge 24/7
+                <span class="text-[9px] font-bold tracking-widest text-zinc-500 uppercase">
+                  Concierge Dedicado
                 </span>
                 <div class="flex items-center gap-2">
-                  <span class="text-[10px] text-zinc-600 font-medium">
-                    Geneva HQ
-                  </span>
-                  <div class="w-1.5 h-1.5 bg-green-900 rounded-full border border-green-500/50"></div>
+                  <span class="text-[9px] text-zinc-500 font-mono">STATUS: ONLINE</span>
+                  <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full shadow-[0_0_10px_#EBCB8B]"></div>
                 </div>
               </div>
 
-              <!-- Chat Bubbles - Cleaner, Sans-Serif -->
+              <!-- Chat Bubbles -->
               <div class="space-y-6">
-                <!-- Incoming -->
                 <div class="flex justify-start">
-                  <div class="bg-[#111] border border-white/10 rounded-2xl rounded-bl-none p-5 max-w-[90%] shadow-lg">
+                  <div class="bg-[#1a1a1a] border border-white/5 rounded-2xl rounded-bl-none p-5 max-w-[90%] shadow-lg">
                     <p class="text-xs text-zinc-300 leading-relaxed font-normal font-sans">
-                      "Bom dia. Estou buscando um 5740G para um evento em SP na
-                      sexta-feira. Conseguimos viabilizar?"
+                      "Preciso de um 5740G para sexta-feira em SP. É possível?"
                     </p>
                   </div>
                 </div>
 
-                <!-- Outgoing -->
                 <div class="flex justify-end">
                   <div class="bg-[#EBCB8B]/10 border border-[#EBCB8B]/20 rounded-2xl rounded-br-none p-5 max-w-[90%] relative overflow-hidden">
                     <p class="text-xs text-[#EBCB8B] leading-relaxed font-normal relative z-10 font-sans">
-                      "Olá. Localizamos uma unidade 2023 sem uso em Miami.
-                        A logística já está sendo alinhada para
-                      entrega na quinta-feira pela manhã."
+                      "Localizamos uma unidade 2023 'Sealed' em Miami. O jato sai hoje à noite. Estará em suas mãos quinta pela manhã."
                     </p>
                   </div>
                 </div>
               </div>
 
               <!-- Footer Chat -->
-              <div class="mt-10 text-center flex justify-center items-center gap-2 opacity-50">
-                <i data-lucide="lock" class="w-3 h-3 text-zinc-600"></i>
-                <span class="text-[9px] font-medium tracking-wider text-zinc-600 uppercase">
-                  End-to-End Encrypted
+              <div class="mt-10 text-center flex justify-center items-center gap-2 opacity-40">
+                <i data-lucide="lock" class="w-3 h-3 text-zinc-500"></i>
+                <span class="text-[8px] font-bold tracking-wider text-zinc-500 uppercase">
+                  End-to-End Encrypted Signal
                 </span>
               </div>
             </div>
@@ -415,124 +467,107 @@
       </section>
 
       <!-- Inventory / Vault -->
-      <section id="vault">
-        <div class="flex justify-between items-end mb-16 px-2">
+      <section id="vault" class="reveal-up">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-2 gap-6">
           <div>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-3">
-              Acervo &amp; Exclusividade
+              Cofre Global
             </h2>
-            <p class="text-zinc-500 text-sm font-light">
-              Oportunidades verificadas com custódia imediata.
+            <p class="text-zinc-500 text-sm font-light max-w-md">
+              Seleção curada de ativos com custódia física confirmada e pronta entrega.
             </p>
           </div>
-          <a href="#" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#EBCB8B] transition-colors border border-white/10 px-4 py-2 rounded-full hover:border-[#EBCB8B]/50 hover:bg-[#EBCB8B]/5">
-            Ver Inventário Completo (142)
-            <i data-lucide="arrow-right" class="w-3 h-3"></i>
-          </a>
+          
+          <!-- Feature: Vault Filters (Visual Only) -->
+          <div class="flex gap-2">
+             <button class="text-[10px] font-bold uppercase tracking-widest text-white border border-[#EBCB8B] bg-[#EBCB8B]/10 px-4 py-2 rounded-full">Todos</button>
+             <button class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 border border-white/10 hover:border-white/30 px-4 py-2 rounded-full transition-all">Patek</button>
+             <button class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 border border-white/10 hover:border-white/30 px-4 py-2 rounded-full transition-all">AP</button>
+             <button class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 border border-white/10 hover:border-white/30 px-4 py-2 rounded-full transition-all">Rolex</button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           <!-- Card 1 -->
-          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer">
-            <div class="absolute top-5 left-5 z-20 flex gap-2">
-              <span class="bg-white/90 backdrop-blur text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">
+          <div class="group relative bg-[#080808] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer">
+            <div class="absolute top-4 left-4 z-20 flex gap-2">
+              <span class="bg-white/95 backdrop-blur text-black text-[9px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm">
                 Geneva Vault
               </span>
             </div>
-            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+            <img src="https://images.unsplash.com/photo-1639037748443-424a138c2306?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-70 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/080808/888?text=Audemars+Piguet+RO'">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
 
             <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="text-white font-medium text-lg tracking-tight">
-                    Royal Oak Jumbo
-                  </h3>
-                  <p class="text-xs text-zinc-400 font-sans mt-1">
-                    Ref. 15202ST • 2021
-                  </p>
-                </div>
-              </div>
-              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
-              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
-                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
-                  Unworn / Full Set
-                </span>
-                <span class="text-[11px] text-[#EBCB8B] font-mono">
-                  US$ 145,000
-                </span>
+              <h3 class="text-white font-medium text-lg tracking-tight">Royal Oak Jumbo</h3>
+              <p class="text-xs text-zinc-400 font-mono mt-1 mb-4">Ref. 15202ST • 2021 • Unworn</p>
+              
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 mb-4"></div>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Disponível</span>
+                <span class="text-[12px] text-[#EBCB8B] font-mono font-bold">US$ 145,000</span>
               </div>
             </div>
           </div>
 
           <!-- Card 2 -->
-          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 100ms;">
-            <div class="absolute top-5 left-5 z-20 flex gap-2">
-              <span class="bg-[#EBCB8B] text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">
-                New Arrival
+          <div class="group relative bg-[#080808] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 100ms;">
+            <div class="absolute top-4 left-4 z-20 flex gap-2">
+              <span class="bg-[#EBCB8B] text-black text-[9px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm">
+                Rare Find
               </span>
             </div>
-            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+            <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-70 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/080808/888?text=Patek+Nautilus+Green'">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
 
             <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="text-white font-medium text-lg tracking-tight">
-                    Nautilus 5711/1A-014
-                  </h3>
-                  <p class="text-xs text-zinc-400 font-sans mt-1">
-                    Green Dial • 2022 • Rare
-                  </p>
-                </div>
-              </div>
-              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
-              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
-                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
-                  Factory Sealed
-                </span>
-                <span class="text-[11px] text-[#EBCB8B] font-mono">
-                  Sob Consulta
-                </span>
+              <h3 class="text-white font-medium text-lg tracking-tight">Nautilus Green Dial</h3>
+              <p class="text-xs text-zinc-400 font-mono mt-1 mb-4">Ref. 5711/1A-014 • 2022 • Sealed</p>
+              
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 mb-4"></div>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Disponível</span>
+                <span class="text-[12px] text-[#EBCB8B] font-mono font-bold">Price on Request</span>
               </div>
             </div>
           </div>
 
           <!-- Card 3 -->
-          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 200ms;">
-            <div class="absolute top-5 left-5 z-20 flex gap-2">
-              <span class="bg-zinc-800 backdrop-blur text-zinc-300 text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm border border-white/10">
+          <div class="group relative bg-[#080808] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 200ms;">
+            <div class="absolute top-4 left-4 z-20 flex gap-2">
+              <span class="bg-[#111] backdrop-blur text-zinc-300 text-[9px] font-bold px-3 py-1 uppercase tracking-widest rounded-sm border border-white/10">
                 Dubai Vault
               </span>
             </div>
-            <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&amp;w=800&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-70 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/080808/888?text=Rolex+Daytona+Panda'">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
 
             <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="text-white font-medium text-lg tracking-tight">
-                    Cosmograph Daytona
-                  </h3>
-                  <p class="text-xs text-zinc-400 font-sans mt-1">
-                    Ref. 116500LN • Panda
-                  </p>
-                </div>
-              </div>
-              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
-              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
-                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
-                  Mint Condition
-                </span>
-                <span class="text-[11px] text-[#EBCB8B] font-mono">
-                  US$ 32,500
-                </span>
+              <h3 class="text-white font-medium text-lg tracking-tight">Daytona Panda</h3>
+              <p class="text-xs text-zinc-400 font-mono mt-1 mb-4">Ref. 116500LN • 2019 • Full Set</p>
+              
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 mb-4"></div>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Vendido (Waitlist)</span>
+                <span class="text-[12px] text-zinc-500 font-mono font-bold line-through">US$ 32,500</span>
               </div>
             </div>
           </div>
         </div>
+        
+        <div class="mt-8 text-center">
+             <a href="#" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
+                Ver Inventário Completo (142 Ativos)
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+             </a>
+        </div>
       </section>
-      <section id="sourcing" class="py-24 relative border-t border-white/5">
+      
+      <!-- Sourcing Section -->
+      <section id="sourcing" class="py-24 relative border-t border-white/5 reveal-up">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#EBCB8B]/5 blur-[100px] rounded-full pointer-events-none z-0"></div>
         <div class="max-w-4xl mx-auto px-6 relative z-10">
           <div class="text-center mb-12">
@@ -540,56 +575,53 @@
               ON DEMAND
             </span>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-              Busca Global Específica
+              Sourcing Engine
             </h2>
             <p class="text-zinc-500 text-sm max-w-xl mx-auto leading-relaxed">
-              Não encontrou o que procura no acervo? Utilize nossa ferramenta de
-              sourcing.
-              <br>
-              Localizamos qualquer referência específica em nossa rede privada
-              em até 48h.
+              Não encontrou no cofre? Ative nossa rede global. Localizamos referências específicas em até 48h.
             </p>
           </div>
 
-          <div class="glass-card-dark p-8 md:p-12 rounded-2xl relative overflow-hidden border border-white/10">
+          <div class="glass-card-dark p-8 md:p-12 rounded-2xl relative overflow-hidden border border-white/10 shadow-2xl">
             <!-- Form State -->
             <div id="sourcing-form" class="space-y-8">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                  <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
                     Modelo
                   </label>
-                  <input type="text" id="input-model" placeholder="Ex: Patek Philippe Nautilus" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                  <input type="text" id="input-model" placeholder="Ex: Patek Philippe Nautilus" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Referência
+                  <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Referência (Opcional)
                   </label>
-                  <input type="text" id="input-ref" placeholder="Ex: 5711/1A-010" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                  <input type="text" id="input-ref" placeholder="Ex: 5711/1A-010" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Ano Desejado
+                  <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Ano Preferencial
                   </label>
-                  <input type="text" id="input-year" placeholder="Ex: 2022" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                  <input type="text" id="input-year" placeholder="Ex: 2022" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors placeholder:text-zinc-700 font-light">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
-                    Condição
+                  <label class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Condição Aceitável
                   </label>
-                  <select id="input-condition" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors appearance-none">
-                    <option value="Unworn (Sem Uso)">Unworn (Sem Uso)</option>
-                    <option value="Mint Condition">
-                      Mint Condition (Estado de Zero)
-                    </option>
-                    <option value="Vintage Good">Vintage (Colecionador)</option>
-                  </select>
+                  <div class="relative">
+                      <select id="input-condition" class="w-full bg-[#0F0F0F] border border-white/5 rounded-none px-4 py-4 text-sm text-white focus:border-[#EBCB8B] focus:outline-none transition-colors appearance-none font-light cursor-pointer">
+                        <option value="Unworn">Unworn (Sem Uso)</option>
+                        <option value="Mint">Mint Condition (Estado de Zero)</option>
+                        <option value="Vintage">Vintage (Colecionador)</option>
+                      </select>
+                      <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600 pointer-events-none"></i>
+                  </div>
                 </div>
               </div>
               <div class="pt-2 flex justify-center">
-                <button onclick="startSourcing()" class="bg-[#EBCB8B] text-[#030304] h-14 px-12 rounded flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest hover:bg-[#d6b97e] transition-all shadow-[0_0_20px_rgba(235,203,139,0.15)] w-full md:w-auto transform hover:scale-[1.02]">
+                <button onclick="startSourcing()" class="bg-[#EBCB8B] text-[#030304] h-14 px-12 rounded-sm flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-all shadow-[0_0_30px_rgba(235,203,139,0.1)] w-full md:w-auto transform hover:translate-y-[-2px]">
                   <i data-lucide="radar" class="w-4 h-4"></i>
-                  Iniciar Varredura Global
+                  Iniciar Varredura
                 </button>
               </div>
             </div>
@@ -597,44 +629,45 @@
             <!-- Loading State -->
             <div id="sourcing-loading" class="hidden py-16 flex-col items-center justify-center text-center space-y-8">
               <div class="relative w-20 h-20">
-                <div class="absolute inset-0 border-t-2 border-[#EBCB8B] rounded-full animate-spin"></div>
-                <div class="absolute inset-3 border-t-2 border-white/20 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 2s;"></div>
+                <div class="absolute inset-0 border-t border-[#EBCB8B] rounded-full animate-spin"></div>
+                <div class="absolute inset-3 border-t border-white/20 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 2s;"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                  <i data-lucide="globe" class="w-6 h-6 text-[#EBCB8B]/50 animate-pulse"></i>
+                  <span class="text-[10px] font-mono text-[#EBCB8B] animate-pulse">Scanning</span>
                 </div>
               </div>
               <div class="space-y-2">
-                <p id="loading-text" class="text-sm font-medium text-white tracking-[0.2em] uppercase">
+                <p id="loading-text" class="text-xs font-bold text-white tracking-[0.2em] uppercase">
                   Conectando Rede Privada...
                 </p>
                 <p class="text-[10px] text-zinc-500 font-mono">
-                  Scanning Secure Vaults: Geneva, HK, NYC
+                  Secure Channels: GVA • LHR • DXB • JFK
                 </p>
               </div>
             </div>
 
             <!-- Result State -->
             <div id="sourcing-result" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div class="flex flex-col md:flex-row gap-8 items-center border border-[#EBCB8B]/20 bg-[#EBCB8B]/5 rounded-xl p-6 relative">
+              <div class="flex flex-col md:flex-row gap-8 items-center border border-[#EBCB8B]/20 bg-[#EBCB8B]/5 p-8 relative backdrop-blur-sm">
+                
+                <!-- Status Badge -->
                 <div class="absolute top-0 right-0 p-4">
-                  <div class="flex items-center gap-2 bg-[#EBCB8B]/10 px-3 py-1 rounded-full border border-[#EBCB8B]/20">
+                  <div class="flex items-center gap-2 bg-[#EBCB8B]/10 px-3 py-1 border border-[#EBCB8B]/20">
                     <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full animate-pulse"></div>
                     <span class="text-[9px] font-bold text-[#EBCB8B] uppercase tracking-widest">
-                      Localizado
+                      Match Confirmado
                     </span>
                   </div>
                 </div>
 
-                <div class="w-full md:w-1/3 aspect-square bg-black/40 rounded-lg flex items-center justify-center border border-white/5 relative overflow-hidden group">
-                  <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat transition-[background-position_0s_ease] hover:bg-[position:200%_0,0_0] duration-[1500ms]"></div>
-                  <i data-lucide="check-circle-2" class="w-16 h-16 text-[#EBCB8B] relative z-10 drop-shadow-[0_0_15px_rgba(235,203,139,0.3)]"></i>
+                <div class="w-full md:w-1/3 aspect-square bg-[#050505] flex items-center justify-center border border-white/5 relative overflow-hidden group shadow-inner">
+                  <i data-lucide="check-circle-2" class="w-12 h-12 text-[#EBCB8B] relative z-10 drop-shadow-[0_0_15px_rgba(235,203,139,0.3)]"></i>
                 </div>
 
                 <div class="flex-1 text-left space-y-5">
                   <div>
                     <div class="flex items-center gap-3 mb-2">
-                      <span class="text-[10px] text-zinc-500 font-mono">
-                        ID: NW-SRC-8821 • VAULT: GENEVA
+                      <span class="text-[9px] text-zinc-500 font-mono tracking-widest">
+                        ID: NW-SRC-8821 • VAULT: GENEVA (FREEPORT)
                       </span>
                     </div>
                     <h3 id="result-title" class="text-2xl text-white font-medium tracking-tight">
@@ -649,17 +682,17 @@
 
                   <div class="grid grid-cols-2 gap-6">
                     <div>
-                      <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1.5">
+                      <span class="text-[8px] text-zinc-600 uppercase tracking-widest block mb-1.5 font-bold">
                         Status do Ativo
                       </span>
                       <span class="text-xs text-white font-medium flex items-center gap-2">
                         <i data-lucide="lock" class="w-3 h-3 text-[#EBCB8B]"></i>
-                        Disponível para Reserva
+                        Reservado (Hold: 2h)
                       </span>
                     </div>
                     <div>
-                      <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1.5">
-                        Previsão de Entrega
+                      <span class="text-[8px] text-zinc-600 uppercase tracking-widest block mb-1.5 font-bold">
+                        Logística
                       </span>
                       <span class="text-xs text-white font-medium flex items-center gap-2">
                         <i data-lucide="plane" class="w-3 h-3 text-[#EBCB8B]"></i>
@@ -669,9 +702,9 @@
                   </div>
 
                   <div class="pt-4">
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20pe%C3%A7a%20localizada%20pelo%20Sourcing%20Engine." target="_blank" class="group bg-green-900/20 hover:bg-green-900/30 border border-green-500/30 hover:border-green-500/50 text-green-400 h-12 px-6 rounded flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-all w-full">
-                      <i data-lucide="message-circle" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-                      Solicitar Reserva via Concierge
+                    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20pe%C3%A7a%20localizada%20pelo%20Sourcing%20Engine." target="_blank" class="group bg-[#EBCB8B] hover:bg-white text-black h-12 px-6 rounded-sm flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all w-full">
+                      <i data-lucide="message-circle" class="w-4 h-4"></i>
+                      Solicitar Detalhes & Preço
                     </a>
                   </div>
                 </div>
@@ -679,76 +712,62 @@
             </div>
           </div>
         </div>
-        <script>
-          lucide.createIcons();
-        </script>
       </section>
 
-       <style>
-@media (max-width: 640px) {
+      <!-- Feature: Trust Testimonials (NEW SECTION) -->
+      <section class="py-16 reveal-up">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-10">
+            <h3 class="text-xl font-medium text-white tracking-tight">
+              A Palavra dos Membros
+            </h3>
+            <p class="text-[11px] text-zinc-600 uppercase tracking-widest font-mono mt-2 flex items-center justify-center gap-2">
+              <i data-lucide="fingerprint" class="w-3 h-3"></i>
+              Verified Transactions Only
+            </p>
+          </div>
+          
+          <div id="testimonial-carousel" class="relative overflow-hidden h-32">
+            <!-- Testimonials will be dynamically injected here -->
+            <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-700" style="opacity: 1;">
+              <blockquote class="text-center italic text-zinc-300 max-w-xl">
+                "Conseguiram o Patek que eu buscava há 3 anos em menos de 48 horas. É a única forma de operar no mercado de alta hoje."
+                <footer class="mt-4 text-sm font-bold text-[#EBCB8B]">
+                  — Cliente S.P. (Ref. 5711)
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  /* Remove alturas absurdas no mobile */
-  section {
-    min-height: auto !important;
-    height: auto !important;
-  }
-
-  /* Compressão de espaçamento */
-  .pt-32, .pt-40, .pt-48,
-  .pb-32, .pb-40, .pb-48,
-  .py-32, .py-40, .py-48 {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-  }
-
-  /* Reduz margens gigantes */
-  .mt-32, .mt-40, .mt-48,
-  .mb-32, .mb-40, .mb-48 {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-  }
-}
-</style>
-
-
-<style>
-* {
-  transform: scale(var(--scale));
-  transform-origin: top left;
-}
-</style>
-
-
-      <!-- Trust Indicators (Cleaned up) -->
+      <!-- Trust Indicators -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-12 border-y border-white/5 py-16 bg-white/[0.01]">
         <div class="text-center md:text-left px-4">
-          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="shield-check" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Compliance Suíço
+            Swiss Compliance
           </h4>
-          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-            Operamos sob estritos padrões de verificação bancária. Privacidade
-            absoluta garantida.
+          <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+            Operamos sob estritos padrões de due-diligence e KYC. Privacidade absoluta garantida.
           </p>
         </div>
         <div class="text-center md:text-left px-4">
-          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="globe" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Pagamento Global
+            Global Payments
           </h4>
-          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-            Aceitamos Fiat (USD/EUR/GBP/BRL) e Criptoativos (USDC/USDT) com
-            liquidação imediata.
+          <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+            Aceitamos Fiat (USD/EUR/GBP/BRL) e Criptoativos (USDC/USDT) com liquidação D+0.
           </p>
         </div>
         <div class="text-center md:text-left px-4">
-          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2 md:justify-start justify-center">
             <i data-lucide="briefcase" class="w-4 h-4 text-[#EBCB8B]"></i>
-            Seguro Integral
+            Full Insurance
           </h4>
-          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
-            Cobertura de 110% do valor de mercado durante todo o processo de
-            trânsito e custódia.
+          <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
+            Cobertura de 110% do valor de mercado durante todo o processo de trânsito e custódia.
           </p>
         </div>
       </section>
@@ -761,11 +780,11 @@
             <div class="relative w-4 h-4 flex items-center justify-center">
               <div class="w-full h-full border border-white/20 rounded-full"></div>
             </div>
-            <span class="text-sm font-semibold tracking-widest text-white">
+            <span class="text-sm font-semibold tracking-[0.2em] text-white">
               NOWAIT
             </span>
           </a>
-          <p class="text-xs text-zinc-500 max-w-sm leading-relaxed font-light">
+          <p class="text-[11px] text-zinc-500 max-w-sm leading-relaxed font-light">
             Redefinindo a aquisição de alta relojoaria através de tecnologia,
             velocidade e transparência absoluta. Membro da IWJG e NAWCC.
           </p>
@@ -787,26 +806,10 @@
             Serviços
           </h4>
           <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Market Data
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Sourcing Global
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Avaliação de Acervo
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Custódia Segura
-              </a>
-            </li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Market Data</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Sourcing Global</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Avaliação de Portfólio</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Custódia Segura</a></li>
           </ul>
         </div>
 
@@ -815,26 +818,9 @@
             Legal
           </h4>
           <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Termos de Uso
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Política de Privacidade
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Compliance (KYC/AML)
-              </a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
-                Contrato de Mandato
-              </a>
-            </li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Privacidade</a></li>
+            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Compliance (KYC/AML)</a></li>
           </ul>
         </div>
       </div>
@@ -848,14 +834,14 @@
       </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
+      // 1. Initialize Icons
       lucide.createIcons({
-          attrs: {
-              strokeWidth: 1.25,
-              class: "text-zinc-400"
-          }
+          attrs: { strokeWidth: 1.5 }
       });
 
+      // 2. Reveal on Scroll
       const observer = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
               if (entry.isIntersecting) {
@@ -867,49 +853,244 @@
       document.querySelectorAll('.reveal-up').forEach(el => {
           observer.observe(el);
       });
-    </script>
 
-    <script>
+      // 3. Live Ticker Logic (Simulated Real-Time) with Location Cycling
+      const tickerEl = document.getElementById('live-ticker');
+      const locationEl = document.getElementById('current-location');
+      const locations = ["GENEVA", "DUBAI", "NEW YORK", "LONDON"];
+      let currentLocationIndex = 0;
+
+      const watches = [
+          { name: "PP 5711/1A", basePrice: 105000, trend: "up" },
+          { name: "AP 15407ST", basePrice: 145000, trend: "up" },
+          { name: "Rolex 116500", basePrice: 29500, trend: "down" },
+          { name: "FPJ Chrono", basePrice: 85000, trend: "up" },
+          { name: "RM 35-02", basePrice: 450000, trend: "neutral" },
+          { name: "PP 5740G", basePrice: 220000, trend: "up" }
+      ];
+
+      function updateTickerAndLocation() {
+          // A. Update Location
+          locationEl.classList.remove('location-fade-in');
+          setTimeout(() => {
+              currentLocationIndex = (currentLocationIndex + 1) % locations.length;
+              locationEl.innerText = `LIVE MARKET: ${locations[currentLocationIndex]}`;
+              locationEl.classList.add('location-fade-in');
+          }, 100);
+
+          // B. Update Ticker Prices
+          let html = '';
+          watches.forEach(w => {
+              // Add slight random variation
+              const variation = (Math.random() * 2).toFixed(2); 
+              let color = 'text-zinc-600';
+              let icon = '▬';
+              
+              if(w.trend === 'up') {
+                  color = 'text-green-400/70';
+                  icon = '▲';
+              } else if (w.trend === 'down') {
+                  color = 'text-red-400/70';
+                  icon = '▼';
+              }
+
+              html += `
+                  <span class="flex gap-3 text-zinc-400">
+                      ${w.name}
+                      <span class="${color} font-mono text-[9px]">${icon} ${variation}%</span>
+                  </span>
+              `;
+          });
+          // Duplicate for infinite scroll loop
+          tickerEl.innerHTML = html + html; 
+      }
+
+      updateTickerAndLocation();
+      // Update ticker slightly every 5 seconds
+      setInterval(updateTickerAndLocation, 5000);
+
+
+      // 4. Sourcing Form Logic
       function startSourcing() {
-          const model = document.getElementById('input-model').value || 'Modelo Solicitado';
+          const model = document.getElementById('input-model').value || 'Ativo Solicitado';
           const ref = document.getElementById('input-ref').value || 'Referência Exclusiva';
           const year = document.getElementById('input-year').value || 'Ano Recente';
           const condition = document.getElementById('input-condition').value;
 
-          document.getElementById('sourcing-form').classList.add('hidden');
-          document.getElementById('sourcing-loading').classList.remove('hidden');
-          document.getElementById('sourcing-loading').classList.add('flex');
+          const form = document.getElementById('sourcing-form');
+          const loading = document.getElementById('sourcing-loading');
+          const result = document.getElementById('sourcing-result');
+          const loadingText = document.getElementById('loading-text');
+          
+          // Hide result if visible
+          result.classList.add('hidden');
 
-          const loadingTexts = [
+          // Transition
+          form.classList.add('hidden');
+          loading.classList.remove('hidden');
+          loading.classList.add('flex');
+
+          const steps = [
               "Autenticando Credenciais...",
-              "Conectando a Genebra...",
+              "Acessando Database Genebra...",
               "Verificando Cofres em Dubai...",
-              "Analisando Inventário Off-Market...",
+              "Negociando Spread...",
               "Ativo Localizado."
           ];
 
-          const textEl = document.getElementById('loading-text');
-          let step = 0;
-
+          let stepIndex = 0;
           const interval = setInterval(() => {
-              if(step < loadingTexts.length) {
-                  textEl.innerText = loadingTexts[step];
-                  step++;
+              if(stepIndex < steps.length) {
+                  loadingText.innerText = steps[stepIndex];
+                  stepIndex++;
               }
           }, 800);
 
           setTimeout(() => {
               clearInterval(interval);
-              document.getElementById('sourcing-loading').classList.add('hidden');
-              document.getElementById('sourcing-loading').classList.remove('flex');
-              document.getElementById('sourcing-result').classList.remove('hidden');
+              loading.classList.add('hidden');
+              loading.classList.remove('flex');
+              result.classList.remove('hidden');
 
+              // Populate Result
               document.getElementById('result-title').innerText = model;
               document.getElementById('result-specs').innerText = `${ref} • ${year} • ${condition}`;
-
+              
+              // Re-init icons for the new content
               if(window.lucide) window.lucide.createIcons();
           }, 4500);
       }
+      
+      // 5. Price Discovery Logic (UPDATED)
+      
+      const watchData = {
+          'RM67': {
+              title: "Richard Mille RM 67-02 (Modelo Off-Market)",
+              retailPrice: 1400000,
+              publicPrice: 2800000, // R$ 2.800.000 (40% spread over 2M)
+              privatePrice: 2000000, // R$ 2.000.000
+              liquidity: 'Sourcing Exclusivo'
+          },
+          'DAYTONA': {
+              title: "Rolex Daytona 126500LN (Panda, 2025)",
+              retailPrice: 80000,
+              publicPrice: 240000, // R$ 240.000
+              privatePrice: 190000, // R$ 190.000
+              liquidity: 'Geneva Vault (72h Liquidez)'
+          },
+          'NAUTILUS': {
+              title: "Patek Philippe Nautilus 5711/1A-010 (Sealed)",
+              retailPrice: 200000,
+              publicPrice: 600000, // R$ 600.000 (to achieve ~18.3% spread)
+              privatePrice: 490000, // R$ 490.000
+              liquidity: 'Dubai/NY Vault (D+7)'
+          }
+      };
+
+      function formatBRL(amount) {
+          return `R$ ${amount.toLocaleString('pt-BR')}`;
+      }
+
+      function simulatePriceDiscovery() {
+          const form = document.getElementById('price-form');
+          const loading = document.getElementById('price-loading');
+          const result = document.getElementById('price-result');
+          const selectedKey = document.getElementById('watch-select').value;
+          const data = watchData[selectedKey];
+          
+          // Hide result if visible
+          result.classList.add('hidden');
+          
+          // Transition to loading
+          form.style.display = 'none';
+          loading.classList.remove('hidden');
+          loading.classList.add('flex');
+
+          // Simulate price calculation
+          setTimeout(() => {
+              loading.classList.add('hidden');
+              loading.classList.remove('flex');
+              result.classList.remove('hidden');
+              form.style.display = 'block';
+
+              const publicPrice = data.publicPrice;
+              const privatePrice = data.privatePrice;
+              const retailPrice = data.retailPrice;
+              const savings = publicPrice - privatePrice;
+              const spread = (savings / publicPrice) * 100;
+
+              // Populate fields
+              document.getElementById('result-ref-title').innerText = data.title;
+              document.getElementById('retail-price').innerText = formatBRL(retailPrice);
+              document.getElementById('public-price').innerText = formatBRL(publicPrice);
+              document.getElementById('private-price').innerText = formatBRL(privatePrice);
+              document.getElementById('estimated-savings').innerText = formatBRL(savings);
+              document.getElementById('spread-percentage').innerText = `${spread.toFixed(1)}%`;
+              
+              // Update liquidity text based on selection
+              document.querySelector('#price-result .space-y-3:nth-child(3) span:last-child').innerText = data.liquidity;
+
+              // Re-init icons for the new content
+              if(window.lucide) window.lucide.createIcons();
+          }, 3000); // 3 second simulation
+      }
+
+
+      // 6. Testimonial Carousel Logic
+      const testimonials = [
+          { quote: "Conseguiram o Patek que eu buscava há 3 anos em menos de 48 horas. É a única forma de operar no mercado de alta hoje.", source: "Cliente S.P. (Ref. 5711)" },
+          { quote: "A transparência no sourcing e o compliance suíço são incomparáveis. Serviço de Private Office de altíssimo nível.", source: "Investidor H.M. (London)" },
+          { quote: "Zero burocracia. O relógio foi entregue pessoalmente em meu escritório em Nova York, exatamente como prometido.", source: "Colecionador J.K. (NY)" },
+          { quote: "Não compro mais de outra forma. A análise de mercado deles é mais precisa que a de qualquer dealer.", source: "Membro C.A. (São Paulo)" }
+      ];
+
+      let currentTestimonialIndex = 0;
+      const carouselEl = document.getElementById('testimonial-carousel');
+
+      function updateTestimonial() {
+          const t = testimonials[currentTestimonialIndex];
+          
+          // Create the new element
+          const newBlock = document.createElement('div');
+          newBlock.classList.add('absolute', 'inset-0', 'flex', 'items-center', 'justify-center', 'transition-opacity', 'duration-700', 'opacity-0');
+          newBlock.innerHTML = `
+              <blockquote class="text-center italic text-zinc-300 max-w-xl">
+                  "${t.quote}"
+                  <footer class="mt-4 text-sm font-bold text-[#EBCB8B]">
+                      — ${t.source}
+                  </footer>
+              </blockquote>
+          `;
+
+          // Add it to the carousel
+          carouselEl.appendChild(newBlock);
+          
+          // Wait briefly, then fade in the new one and remove the old one
+          setTimeout(() => {
+              // Fade in new
+              newBlock.style.opacity = '1';
+              // Remove old
+              const oldBlock = carouselEl.children[0];
+              if (oldBlock && carouselEl.children.length > 1) {
+                  oldBlock.style.opacity = '0';
+                  setTimeout(() => oldBlock.remove(), 700);
+              }
+          }, 50);
+
+          currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+      }
+
+      // Initial load
+      setTimeout(() => {
+          // Remove the loading testimonial and start rotation
+          carouselEl.innerHTML = '';
+          updateTestimonial();
+          // Also run the price discovery simulation initially to show the default Daytona example
+          simulatePriceDiscovery(); 
+      }, 100);
+      
+      // Rotate every 7 seconds
+      setInterval(updateTestimonial, 7000);
     </script>
-  
-</body></html>
+</body>
+</html>
