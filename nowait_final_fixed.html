@@ -1,0 +1,905 @@
+<html lang="pt-BR" class="scroll-smooth antialiased"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOWAIT | Premier Horology Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=JetBrains+Mono:wght@300;400&amp;family=Playfair+Display:ital,wght@1,400;1,500&amp;display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+          --bg-dark: #030304;
+          --gold-accent: #EBCB8B;
+          --grid-line: rgba(255, 255, 255, 0.02);
+      }
+
+      body {
+          font-family: 'Inter', sans-serif;
+          background-color: var(--bg-dark);
+          color: #ffffff;
+          overflow-x: hidden;
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+      .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+
+      /* Custom Grids & Backgrounds - Subtler */
+      .grid-bg {
+          background-size: 60px 60px; /* Bigger grid for cleaner look */
+          background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                            linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+          mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+          -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+      }
+
+      /* Glass & Borders */
+      .glass-card {
+          background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+          border: 1px solid rgba(255,255,255,0.06);
+          backdrop-filter: blur(12px);
+      }
+
+      .glass-card-dark {
+          background: #050505;
+          border: 1px solid rgba(255,255,255,0.06);
+          box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);
+      }
+
+      /* Ticker Animation - Smooth */
+      .ticker-track { animation: scroll 80s linear infinite; } /* Slower for elegance */
+      @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+      /* Horology Mechanism Animation - Elegant & Slow */
+      .mech-ring { transform-origin: center; }
+      .spin-cw-slow { animation: spin 120s linear infinite; }
+      .spin-ccw-medium { animation: spin 60s linear infinite reverse; }
+      .spin-cw-fast { animation: spin 30s linear infinite; }
+      .pulse-opacity { animation: pulse 6s ease-in-out infinite; }
+
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+
+      /* Reveal Animations */
+      .reveal-up {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: var(--bg-dark); }
+      ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+    </style>
+  </head>
+  <body class="selection:bg-[#EBCB8B]/20 selection:text-[#EBCB8B] relative">
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-30"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- Top Bar / Expanded Ticker -->
+    <div class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#030304]/90 backdrop-blur-md">
+      <div class="flex items-center h-10 overflow-hidden relative">
+        <div class="flex items-center gap-3 px-6 border-r border-white/5 h-full bg-[#030304] z-10 shrink-0">
+          <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full"></div>
+          <span class="text-[10px] font-medium uppercase tracking-widest text-zinc-300">
+            Global Market Pulse
+          </span>
+        </div>
+        <!-- Infinite Scroll Container -->
+        <div class="flex items-center whitespace-nowrap overflow-hidden w-full mask-linear-fade">
+          <div class="ticker-track flex items-center gap-12 px-4 text-[10px] font-medium text-zinc-500 tracking-wide">
+            <!-- Set 1 -->
+            <span class="flex gap-2 text-zinc-400">
+              Patek Philippe 5711/1A
+              <span class="text-zinc-600">▲ +2.4%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              AP Royal Oak 15407ST
+              <span class="text-zinc-600">▲ +5.1%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              Rolex Daytona 116500
+              <span class="text-zinc-600">▼ -0.8%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              F.P. Journe Chrono
+              <span class="text-zinc-600">▲ +12.5%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              Richard Mille 35-02
+              <span class="text-zinc-600">▬ 0.0%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              A. Lange Odysseus
+              <span class="text-zinc-600">▲ +1.2%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              Patek Philippe 5740G
+              <span class="text-zinc-600">▲ +3.8%</span>
+            </span>
+            <!-- Set 2 -->
+            <span class="flex gap-2 text-zinc-400">
+              Patek Philippe 5711/1A
+              <span class="text-zinc-600">▲ +2.4%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              AP Royal Oak 15407ST
+              <span class="text-zinc-600">▲ +5.1%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              Rolex Daytona 116500
+              <span class="text-zinc-600">▼ -0.8%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              F.P. Journe Chrono
+              <span class="text-zinc-600">▲ +12.5%</span>
+            </span>
+            <span class="flex gap-2 text-zinc-400">
+              Richard Mille 35-02
+              <span class="text-zinc-600">▬ 0.0%</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-10 w-full z-40 transition-all duration-300 bg-gradient-to-b from-[#030304] via-[#030304]/80 to-transparent">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="relative w-5 h-5 flex items-center justify-center">
+            <div class="absolute w-full h-full border border-white/10 rounded-full group-hover:scale-110 transition-transform duration-700 ease-out"></div>
+            <div class="w-px h-2 bg-white/80"></div>
+            <div class="h-px w-2 bg-white/80 absolute"></div>
+          </div>
+          <span class="text-sm font-semibold tracking-[0.2em] text-white">
+            NOWAIT
+          </span>
+        </a>
+
+        <div class="hidden md:flex items-center bg-white/[0.03] border border-white/[0.05] rounded-full px-1 p-1 backdrop-blur-md">
+          <a href="#model" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+            O Método
+          </a>
+          <a href="#vault" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+            Acervo
+          </a>
+          <a href="#private" class="px-6 py-2 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5 tracking-wide">
+            Private Office
+          </a>
+        </div>
+
+        <button class="text-[11px] font-semibold text-white flex items-center gap-2 px-5 py-2.5 border border-white/10 rounded hover:bg-[#EBCB8B] hover:text-[#030304] hover:border-[#EBCB8B] transition-all duration-500 tracking-wide">
+          <span>Client Portal</span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-6 pt-48 pb-24 space-y-48">
+      <!-- Hero Section -->
+      <section class="min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <div class="inline-flex items-center gap-2 border border-white/10 rounded-full px-4 py-1.5 mb-8 bg-white/[0.02] backdrop-blur-sm reveal-up">
+            <span class="relative flex h-1.5 w-1.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EBCB8B] opacity-50"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EBCB8B]"></span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-zinc-400 font-medium">
+              Exclusividade sem filas
+            </span>
+          </div>
+
+          <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-8 leading-[1.05] reveal-up" style="transition-delay: 100ms;">
+            Acesso Irrestrito
+            <br>
+            <span class="text-zinc-600 font-serif-italic">
+              ao mercado global.
+            </span>
+          </h1>
+
+          <p class="text-[15px] text-zinc-400 leading-relaxed max-w-lg mb-10 reveal-up font-light tracking-wide" style="transition-delay: 200ms;">
+            Esqueça listas de espera e barreiras geográficas. Nossa rede conecta
+            você diretamente a 100% dos ativos de alta relojoaria existentes no
+            mundo.
+            <br>
+            <br>
+            Seja uma referência catalogada ou um 'Piece Unique' off-market,
+            garantimos o acesso, a autenticidade e a entrega em tempo recorde.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-5 reveal-up" style="transition-delay: 300ms;">
+            <button class="bg-[#EBCB8B] text-[#030304] h-12 px-8 rounded flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest hover:bg-[#d6b97e] transition-colors shadow-[0_0_20px_rgba(235,203,139,0.15)]">
+              Solicitar Ativo
+            </button>
+            <button class="group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-white hover:border-white/30 transition-all">
+              Conhecer o Protocolo
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- The Abstract Horology Graphic (Fixed: Elegant, not Hacker) -->
+        <div class="order-1 lg:order-2 flex justify-center items-center relative h-[400px] lg:h-[600px] reveal-up" style="transition-delay: 200ms;">
+          <!-- Subtle Glow -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#EBCB8B]/5 to-transparent rounded-full blur-[100px] opacity-30"></div>
+
+          <div class="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]">
+            <!-- Outer Ring - Very Thin -->
+            <svg class="absolute inset-0 w-full h-full text-zinc-800" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="49" fill="none" stroke="currentColor" stroke-width="0.1"></circle>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="0.05"></circle>
+            </svg>
+
+            <!-- Middle Ring - Rotating Slowly (Mechanical feel) -->
+            <svg class="absolute inset-0 w-full h-full text-zinc-700 mech-ring spin-cw-slow" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="0.1" stroke-dasharray="0.2 4"></circle>
+              <path d="M50 4 V8" stroke="currentColor" stroke-width="0.3"></path>
+              <path d="M50 92 V96" stroke="currentColor" stroke-width="0.3"></path>
+            </svg>
+
+            <!-- Inner Ring - Counter Rotation -->
+            <svg class="absolute inset-0 w-full h-full text-zinc-600 mech-ring spin-ccw-medium" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="0.1" stroke-dasharray="20 40"></circle>
+              <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="0.05"></circle>
+            </svg>
+
+            <!-- Gold Accent Ring -->
+            <svg class="absolute inset-0 w-full h-full text-[#EBCB8B] mech-ring spin-cw-fast opacity-40" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width="0.15" stroke-dasharray="1 10"></circle>
+            </svg>
+
+            <!-- Center Jewel/Pivot -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-16 h-16 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center z-10">
+                <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full shadow-[0_0_15px_rgba(235,203,139,0.3)] pulse-opacity"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Business Model Breakdown (Refined Copy) -->
+      <section id="model" class="border-t border-white/5 pt-24">
+        <div class="mb-20">
+          <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
+            Protocolo de Aquisição
+          </h2>
+          <p class="text-zinc-500 text-sm max-w-2xl leading-relaxed">
+            Operamos com transparência total para garantir a qualidade e a
+            exclusividade do seu ativo. Cada etapa é desenhada para certificar
+            que você está adquirindo uma peça perfeita.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-lg overflow-hidden">
+          <!-- Step 1 -->
+          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
+              ETAPA 01
+            </span>
+            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
+              Mandato de Compra
+            </h3>
+            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+              Você define a referência exata (ex: 5711/1A-014). Não aceitamos
+              "listas de interesse". Trabalhamos apenas com ordens firmes de
+              aquisição.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
+              ETAPA 02
+            </span>
+            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
+              Localização Global
+            </h3>
+            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+              Nossa inteligência de mercado varre inventários privados em
+              Genebra, HK, Dubai e NY para identificar disponibilidade imediata
+              e preço justo.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
+              ETAPA 03
+            </span>
+            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
+              Autenticação
+            </h3>
+            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+              Rigidez absoluta. O ativo passa por tripla verificação: Mestre
+              Relojoeiro (Mecânica), Análise Microscópica
+              (Polimento/Originalidade) e Database Global (Proveniência/Roubo).
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="bg-[#030304] p-10 group hover:bg-[#060606] transition-colors relative">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-80">
+              ETAPA 04
+            </span>
+            <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-4">
+              Logística Blindada
+            </h3>
+            <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+              Transporte segurado via Malca-Amit ou Brinks até seu endereço, ou
+              retirada em cofre privado. Liquidação instantânea.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Private Office Section -->
+      <section id="private" class="reveal-up">
+        <!-- Container mimicking the dark card style -->
+        <div class="relative w-full rounded-3xl border border-white/5 bg-[#050505] overflow-hidden p-8 md:p-20 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center shadow-2xl">
+          <!-- Glow Effect -->
+          <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#EBCB8B]/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+          <!-- Content Left -->
+          <div class="flex-1 space-y-10 relative z-10">
+            <div class="w-12 h-12 mb-2 flex items-center justify-center rounded-full bg-[#EBCB8B]/10 text-[#EBCB8B] border border-[#EBCB8B]/20">
+              <i data-lucide="crown" class="w-5 h-5"></i>
+            </div>
+
+            <div class="space-y-2">
+              <h2 class="text-4xl text-white font-medium tracking-tight">
+                NOWAIT
+              </h2>
+              <h2 class="text-4xl text-zinc-500 font-serif-italic tracking-wide">
+                Private Office
+              </h2>
+            </div>
+
+            <p class="text-zinc-400 text-sm leading-relaxed max-w-md font-light">
+              Um serviço desenhado para colecionadores que tratam relógios como
+              classe de ativos. Oferecemos gestão de portfólio, *sourcing* de
+              peças *off-catalog* e consultoria de investimento.
+            </p>
+
+            <ul class="space-y-5 pt-6 border-t border-white/5">
+              <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
+                <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
+                Liquidez Garantida (Buy-back em 48h)
+              </li>
+              <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
+                <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
+                Acesso prioritário a peças "Application Only"
+              </li>
+              <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
+                <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
+                Consultoria Jurídica e Aduaneira
+              </li>
+            </ul>
+
+            <div class="pt-8">
+              <a href="#" class="text-white text-[11px] font-bold uppercase tracking-[0.25em] border-b border-white/30 pb-2 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
+                Aplicar para Membership
+              </a>
+            </div>
+          </div>
+
+          <!-- Content Right (Chat Interface - Elegant version) -->
+          <div class="w-full lg:w-[460px] relative z-10">
+            <div class="glass-card-dark rounded-xl p-8 min-h-[420px] flex flex-col justify-between relative border border-white/10">
+              <!-- Status Header -->
+              <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
+                <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
+                  Concierge 24/7
+                </span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] text-zinc-600 font-medium">
+                    Geneva HQ
+                  </span>
+                  <div class="w-1.5 h-1.5 bg-green-900 rounded-full border border-green-500/50"></div>
+                </div>
+              </div>
+
+              <!-- Chat Bubbles - Cleaner, Sans-Serif -->
+              <div class="space-y-6">
+                <!-- Incoming -->
+                <div class="flex justify-start">
+                  <div class="bg-[#111] border border-white/10 rounded-2xl rounded-bl-none p-5 max-w-[90%] shadow-lg">
+                    <p class="text-xs text-zinc-300 leading-relaxed font-normal font-sans">
+                      "Bom dia. Estou buscando um 5740G para um evento em SP na
+                      sexta-feira. Conseguimos viabilizar?"
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Outgoing -->
+                <div class="flex justify-end">
+                  <div class="bg-[#EBCB8B]/10 border border-[#EBCB8B]/20 rounded-2xl rounded-br-none p-5 max-w-[90%] relative overflow-hidden">
+                    <p class="text-xs text-[#EBCB8B] leading-relaxed font-normal relative z-10 font-sans">
+                      "Olá. Localizamos uma unidade *Unworn* 2023 em nosso cofre
+                      de Zurique. A logística já está sendo alinhada para
+                      entrega na quinta-feira pela manhã."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer Chat -->
+              <div class="mt-10 text-center flex justify-center items-center gap-2 opacity-50">
+                <i data-lucide="lock" class="w-3 h-3 text-zinc-600"></i>
+                <span class="text-[9px] font-medium tracking-wider text-zinc-600 uppercase">
+                  End-to-End Encrypted
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inventory / Vault -->
+      <section id="vault">
+        <div class="flex justify-between items-end mb-16 px-2">
+          <div>
+            <h2 class="text-3xl font-medium text-white tracking-tight mb-3">
+              Acervo &amp; Exclusividade
+            </h2>
+            <p class="text-zinc-500 text-sm font-light">
+              Oportunidades verificadas com custódia imediata.
+            </p>
+          </div>
+          <a href="#" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#EBCB8B] transition-colors border border-white/10 px-4 py-2 rounded-full hover:border-[#EBCB8B]/50 hover:bg-[#EBCB8B]/5">
+            Ver Inventário Completo (142)
+            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5">
+          <!-- Card 1 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer">
+            <div class="absolute top-5 left-5 z-20 flex gap-2">
+              <span class="bg-white/90 backdrop-blur text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">
+                Geneva Vault
+              </span>
+            </div>
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+
+            <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h3 class="text-white font-medium text-lg tracking-tight">
+                    Royal Oak Jumbo
+                  </h3>
+                  <p class="text-xs text-zinc-400 font-sans mt-1">
+                    Ref. 15202ST • 2021
+                  </p>
+                </div>
+              </div>
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
+              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
+                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
+                  Unworn / Full Set
+                </span>
+                <span class="text-[11px] text-[#EBCB8B] font-mono">
+                  US$ 145,000
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 100ms;">
+            <div class="absolute top-5 left-5 z-20 flex gap-2">
+              <span class="bg-[#EBCB8B] text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">
+                New Arrival
+              </span>
+            </div>
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+
+            <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h3 class="text-white font-medium text-lg tracking-tight">
+                    Nautilus 5711/1A-014
+                  </h3>
+                  <p class="text-xs text-zinc-400 font-sans mt-1">
+                    Green Dial • 2022 • Rare
+                  </p>
+                </div>
+              </div>
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
+              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
+                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
+                  Factory Sealed
+                </span>
+                <span class="text-[11px] text-[#EBCB8B] font-mono">
+                  Sob Consulta
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up cursor-pointer" style="transition-delay: 200ms;">
+            <div class="absolute top-5 left-5 z-20 flex gap-2">
+              <span class="bg-zinc-800 backdrop-blur text-zinc-300 text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm border border-white/10">
+                Dubai Vault
+              </span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&amp;w=800&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover opacity-80 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#030304] via-transparent to-transparent opacity-80"></div>
+
+            <div class="absolute bottom-0 left-0 w-full p-8 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h3 class="text-white font-medium text-lg tracking-tight">
+                    Cosmograph Daytona
+                  </h3>
+                  <p class="text-xs text-zinc-400 font-sans mt-1">
+                    Ref. 116500LN • Panda
+                  </p>
+                </div>
+              </div>
+              <div class="h-[1px] w-full bg-white/10 group-hover:bg-[#EBCB8B] transition-colors duration-500 my-4"></div>
+              <div class="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
+                <span class="text-[10px] text-zinc-300 font-medium uppercase tracking-wider">
+                  Mint Condition
+                </span>
+                <span class="text-[11px] text-[#EBCB8B] font-mono">
+                  US$ 32,500
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="sourcing" class="py-24 relative border-t border-white/5">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#EBCB8B]/5 blur-[100px] rounded-full pointer-events-none z-0"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+          <div class="text-center mb-12">
+            <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
+              ON DEMAND
+            </span>
+            <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
+              Busca Global Específica
+            </h2>
+            <p class="text-zinc-500 text-sm max-w-xl mx-auto leading-relaxed">
+              Não encontrou o que procura no acervo? Utilize nossa ferramenta de
+              sourcing.
+              <br>
+              Localizamos qualquer referência específica em nossa rede privada
+              em até 48h.
+            </p>
+          </div>
+
+          <div class="glass-card-dark p-8 md:p-12 rounded-2xl relative overflow-hidden border border-white/10">
+            <!-- Form State -->
+            <div id="sourcing-form" class="space-y-8">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Modelo
+                  </label>
+                  <input type="text" id="input-model" placeholder="Ex: Patek Philippe Nautilus" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Referência
+                  </label>
+                  <input type="text" id="input-ref" placeholder="Ex: 5711/1A-010" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Ano Desejado
+                  </label>
+                  <input type="text" id="input-year" placeholder="Ex: 2022" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors placeholder:text-zinc-700">
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">
+                    Condição
+                  </label>
+                  <select id="input-condition" class="w-full bg-[#0A0A0A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#EBCB8B]/50 focus:outline-none transition-colors appearance-none">
+                    <option value="Unworn (Sem Uso)">Unworn (Sem Uso)</option>
+                    <option value="Mint Condition">
+                      Mint Condition (Estado de Zero)
+                    </option>
+                    <option value="Vintage Good">Vintage (Colecionador)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pt-2 flex justify-center">
+                <button onclick="startSourcing()" class="bg-[#EBCB8B] text-[#030304] h-14 px-12 rounded flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-widest hover:bg-[#d6b97e] transition-all shadow-[0_0_20px_rgba(235,203,139,0.15)] w-full md:w-auto transform hover:scale-[1.02]">
+                  <i data-lucide="radar" class="w-4 h-4"></i>
+                  Iniciar Varredura Global
+                </button>
+              </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="sourcing-loading" class="hidden py-16 flex-col items-center justify-center text-center space-y-8">
+              <div class="relative w-20 h-20">
+                <div class="absolute inset-0 border-t-2 border-[#EBCB8B] rounded-full animate-spin"></div>
+                <div class="absolute inset-3 border-t-2 border-white/20 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 2s;"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i data-lucide="globe" class="w-6 h-6 text-[#EBCB8B]/50 animate-pulse"></i>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <p id="loading-text" class="text-sm font-medium text-white tracking-[0.2em] uppercase">
+                  Conectando Rede Privada...
+                </p>
+                <p class="text-[10px] text-zinc-500 font-mono">
+                  Scanning Secure Vaults: Geneva, HK, NYC
+                </p>
+              </div>
+            </div>
+
+            <!-- Result State -->
+            <div id="sourcing-result" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <div class="flex flex-col md:flex-row gap-8 items-center border border-[#EBCB8B]/20 bg-[#EBCB8B]/5 rounded-xl p-6 relative">
+                <div class="absolute top-0 right-0 p-4">
+                  <div class="flex items-center gap-2 bg-[#EBCB8B]/10 px-3 py-1 rounded-full border border-[#EBCB8B]/20">
+                    <div class="w-1.5 h-1.5 bg-[#EBCB8B] rounded-full animate-pulse"></div>
+                    <span class="text-[9px] font-bold text-[#EBCB8B] uppercase tracking-widest">
+                      Localizado
+                    </span>
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/3 aspect-square bg-black/40 rounded-lg flex items-center justify-center border border-white/5 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat transition-[background-position_0s_ease] hover:bg-[position:200%_0,0_0] duration-[1500ms]"></div>
+                  <i data-lucide="check-circle-2" class="w-16 h-16 text-[#EBCB8B] relative z-10 drop-shadow-[0_0_15px_rgba(235,203,139,0.3)]"></i>
+                </div>
+
+                <div class="flex-1 text-left space-y-5">
+                  <div>
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="text-[10px] text-zinc-500 font-mono">
+                        ID: NW-SRC-8821 • VAULT: GENEVA
+                      </span>
+                    </div>
+                    <h3 id="result-title" class="text-2xl text-white font-medium tracking-tight">
+                      Patek Philippe Nautilus
+                    </h3>
+                    <p id="result-specs" class="text-sm text-zinc-400 mt-1 font-light">
+                      Ref. 5711/1A • 2022 • Unworn
+                    </p>
+                  </div>
+
+                  <div class="h-px bg-white/10 w-full"></div>
+
+                  <div class="grid grid-cols-2 gap-6">
+                    <div>
+                      <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1.5">
+                        Status do Ativo
+                      </span>
+                      <span class="text-xs text-white font-medium flex items-center gap-2">
+                        <i data-lucide="lock" class="w-3 h-3 text-[#EBCB8B]"></i>
+                        Disponível para Reserva
+                      </span>
+                    </div>
+                    <div>
+                      <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1.5">
+                        Previsão de Entrega
+                      </span>
+                      <span class="text-xs text-white font-medium flex items-center gap-2">
+                        <i data-lucide="plane" class="w-3 h-3 text-[#EBCB8B]"></i>
+                        72h em São Paulo (SP)
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="pt-4">
+                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20pe%C3%A7a%20localizada%20pelo%20Sourcing%20Engine." target="_blank" class="group bg-green-900/20 hover:bg-green-900/30 border border-green-500/30 hover:border-green-500/50 text-green-400 h-12 px-6 rounded flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-all w-full">
+                      <i data-lucide="message-circle" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                      Solicitar Reserva via Concierge
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          lucide.createIcons();
+        </script>
+      </section>
+
+      <!-- Trust Indicators (Cleaned up) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-12 border-y border-white/5 py-16 bg-white/[0.01]">
+        <div class="text-center md:text-left px-4">
+          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+            <i data-lucide="shield-check" class="w-4 h-4 text-[#EBCB8B]"></i>
+            Compliance Suíço
+          </h4>
+          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+            Operamos sob estritos padrões de verificação bancária. Privacidade
+            absoluta garantida.
+          </p>
+        </div>
+        <div class="text-center md:text-left px-4">
+          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+            <i data-lucide="globe" class="w-4 h-4 text-[#EBCB8B]"></i>
+            Pagamento Global
+          </h4>
+          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+            Aceitamos Fiat (USD/EUR/GBP/BRL) e Criptoativos (USDC/USDT) com
+            liquidação imediata.
+          </p>
+        </div>
+        <div class="text-center md:text-left px-4">
+          <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2 md:justify-start justify-center">
+            <i data-lucide="briefcase" class="w-4 h-4 text-[#EBCB8B]"></i>
+            Seguro Integral
+          </h4>
+          <p class="text-[13px] text-zinc-500 leading-relaxed font-light">
+            Cobertura de 110% do valor de mercado durante todo o processo de
+            trânsito e custódia.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#020202] py-24 relative overflow-hidden border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
+        <div class="col-span-1 md:col-span-2">
+          <a href="#" class="flex items-center gap-3 mb-8">
+            <div class="relative w-4 h-4 flex items-center justify-center">
+              <div class="w-full h-full border border-white/20 rounded-full"></div>
+            </div>
+            <span class="text-sm font-semibold tracking-widest text-white">
+              NOWAIT
+            </span>
+          </a>
+          <p class="text-xs text-zinc-500 max-w-sm leading-relaxed font-light">
+            Redefinindo a aquisição de alta relojoaria através de tecnologia,
+            velocidade e transparência absoluta. Membro da IWJG e NAWCC.
+          </p>
+          <div class="mt-8 flex gap-6">
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">
+            Serviços
+          </h4>
+          <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Market Data
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Sourcing Global
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Avaliação de Acervo
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Custódia Segura
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">
+            Legal
+          </h4>
+          <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Termos de Uso
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Política de Privacidade
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Compliance (KYC/AML)
+              </a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#EBCB8B] transition-colors">
+                Contrato de Mandato
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-[10px] text-zinc-600 font-mono tracking-wide">
+          © 2024 NOWAIT OPERATIONS LTD.
+        </p>
+        <p class="text-[10px] text-zinc-600 font-mono tracking-wide">
+          GENEVA • LONDON • NEW YORK • SÃO PAULO
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons({
+          attrs: {
+              strokeWidth: 1.25,
+              class: "text-zinc-400"
+          }
+      });
+
+      const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('active');
+              }
+          });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal-up').forEach(el => {
+          observer.observe(el);
+      });
+    </script>
+
+    <script>
+      function startSourcing() {
+          const model = document.getElementById('input-model').value || 'Modelo Solicitado';
+          const ref = document.getElementById('input-ref').value || 'Referência Exclusiva';
+          const year = document.getElementById('input-year').value || 'Ano Recente';
+          const condition = document.getElementById('input-condition').value;
+
+          document.getElementById('sourcing-form').classList.add('hidden');
+          document.getElementById('sourcing-loading').classList.remove('hidden');
+          document.getElementById('sourcing-loading').classList.add('flex');
+
+          const loadingTexts = [
+              "Autenticando Credenciais...",
+              "Conectando a Genebra...",
+              "Verificando Cofres em Dubai...",
+              "Analisando Inventário Off-Market...",
+              "Ativo Localizado."
+          ];
+
+          const textEl = document.getElementById('loading-text');
+          let step = 0;
+
+          const interval = setInterval(() => {
+              if(step < loadingTexts.length) {
+                  textEl.innerText = loadingTexts[step];
+                  step++;
+              }
+          }, 800);
+
+          setTimeout(() => {
+              clearInterval(interval);
+              document.getElementById('sourcing-loading').classList.add('hidden');
+              document.getElementById('sourcing-loading').classList.remove('flex');
+              document.getElementById('sourcing-result').classList.remove('hidden');
+
+              document.getElementById('result-title').innerText = model;
+              document.getElementById('result-specs').innerText = `${ref} • ${year} • ${condition}`;
+
+              if(window.lucide) window.lucide.createIcons();
+          }, 4500);
+      }
+    </script>
+  
+</body></html>
