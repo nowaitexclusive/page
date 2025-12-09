@@ -1,1276 +1,435 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '5350534118506080');
-    fbq('track', 'PageView');
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-         src="https://www.facebook.com/tr?id=5350534118506080&ev=PageView&noscript=1"/>
-  </noscript>
-  <!-- End Meta Pixel Code -->
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NOWAIT — Private Luxury Market</title>
-
-  <style>
-    :root {
-      --bg: #000000;
-      --text: #f5f5f5;
-      --muted: #b7b7b7;
-      --gold: #d8b26a;
-      --gold-soft: #b4893f;
-      --card: #0b0b0f;
-      --border: rgba(255,255,255,0.08);
-      --radius-lg: 26px;
-      --radius: 18px;
-      --shadow-soft: 0 28px 80px rgba(0,0,0,0.85);
-      --maxw: 1180px;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 0;
-      color: var(--text);
-      overflow-x: hidden;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(216,178,106,0.10), transparent 55%),
-        radial-gradient(circle at 90% 100%, rgba(216,178,106,0.08), transparent 60%),
-        #000000;
-    }
-
-    .wrap {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px;
-    }
-
-    /* TOPO */
-
-    .top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 16px 0;
-      backdrop-filter: blur(14px) saturate(180%);
-      -webkit-backdrop-filter: blur(14px) saturate(180%);
-      background: rgba(0,0,0,0.8);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      z-index: 100;
-      transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-    }
-
-    .top-nav.shrink {
-      padding: 10px 0;
-      background: rgba(0,0,0,0.96);
-      border-bottom-color: rgba(255,255,255,0.18);
-    }
-
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 22px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* Menu que só aparece ao clicar na logo */
-    .nav-menu {
-      position: absolute;
-      right: 22px;
-      top: 56px;
-      background: rgba(8,8,12,0.98);
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 22px 70px rgba(0,0,0,0.9);
-      padding: 10px;
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 190px;
-      z-index: 101;
-    }
-
-    .nav-menu.open {
-      display: flex;
-    }
-
-    .nav-link {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--muted);
-      cursor: pointer;
-      transition: background .18s ease, color .18s ease;
-    }
-
-    .nav-link:hover {
-      background: rgba(255,255,255,0.06);
-      color: #ffffff;
-    }
-
-    @media (max-width: 720px) {
-      .nav-menu {
-        right: 16px;
-        left: 16px;
-      }
-    }
-
-    /* HERO – PRIMEIRA ETAPA */
-
-    main { padding-top: 86px; }
-
-    .section {
-      padding: 52px 0;
-    }
-
-    .hero-section {
-      padding-top: 40px;
-      padding-bottom: 60px;
-    }
-
-    .hero-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 40px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .hero-layout {
-        grid-template-columns: minmax(0,1fr);
-        text-align: center;
-      }
-    }
-
-    .etapa-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .hero-title {
-      font-size: 36px;
-      line-height: 1.15;
-      margin: 0 0 10px;
-      font-weight: 700;
-    }
-
-    .hero-sub,
-    .hero-text {
-      max-width: 620px;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 15px;
-      margin: 0 0 10px;
-    }
-
-    .hero-cta {
-      margin-top: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .hero-cta { justify-content: center; }
-    }
-
-    .btn-main {
-      padding: 14px 26px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-      color: #000;
-      font-size: 15px;
-      box-shadow: 0 18px 40px rgba(216,178,106,0.35);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-main::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, rgba(255,255,255,0.24), transparent 60%);
-      opacity: 0;
-      transform: translateX(-100%);
-      transition: transform 0.35s ease, opacity 0.35s ease;
-      pointer-events: none;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 22px 55px rgba(216,178,106,0.45);
-      filter: brightness(1.02);
-    }
-
-    .btn-main:hover::after {
-      opacity: 1;
-      transform: translateX(0%);
-    }
-
-    .btn-ghost {
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(8,8,12,0.9);
-      color: var(--muted);
-      font-size: 13px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease;
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.32);
-      background: rgba(14,14,20,0.96);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .hero-proof {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--muted);
-      opacity: .9;
-    }
-
-    /* Tiles à direita (sem roxo, mais discretos) */
-    .hero-tiles-wrapper {
-      position: relative;
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at 0% 0%, rgba(216,178,106,0.18), transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(216,178,106,0.12), transparent 60%),
-                  #050506;
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      min-height: 230px;
-    }
-
-    .tiles-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
-    }
-
-    .tile {
-      background: rgba(5,5,9,0.98);
-      border-radius: 16px;
-      padding: 10px 11px;
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.8);
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    }
-
-    .tile-label {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      opacity: .7;
-    }
-
-    .tile-main {
-      font-size: 12px;
-      color: #ffffff;
-      font-weight: 500;
-    }
-
-    .tile-badge {
-      font-size: 10px;
-      color: var(--gold);
-      opacity: .9;
-    }
-
-    .tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 26px 70px rgba(0,0,0,0.9);
-      border-color: rgba(255,255,255,0.25);
-    }
-
-    @media (max-width: 900px) {
-      .hero-section { padding-top: 30px; }
-      .hero-layout { gap: 30px; }
-    }
-
-    /* Padrão NOWAIT – SEGUNDA ETAPA */
-
-    .section-title {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-
-    .essencia-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    @media (min-width: 800px) {
-      .essencia-grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-    }
-
-    .essencia-card {
-      background: var(--card);
-      padding: 18px 18px 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .essencia-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 26px 70px rgba(0,0,0,0.9);
-      border-color: rgba(216,178,106,0.42);
-    }
-
-    .essencia-card h3 {
-      margin: 0 0 6px;
-      font-size: 17px;
-    }
-
-    .essencia-card p {
-      font-size: 14px;
-      margin: 0;
-      line-height: 1.4;
-      color: var(--muted);
-    }
-
-    /* Como funciona – TERCEIRA ETAPA */
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 11px;
-    }
-
-    .pill {
-      padding: 6px 11px;
-      border-radius: 999px;
-      background: rgba(8,8,12,0.95);
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--muted);
-    }
-
-    .steps-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    @media (min-width: 800px) {
-      .steps-grid {
-        grid-template-columns: repeat(4, minmax(0,1fr));
-      }
-    }
-
-    .step-card {
-      background: var(--card);
-      padding: 16px 16px 18px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-    }
-
-    .step-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(216,178,106,0.45);
-      box-shadow: 0 26px 70px rgba(0,0,0,0.9);
-    }
-
-    .step-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-
-    .step-title {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .step-text {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    /* POR QUE MAIS BARATO – QUARTA ETAPA */
-
-    .two-col {
-      display: grid;
-      gap: 26px;
-    }
-
-    @media (min-width: 900px) {
-      .two-col {
-        grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
-        align-items: center;
-      }
-    }
-
-    .stat-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    @media (min-width: 720px) {
-      .stat-grid {
-        grid-template-columns: repeat(3, minmax(0,1fr));
-      }
-    }
-
-    .stat-card {
-      background: rgba(5,5,9,0.96);
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 14px 14px 13px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .stat-value {
-      font-size: 15px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    /* OFERTAS – QUINTA ETAPA */
-
-    .items-grid {
-      display: grid;
-      gap: 22px;
-      margin-top: 8px;
-    }
-
-    @media (min-width: 800px) {
-      .items-grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-    }
-
-    .item-card {
-      background: var(--card);
-      border-radius: var(--radius-lg);
-      padding: 16px 16px 18px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .item-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.95);
-      border-color: rgba(216,178,106,0.45);
-    }
-
-    .item-card img {
-      width: 100%;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .item-title {
-      font-size: 18px;
-      margin: 0 0 4px;
-    }
-
-    .item-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0 0 6px;
-    }
-
-    .item-price {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gold);
-      margin: 0 0 4px;
-    }
-
-    .item-tag {
-      font-size: 13px;
-      color: var(--gold);
-      margin: 0;
-    }
-
-    .items-cta {
-      text-align: center;
-      margin-top: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn-secondary {
-      padding: 11px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(8,8,12,0.9);
-      font-size: 13px;
-      cursor: pointer;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(14,14,20,0.96);
-      border-color: rgba(255,255,255,0.3);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    /* COMUNIDADE – SEXTA ETAPA */
-
-    /* FOOTER */
-
-    .footer {
-      margin-top: 40px;
-      padding: 32px 0 40px;
-      text-align: center;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(216,178,106,0.24);
-    }
-
-    .footer-content {
-      font-size: 13px;
-      opacity: .9;
-    }
-
-    .footer-small {
-      display: block;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--muted);
-      opacity: .8;
-    }
-
-    /* OVERLAYS */
-
-    .overlay-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-      padding: 20px;
-    }
-
-    .overlay-backdrop.active {
-      display: flex;
-    }
-
-    .overlay-card {
-      max-width: 580px;
-      width: 100%;
-      background: #050506;
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 40px 90px rgba(0,0,0,0.95);
-      padding: 22px 22px 20px;
-      position: relative;
-      animation: overlayIn .3s ease-out;
-    }
-
-    @keyframes overlayIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .overlay-close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      cursor: pointer;
-      background: rgba(10,10,16,0.98);
-      color: var(--muted);
-      transition: background .2s ease, color .2s ease, transform .2s ease;
-    }
-
-    .overlay-close:hover {
-      background: rgba(255,255,255,0.1);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .overlay-tag {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-
-    .overlay-title {
-      font-size: 20px;
-      margin: 0 0 6px;
-    }
-
-    .overlay-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .overlay-body {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      display: grid;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .overlay-footer {
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    /* LOGIN OVERLAY */
-
-    .login-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    @media (min-width: 720px) {
-      .login-grid {
-        grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
-      }
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 8px;
-    }
-
-    .field label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .field input {
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(7,7,13,0.98);
-      color: #ffffff;
-      font-size: 13px;
-      outline: none;
-      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    .field input:focus {
-      border-color: rgba(216,178,106,0.85);
-      box-shadow: 0 0 0 1px rgba(216,178,106,0.4);
-      background: rgba(10,10,18,1);
-    }
-
-    .link-muted {
-      font-size: 11px;
-      color: var(--muted);
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .link-muted:hover { color: #ffffff; }
-
-    /* REVEAL */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 720px) {
-      .section-title { text-align: center; }
-      .hero-section { text-align: center; }
-      .hero-sub, .hero-text { margin-left: auto; margin-right: auto; }
-    }
-  </style>
+<html lang="en" class="scroll-smooth antialiased selection:bg-[#D4B676] selection:text-black"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOWAIT | Curated Horology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=JetBrains+Mono:wght@300;400&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --gold: #D4B676;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Elegant Ticker (Brand Names instead of Stocks) */
+        .ticker-track { animation: scroll 60s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Soft Glow Background */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 800px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Smooth Reveal Animation */
+        .reveal-up {
+            animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Image Handling */
+        .img-container { overflow: hidden; }
+        .img-hover { 
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease; 
+            filter: saturate(0.8) contrast(1.1);
+        }
+        .group:hover .img-hover { 
+            transform: scale(1.05); 
+            filter: saturate(1) contrast(1);
+        }
+
+        /* Minimal Buttons */
+        .btn-minimal {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-minimal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        .btn-minimal:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    </style>
 </head>
+<body class="relative min-h-screen flex flex-col">
 
-<body>
+    <!-- Background Ambience -->
+    <div class="ambient-glow"></div>
 
-  <!-- TOPO -->
-  <header class="top-nav">
-    <div class="wrap nav-inner">
-      <div class="logo" id="logoToggle">NOWAIT</div>
-      <div class="nav-menu" id="navMenu">
-        <div class="nav-link" data-scroll="#hero">Primeira etapa – Visão geral</div>
-        <div class="nav-link" data-scroll="#padrao">Segunda etapa – Padrão NOWAIT</div>
-        <div class="nav-link" data-scroll="#como-funciona">Terceira etapa – Como funciona</div>
-        <div class="nav-link" data-scroll="#porque-menor">Quarta etapa – Por que você paga menos</div>
-        <div class="nav-link" data-scroll="#ofertas">Quinta etapa – Ofertas</div>
-        <div class="nav-link" data-scroll="#comunidade">Sexta etapa – Comunidade</div>
-        <div class="nav-link" id="openLogin">Área de membros</div>
-      </div>
+    <!-- Aesthetic Ticker (Brands) -->
+    <div class="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 h-10 flex items-center overflow-hidden">
+        <div class="flex whitespace-nowrap ticker-track opacity-50">
+            <!-- Content repeated for loop -->
+            <div class="flex items-center gap-16 px-8">
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Patek Philippe</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Audemars Piguet</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">F.P. Journe</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Rolex</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Richard Mille</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">A. Lange &amp; Söhne</span>
+                <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Vacheron Constantin</span>
+            </div>
+            <!-- Duplicate -->
+            <div class="flex items-center gap-16 px-8">
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Patek Philippe</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Audemars Piguet</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">F.P. Journe</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Rolex</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Richard Mille</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">A. Lange &amp; Söhne</span>
+                 <span class="w-1 h-1 bg-zinc-700 rounded-full"></span>
+                 <span class="font-mono text-[10px] tracking-[0.2em] uppercase">Vacheron Constantin</span>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main>
-
-    <!-- PRIMEIRA ETAPA – HERO -->
-    <section id="hero" class="section hero-section">
-      <div class="wrap hero-layout">
-        <div>
-          <div class="etapa-label reveal">Primeira etapa · Visão geral</div>
-          <h1 class="hero-title reveal">
-            O mercado global de relógios de luxo ao seu alcance.
-          </h1>
-
-          <p class="hero-sub reveal">
-            Peças 100% originais, logística própria e entrega internacional em até 72h. Operamos desde 2020 nos EUA, conectando você ao preço real — sem espera, sem intermediários, sem margem inflada do varejo brasileiro.
-          </p>
-
-          <p class="hero-text reveal">
-            Faça parte da nossa comunidade e tenha acesso às peças mais exclusivas do mundo com curadoria especializada, e entrega internacional em até 72h.
-          </p>
-
-          <div class="hero-cta reveal">
-            <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-              Falar com o Concierge NOWAIT
-            </button>
-            <button class="btn-ghost" data-scroll="#como-funciona">
-              Ver como funciona
-            </button>
-          </div>
-
-          <div class="hero-proof reveal">
-            +5.000 peças entregues desde 2020 · Operação direta Brasil — EUA
-          </div>
-        </div>
-
-        <div class="hero-tiles-wrapper reveal">
-          <div class="tiles-grid">
-            <div class="tile">
-              <div class="tile-label">Origem</div>
-              <div class="tile-main">Mercado global</div>
-              <div class="tile-badge">Rolex · Patek · AP · RM</div>
+    <!-- Navigation -->
+    <nav class="fixed top-10 w-full z-40 transition-all duration-300">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-10 h-24 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-4">
+                <span class="text-sm font-semibold tracking-[0.2em] text-white">NOWAIT</span>
             </div>
-            <div class="tile">
-              <div class="tile-label">Prazo</div>
-              <div class="tile-main">Até 72h</div>
-              <div class="tile-badge">Logística própria</div>
+            
+            <!-- Center Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-[11px] font-medium text-zinc-400 hover:text-white transition-colors uppercase tracking-wider btn-minimal">Collection</a>
+                <a href="#" class="text-[11px] font-medium text-zinc-400 hover:text-white transition-colors uppercase tracking-wider btn-minimal">New Arrivals</a>
+                <a href="#" class="text-[11px] font-medium text-zinc-400 hover:text-white transition-colors uppercase tracking-wider btn-minimal">Concierge</a>
             </div>
-            <div class="tile">
-              <div class="tile-label">Preço</div>
-              <div class="tile-main">Abaixo do Brasil</div>
-              <div class="tile-badge">Sem margem inflada</div>
+
+            <!-- CTA -->
+            <div class="flex items-center gap-8">
+                <button class="text-zinc-400 hover:text-white transition-colors"><i data-lucide="search" class="w-4 h-4"></i></button>
+                <button class="text-zinc-400 hover:text-white transition-colors relative">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span class="absolute -top-1 -right-1 w-1.5 h-1.5 bg-[#D4B676] rounded-full"></span>
+                </button>
+                <button class="hidden md:block border border-white/20 text-white px-6 py-2 rounded-sm text-[10px] font-bold tracking-widest hover:bg-white hover:text-black transition-all uppercase">
+                    Member Access
+                </button>
             </div>
-            <div class="tile">
-              <div class="tile-label">Atendimento</div>
-              <div class="tile-main">Concierge 1:1</div>
-              <div class="tile-badge">Comunidade privada</div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-44 pb-20 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
+        
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-40 items-center">
+            
+            <div class="flex flex-col justify-center order-2 lg:order-1">
+                <div class="inline-flex items-center gap-3 mb-8 reveal-up" style="animation-delay: 100ms">
+                    <span class="text-[10px] font-mono text-[#D4B676] uppercase tracking-widest">Global Vault Access</span>
+                    <span class="h-px w-8 bg-[#D4B676]/30"></span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-light tracking-[-0.03em] text-white mb-8 leading-[1.1] reveal-up" style="animation-delay: 200ms">
+                    The Art of <br>
+                    <span class="text-zinc-500 italic font-serif">Collecting Time.</span>
+                </h1>
+
+                <p class="text-sm text-zinc-400 font-light leading-relaxed max-w-md mb-12 reveal-up" style="animation-delay: 300ms">
+                    Discover a curated selection of the world's most elusive timepieces. From vintage rarities to modern masterpieces, sourced directly for the discerning collector.
+                </p>
+
+                <div class="flex items-center gap-8 reveal-up" style="animation-delay: 400ms">
+                    <button class="bg-white text-black px-8 py-3.5 rounded-sm text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#e0e0e0] transition-colors">
+                        View Collection
+                    </button>
+                    <a href="#" class="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] hover:text-white transition-colors flex items-center gap-2">
+                        Private Sourcing <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </a>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SEGUNDA ETAPA – PADRÃO NOWAIT -->
-    <section id="padrao" class="section">
-      <div class="wrap">
-        <div class="etapa-label reveal">Segunda etapa · Padrão NOWAIT</div>
-        <h2 class="section-title reveal">O que significa operar no padrão NOWAIT.</h2>
-
-        <div class="essencia-grid">
-          <article class="essencia-card reveal">
-            <h3>Autenticidade verificada</h3>
-            <p>Originais, sempre.
-Cada peça é verificada por nossa equipe de relojoeiros certificados antes de qualquer proposta.</p>
-          </article>
-
-          <article class="essencia-card reveal">
-            <h3>Garantia e segurança</h3>
-            <p>Privacidade total, entrega discreta e garantia clara.  
-Cada etapa é controlada por nós — do primeiro contato à peça final.
-</p>
-          </article>
-
-          <article class="essencia-card reveal">
-            <h3>Preço real de mercado</h3>
-            <p>Sem vitrine, sem showroom, sem custos desnecessários embutidos no valor final da peça.</p>
-          </article>
-
-          <article class="essencia-card reveal">
-            <h3>Entrega mais rápida do Brasil</h3>
-            <p>Peças internacionais entregues em até 72h.
-Logística própria. Zero espera.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- TERCEIRA ETAPA – COMO FUNCIONA -->
-    <section id="como-funciona" class="section">
-      <div class="wrap">
-        <div class="etapa-label reveal">Terceira etapa · Como funciona</div>
-        <div class="pill-row reveal">
-          <span class="pill">Fluxo direto</span>
-          <span class="pill">Concierge dedicado</span>
-        </div>
-        <h2 class="section-title reveal">Do seu pedido à peça no seu pulso.</h2>
-
-        <div class="steps-grid">
-          <div class="step-card reveal">
-            <div class="step-label">Passo 1</div>
-            <div class="step-title">Solicitação</div>
-            <div class="step-text">
-              Você informa modelo, referência, orçamento ou apenas o perfil de peça que busca.
+            <!-- Hero Image - Clean, Gallery Style -->
+            <div class="order-1 lg:order-2 relative reveal-up" style="animation-delay: 500ms">
+                <div class="relative w-full aspect-[4/5] lg:aspect-square overflow-hidden bg-[#080808]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-40 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Patek Philippe" class="w-full h-full object-cover object-center opacity-90">
+                    
+                    <!-- Minimal Overlay Info -->
+                    <div class="absolute bottom-8 left-8 z-20">
+                        <p class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1">Featured</p>
+                        <p class="text-xl text-white font-light">Patek Philippe Nautilus</p>
+                    </div>
+                </div>
+                <!-- Decorative Frame Line -->
+                <div class="absolute -bottom-4 -right-4 w-32 h-32 border-b border-r border-white/10 z-0"></div>
             </div>
-          </div>
-          <div class="step-card reveal">
-            <div class="step-label">Passo 2</div>
-            <div class="step-title">Curadoria</div>
-            <div class="step-text">
-              Nossa equipe acessa o mercado global para encontrar as melhores opções dentro do seu perfil.
+        </section>
+
+        <!-- Filters (Simplified, less "Trading") -->
+        <div class="flex flex-col md:flex-row justify-between items-end border-b border-white/5 pb-4 mb-12 gap-6 reveal-up" style="animation-delay: 600ms">
+            <div class="flex gap-8 overflow-x-auto pb-2 md:pb-0">
+                <button class="text-xs font-medium text-white border-b border-white pb-1 whitespace-nowrap">View All</button>
+                <button class="text-xs font-medium text-zinc-500 hover:text-white transition-colors whitespace-nowrap">New Arrivals</button>
+                <button class="text-xs font-medium text-zinc-500 hover:text-white transition-colors whitespace-nowrap">Patek Philippe</button>
+                <button class="text-xs font-medium text-zinc-500 hover:text-white transition-colors whitespace-nowrap">Audemars Piguet</button>
+                <button class="text-xs font-medium text-zinc-500 hover:text-white transition-colors whitespace-nowrap">Independents</button>
             </div>
-          </div>
-          <div class="step-card reveal">
-            <div class="step-label">Passo 3</div>
-            <div class="step-title">Verificação e aprovação</div>
-            <div class="step-text">
-              Peça analisada por relojoeiros certificados. Você aprova condições, fotos e valores antes de qualquer envio.
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-zinc-600 uppercase tracking-widest font-mono hidden md:block">Filter</span>
+                <button class="w-8 h-8 flex items-center justify-center border border-white/10 hover:border-white/30 text-zinc-400 hover:text-white transition-colors">
+                    <i data-lucide="sliders-horizontal" class="w-3 h-3"></i>
+                </button>
             </div>
-          </div>
-          <div class="step-card reveal">
-            <div class="step-label">Passo 4</div>
-            <div class="step-title">Entrega em até 72h</div>
-            <div class="step-text">
-              Logística própria, rastreio e entrega discreta. Tudo acompanhado pelo concierge.
+        </div>
+
+        <!-- Inventory Grid - Gallery Style -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            
+            <!-- Item 1 -->
+            <div class="group cursor-pointer reveal-up">
+                <div class="img-container relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03]">
+                    <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                         <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                         </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1639037466185-d85c54c37562?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover img-hover" alt="Nautilus">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Patek Philippe</span>
+                        <span class="text-[10px] font-mono text-[#D4B676]">Reserved</span>
+                    </div>
+                    <h3 class="text-base text-white font-medium group-hover:text-zinc-300 transition-colors">Nautilus Travel Time</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Ref. 5990/1A • 2022 • Full Set</p>
+                    <p class="text-xs text-white font-mono mt-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">Inquire for Price</p>
+                </div>
             </div>
-          </div>
+
+            <!-- Item 2 -->
+            <div class="group cursor-pointer reveal-up" style="animation-delay: 100ms">
+                <div class="img-container relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03]">
+                     <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                         <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                         </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1548123378-bde4eca81d2d?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover img-hover" alt="Daytona">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Rolex</span>
+                        <span class="text-[10px] font-mono text-zinc-400">Available</span>
+                    </div>
+                    <h3 class="text-base text-white font-medium group-hover:text-zinc-300 transition-colors">Daytona 'John Mayer'</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Ref. 116508 • 2021 • Unworn</p>
+                    <p class="text-xs text-white font-mono mt-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">$102,500 USD</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group cursor-pointer reveal-up" style="animation-delay: 200ms">
+                <div class="img-container relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03]">
+                     <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                         <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                         </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover img-hover" alt="Royal Oak">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Audemars Piguet</span>
+                        <span class="text-[10px] font-mono text-zinc-400">Available</span>
+                    </div>
+                    <h3 class="text-base text-white font-medium group-hover:text-zinc-300 transition-colors">Royal Oak Perpetual</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Ref. 26574 • Blue Ceramic • 2023</p>
+                    <p class="text-xs text-white font-mono mt-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">$340,000 USD</p>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+             <div class="group cursor-pointer reveal-up">
+                <div class="img-container relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03]">
+                    <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                         <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                         </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1596516109370-29001ec8ec36?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover img-hover" alt="Cartier">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Cartier</span>
+                        <span class="text-[10px] font-mono text-zinc-400">Available</span>
+                    </div>
+                    <h3 class="text-base text-white font-medium group-hover:text-zinc-300 transition-colors">Crash 'London'</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Limited Edition • 1991</p>
+                    <p class="text-xs text-white font-mono mt-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">Inquire for Price</p>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="group cursor-pointer reveal-up" style="animation-delay: 100ms">
+                <div class="img-container relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03]">
+                     <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                         <button class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                         </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1612177344073-7800223e2054?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover img-hover" alt="FP Journe">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">F.P. Journe</span>
+                        <span class="text-[10px] font-mono text-zinc-400">Available</span>
+                    </div>
+                    <h3 class="text-base text-white font-medium group-hover:text-zinc-300 transition-colors">Chronomètre Bleu</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Tantalum • Caliber 1304</p>
+                    <p class="text-xs text-white font-mono mt-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">$98,000 USD</p>
+                </div>
+            </div>
+
+            <!-- Item 6: Sourcing Card (Minimal) -->
+            <div class="group cursor-pointer reveal-up h-full" style="animation-delay: 200ms">
+                 <div class="relative bg-[#080808] aspect-[4/5] mb-6 border border-white/[0.03] flex flex-col items-center justify-center p-8 text-center group-hover:border-[#D4B676]/30 transition-colors">
+                    <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="search" class="text-zinc-400 w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white mb-2">Sourcing Service</h3>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed mb-6 max-w-[200px]">
+                        Searching for a specific reference? Our global network can locate any timepiece within 48 hours.
+                    </p>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-white pb-1 group-hover:text-[#D4B676] group-hover:border-[#D4B676] transition-colors">
+                        Submit Request
+                    </span>
+                 </div>
+            </div>
+
+        </section>
+
+        <!-- Editorial / Brand Story -->
+        <section class="mt-32 border-t border-white/5 pt-20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4">
+                    <h2 class="text-2xl font-light text-white mb-6">Verified Authenticity.</h2>
+                    <p class="text-xs text-zinc-500 leading-relaxed mb-8 max-w-xs">
+                        Every timepiece that passes through our vault undergoes a rigorous 25-point inspection by Swiss-trained watchmakers. We guarantee provenance, mechanical integrity, and absolute authenticity.
+                    </p>
+                    <a href="#" class="text-[10px] font-mono text-zinc-400 hover:text-white uppercase tracking-widest flex items-center gap-2">
+                        Read our Protocol <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </a>
+                </div>
+                <div class="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="bg-[#080808] p-6 border border-white/5">
+                        <i data-lucide="shield-check" class="text-[#D4B676] w-6 h-6 mb-4"></i>
+                        <h4 class="text-sm font-medium text-white mb-2">Double Checked</h4>
+                        <p class="text-[10px] text-zinc-500 leading-relaxed">External validation and in-house verification.</p>
+                    </div>
+                     <div class="bg-[#080808] p-6 border border-white/5">
+                        <i data-lucide="globe" class="text-[#D4B676] w-6 h-6 mb-4"></i>
+                        <h4 class="text-sm font-medium text-white mb-2">Global Logistics</h4>
+                        <p class="text-[10px] text-zinc-500 leading-relaxed">Insured shipping to 85+ countries.</p>
+                    </div>
+                     <div class="bg-[#080808] p-6 border border-white/5">
+                        <i data-lucide="lock" class="text-[#D4B676] w-6 h-6 mb-4"></i>
+                        <h4 class="text-sm font-medium text-white mb-2">Secure Escrow</h4>
+                        <p class="text-[10px] text-zinc-500 leading-relaxed">Funds released only upon delivery acceptance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-[#030303] py-20 relative z-10">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between gap-12">
+            
+            <div class="space-y-6 max-w-xs">
+                <span class="text-sm font-semibold tracking-[0.2em] text-white">NOWAIT</span>
+                <p class="text-[11px] text-zinc-500 leading-relaxed">
+                    The premier destination for the acquisition and sale of investment-grade timepieces.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-24">
+                <div>
+                    <h5 class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-6">Explore</h5>
+                    <ul class="space-y-3 text-[11px] text-zinc-500 font-medium">
+                        <li><a href="#" class="hover:text-white transition-colors">Collection</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Brands</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-6">Services</h5>
+                    <ul class="space-y-3 text-[11px] text-zinc-500 font-medium">
+                        <li><a href="#" class="hover:text-white transition-colors">Sell Your Watch</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Concierge</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Appraisal</a></li>
+                    </ul>
+                </div>
+                 <div class="col-span-2 md:col-span-2">
+                     <h5 class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-6">Newsletter</h5>
+                     <div class="flex border-b border-white/10 pb-2">
+                         <input type="email" placeholder="Email Address" class="bg-transparent text-xs text-white focus:outline-none w-full placeholder-zinc-700">
+                         <button class="text-zinc-500 hover:text-white transition-colors uppercase text-[10px] font-bold tracking-wider">Join</button>
+                     </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-    </section>
-
-    <!-- QUARTA ETAPA – POR QUE VOCÊ PAGA MENOS -->
-    <section id="porque-menor" class="section">
-      <div class="wrap two-col">
-        <div>
-          <div class="etapa-label reveal">Quarta etapa · Estrutura de preço</div>
-          <div class="pill-row reveal">
-            <span class="pill">Preço real de mercado</span>
-            <span class="pill">Sem vitrine física</span>
-          </div>
-          <h2 class="section-title reveal">Por que você paga menos que nas revendas brasileiras?</h2>
-
-          <p class="hero-text reveal">
-            Trabalhamos com compra internacional, operação enxuta e logística própria. Isso elimina camadas de revenda, aluguel de vitrine e custos fixos que normalmente são repassados para o cliente final.
-          </p>
-
-          <p class="hero-text reveal">
-            O resultado é simples: acesso ao valor real das peças no mercado global, com curadoria especializada e segurança total em cada etapa.
-          </p>
+        <div class="max-w-[1400px] mx-auto px-6 md:px-10 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[10px] text-zinc-700 font-mono uppercase">© 2024 NOWAIT. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="text-[10px] text-zinc-700 hover:text-zinc-500 font-mono uppercase">Privacy</a>
+                <a href="#" class="text-[10px] text-zinc-700 hover:text-zinc-500 font-mono uppercase">Terms</a>
+            </div>
         </div>
+    </footer>
 
-        <div class="stat-grid">
-          <div class="stat-card reveal">
-            <div class="stat-value">Sem showroom</div>
-            Não carregamos custo de loja física ou vitrine em shopping no valor da peça.
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-value">Sem intermediários</div>
-            Menos etapas entre a peça e você, menos margem embutida no caminho.
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-value">Operação enxuta</div>
-            Estrutura pensada para escalar em volume, não em markup.
-          </div>
-        </div>
-      </div>
-    </section>
+    <script>
+        lucide.createIcons({
+            attrs: {
+                strokeWidth: 1.5
+            }
+        });
+    </script>
 
-    <!-- QUINTA ETAPA – OFERTAS -->
-    <section id="ofertas" class="section">
-      <div class="wrap">
-        <div class="etapa-label reveal">Quinta etapa · Ofertas</div>
-        <h2 class="section-title reveal">Algumas de nossas ofertas.</h2>
-
-        <div class="items-grid">
-          <article class="item-card reveal" data-modal="modelos">
-            <img src="patek5167.jpeg" alt="Patek Philippe 5167" />
-            <h3 class="item-title">Patek Philippe 5167</h3>
-            <p class="item-sub">Complete 2015</p>
-            <p class="item-price">R$ 352.000,00</p>
-            <p class="item-tag">PRICE TO FLY 🚀</p>
-            <p class="item-tag">50k abaixo do mercado</p>
-          </article>
-
-          <article class="item-card reveal" data-modal="modelos">
-            <img src="patek5712.jpg" alt="Patek Philippe 5712 Blue Dial" />
-            <h3 class="item-title">Patek Philippe 5712/1A</h3>
-            <p class="item-sub">Completo</p>
-            <p class="item-price">R$ 590.700,00</p>
-            <p class="item-tag">CHEAPEST ON THE WORLD 🌎</p>
-            <p class="item-tag">Quase 200k abaixo do mercado</p>
-          </article>
-        </div>
-
-        <div class="items-cta reveal">
-          <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-            Solicitar peça via concierge
-          </button>
-          <button class="btn-secondary" id="openModelos">
-            Conhecer a história do RM 67-02 e do Patek 5712
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEXTA ETAPA – COMUNIDADE -->
-    <section id="comunidade" class="section">
-      <div class="wrap two-col">
-        <div>
-          <div class="etapa-label reveal">Sexta etapa · Comunidade</div>
-          <div class="pill-row reveal">
-            <span class="pill">Comunidade privada</span>
-            <span class="pill">Acesso antecipado</span>
-          </div>
-          <h2 class="section-title reveal">A comunidade NOWAIT.</h2>
-
-          <p class="hero-text reveal">
-            Mais do que intermediar peças, criamos uma rede de clientes que valorizam tempo, privacidade e acesso inteligente ao mercado de luxo global.
-          </p>
-
-          <p class="hero-text reveal">
-            Dentro da comunidade, você recebe oportunidades antes de chegarem ao público, ofertas pontuais em peças específicas e um canal direto com quem realmente conhece o mercado.
-          </p>
-
-          <div class="hero-cta reveal">
-            <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-              Solicitar acesso à comunidade
-            </button>
-          </div>
-        </div>
-
-        <div class="stat-grid">
-          <div class="stat-card reveal">
-            <div class="stat-value">+5.000</div>
-            Itens entregues desde 2020 em operação internacional contínua.
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-value">Perfil selecionado</div>
-            Foco em clientes que priorizam liquidez, segurança e assertividade.
-          </div>
-          <div class="stat-card reveal">
-            <div class="stat-value">Acesso antecipado</div>
-            Peças especiais e oportunidades que não chegam ao varejo tradicional.
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-content">
-      NOWAIT — Private Luxury Market
-      <span class="footer-small">Mais de 5.000 itens entregues desde 2020</span>
-    </div>
-  </footer>
-
-  <!-- OVERLAY CONVERSÃO (ADS) -->
-  <div class="overlay-backdrop" id="overlayAds">
-    <div class="overlay-card">
-      <button class="overlay-close" data-close>×</button>
-
-      <div class="overlay-tag">Acesso imediato</div>
-      <h3 class="overlay-title">Acesso direto ao mercado global de relógios de luxo.</h3>
-      <p class="overlay-sub">
-        Autenticidade verificada · Até 20% abaixo das revendas brasileiras · Entrega internacional em até 72h.
-      </p>
-
-      <div class="overlay-body">
-        <div>
-          <strong>Primeiro passo</strong><br>
-          Diga ao concierge o modelo, referência ou orçamento que está em mente.
-        </div>
-        <div>
-          <strong>Segundo passo</strong><br>
-          Buscamos no mercado global as melhores oportunidades reais dentro do seu perfil.
-        </div>
-        <div>
-          <strong>Terceiro passo</strong><br>
-          Peça verificada, aprovada por você e enviada com logística própria em até 72h.
-        </div>
-        <div>
-          +5.000 peças entregues desde 2020, com operação direta Brasil — EUA.
-        </div>
-      </div>
-
-      <div class="overlay-footer">
-        <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-          Falar com o Concierge NOWAIT
-        </button>
-        <button class="btn-ghost" data-close>
-          Ver página completa
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- OVERLAY MODELOS -->
-  <div class="overlay-backdrop" id="overlayModelos">
-    <div class="overlay-card">
-      <button class="overlay-close" data-close>×</button>
-
-      <div class="overlay-tag">História das peças</div>
-      <h3 class="overlay-title">RM 67-02 “Sebastian Ogier” & Patek Philippe 5712</h3>
-      <p class="overlay-sub">
-        Dois ícones modernos: um dos Richard Mille mais leves já produzidos e um dos Patek mais desejados da linha Nautilus.
-      </p>
-
-      <div class="overlay-body">
-        <div>
-          <strong>RM 67-02 “Sebastian Ogier”</strong><br>
-          Desenvolvido para o piloto de rally Sebastian Ogier, o RM 67-02 é um estudo extremo em leveza e performance.
-          Caixa em materiais compostos de alta tecnologia, pulseira elástica que abraça o pulso e construção pensada para suportar impacto em alta velocidade.
-          É um dos modelos mais procurados por colecionadores que buscam esportividade máxima, tecnologia de ponta e presença imediata no pulso.
-        </div>
-        <div>
-          <strong>Patek Philippe 5712</strong><br>
-          O 5712 é um dos pilares da linha Nautilus, com a clássica assimetria de mostrador desenhada por Gérald Genta.
-          Movimento 240 PS IRM C LU, perfil fino e proporções que fazem dele uma peça versátil, elegante e altamente colecionável.
-          É visto como referência de liquidez e preservação de valor no longo prazo entre colecionadores.
-        </div>
-      </div>
-
-      <div class="overlay-footer">
-        <button class="btn-main" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-          Consultar disponibilidade via concierge
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- OVERLAY LOGIN -->
-  <div class="overlay-backdrop" id="overlayLogin">
-    <div class="overlay-card">
-      <button class="overlay-close" data-close>×</button>
-
-      <div class="overlay-tag">Área de membros</div>
-      <h3 class="overlay-title">Acesso à comunidade NOWAIT</h3>
-      <p class="overlay-sub">
-        Entre com sua conta ou solicite acesso para a comunidade privada de clientes NOWAIT.
-      </p>
-
-      <div class="overlay-body login-grid">
-        <div>
-          <div class="field">
-            <label for="login-email">E-mail</label>
-            <input id="login-email" type="email" placeholder="voce@exemplo.com" />
-          </div>
-          <div class="field">
-            <label for="login-senha">Senha</label>
-            <input id="login-senha" type="password" placeholder="Sua senha" />
-          </div>
-          <button class="btn-main" style="width:100%; margin-top:4px;">
-            Entrar
-          </button>
-          <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
-            <span class="link-muted">Esqueci minha senha</span>
-            <span class="link-muted" onclick="window.open('https://wa.me/message/LAJFPIUQYR5UD1')">
-              Solicitar acesso VIP
-            </span>
-          </div>
-        </div>
-
-        <div>
-          <p style="font-size:13px; color:var(--muted); margin:0 0 8px;">
-            A área de membros foi pensada para clientes que operam com frequência no mercado global de luxo e desejam:
-          </p>
-          <ul style="font-size:13px; color:var(--muted); margin:0 0 10px; padding-left:18px; line-height:1.45;">
-            <li>Acesso antecipado a oportunidades específicas;</li>
-            <li>Visão consolidada das peças já negociadas;</li>
-            <li>Comunicação direta com o concierge responsável;</li>
-            <li>Organização da carteira de relógios com foco em liquidez.</li>
-          </ul>
-          <p style="font-size:12px; color:var(--muted); opacity:.9; margin:0;">
-            O acesso é liberado caso a caso, de acordo com o histórico e o perfil de cada cliente.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // NAVBAR SHRINK
-    document.addEventListener("scroll", () => {
-      const nav = document.querySelector(".top-nav");
-      if (!nav) return;
-      if (window.scrollY > 60) nav.classList.add("shrink");
-      else nav.classList.remove("shrink");
-    });
-
-    // REVEAL
-    const revealEls = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.16 });
-    revealEls.forEach(el => io.observe(el));
-
-    // SCROLL SUAVE
-    function smoothScrollTo(selector) {
-      const target = document.querySelector(selector);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    document.querySelectorAll("[data-scroll]").forEach(el => {
-      el.addEventListener("click", () => {
-        const sel = el.getAttribute("data-scroll");
-        smoothScrollTo(sel);
-        const navMenu = document.getElementById("navMenu");
-        navMenu.classList.remove("open");
-      });
-    });
-
-    // MENU AO CLICAR NA LOGO
-    const logoToggle = document.getElementById("logoToggle");
-    const navMenu = document.getElementById("navMenu");
-
-    if (logoToggle && navMenu) {
-      logoToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("open");
-      });
-      document.addEventListener("click", (e) => {
-        if (!navMenu.contains(e.target) && e.target !== logoToggle) {
-          navMenu.classList.remove("open");
-        }
-      });
-    }
-
-    // OVERLAYS helpers
-    function openOverlay(overlay) {
-      if (overlay) overlay.classList.add("active");
-    }
-    function closeOverlay(overlay) {
-      if (overlay) overlay.classList.remove("active");
-    }
-
-    // Overlay modelos
-    const overlayModelos = document.getElementById("overlayModelos");
-    const openModelosBtn = document.getElementById("openModelos");
-    if (openModelosBtn) {
-      openModelosBtn.addEventListener("click", () => openOverlay(overlayModelos));
-    }
-    document.querySelectorAll(".item-card[data-modal='modelos']").forEach(card => {
-      card.addEventListener("click", () => openOverlay(overlayModelos));
-    });
-
-    // Overlay login
-    const overlayLogin = document.getElementById("overlayLogin");
-    const openLogin = document.getElementById("openLogin");
-    if (openLogin) {
-      openLogin.addEventListener("click", () => openOverlay(overlayLogin));
-    }
-
-    // Overlay Ads – abre só se tiver ?ads=1
-    const overlayAds = document.getElementById("overlayAds");
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("ads") === "1") {
-      openOverlay(overlayAds);
-    }
-
-    // Fechar overlays (X ou clique fora ou botões com data-close)
-    document.querySelectorAll(".overlay-backdrop").forEach(backdrop => {
-      backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) closeOverlay(backdrop);
-      });
-      backdrop.querySelectorAll("[data-close]").forEach(btn => {
-        btn.addEventListener("click", () => closeOverlay(backdrop));
-      });
-    });
-  </script>
-</body>
-</html>
+</body></html>
