@@ -673,6 +673,32 @@
         </script>
       </section>
 
+        <script>
+function scaleMobile() {
+  const width = window.innerWidth;
+  const root = document.documentElement;
+
+  if (width < 480) {
+    root.style.setProperty("--scale", "0.88");
+  } else if (width < 380) {
+    root.style.setProperty("--scale", "0.82");
+  } else {
+    root.style.setProperty("--scale", "1");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", scaleMobile);
+window.addEventListener("resize", scaleMobile);
+</script>
+
+<style>
+* {
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+</style>
+
+
       <!-- Trust Indicators (Cleaned up) -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-12 border-y border-white/5 py-16 bg-white/[0.01]">
         <div class="text-center md:text-left px-4">
