@@ -673,23 +673,32 @@
         </script>
       </section>
 
-        <script>
-function scaleMobile() {
-  const width = window.innerWidth;
-  const root = document.documentElement;
+       <style>
+@media (max-width: 640px) {
 
-  if (width < 480) {
-    root.style.setProperty("--scale", "0.88");
-  } else if (width < 380) {
-    root.style.setProperty("--scale", "0.82");
-  } else {
-    root.style.setProperty("--scale", "1");
+  /* Remove alturas absurdas no mobile */
+  section {
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  /* Compressão de espaçamento */
+  .pt-32, .pt-40, .pt-48,
+  .pb-32, .pb-40, .pb-48,
+  .py-32, .py-40, .py-48 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Reduz margens gigantes */
+  .mt-32, .mt-40, .mt-48,
+  .mb-32, .mb-40, .mb-48 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
   }
 }
+</style>
 
-document.addEventListener("DOMContentLoaded", scaleMobile);
-window.addEventListener("resize", scaleMobile);
-</script>
 
 <style>
 * {
