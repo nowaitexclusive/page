@@ -1,417 +1,537 @@
-<html lang="pt-BR" class="scroll-smooth"><head>
+<html lang="pt-BR" class="scroll-smooth antialiased"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOWAIT | High Horology Asset Management</title>
+    <title>NOWAIT | Sovereign Access to Horology</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=JetBrains+Mono:wght@300;400&amp;family=Playfair+Display:ital,wght@1,400;1,500&amp;display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            --gold-primary: #D4B676;
-            --gold-muted: #9E8855;
-            --bg-dark: #020202;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: #ffffff;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+      :root {
+          --bg-dark: #030304;
+          --gold-accent: #EBCB8B;
+          --grid-line: rgba(255, 255, 255, 0.03);
+      }
 
-        /* Ticker Animation */
-        .ticker-wrap {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .ticker {
-            display: inline-block;
-            animation: ticker 30s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
+      body {
+          font-family: 'Inter', sans-serif;
+          background-color: var(--bg-dark);
+          color: #ffffff;
+          overflow-x: hidden;
+      }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 2px; }
-        ::-webkit-scrollbar-track { background: #020202; }
-        ::-webkit-scrollbar-thumb { background: #333; }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+      .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
 
-        /* Animations */
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-text.active { transform: translateY(0); opacity: 1; }
+      /* Custom Grids & Backgrounds */
+      .grid-bg {
+          background-size: 40px 40px;
+          background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                            linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+          mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+          -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in.active { opacity: 1; transform: translateY(0); }
+      /* Glass & Borders */
+      .glass-card {
+          background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+          border: 1px solid rgba(255,255,255,0.06);
+          backdrop-filter: blur(12px);
+      }
+      
+      .glass-card-dark {
+          background: #080808;
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: 0 0 0 1px rgba(0,0,0,1), 0 20px 40px -20px rgba(0,0,0,0.5);
+      }
 
-        /* Bento/Glass Cards */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .gold-glow:hover {
-            box-shadow: 0 0 30px -10px rgba(212, 182, 118, 0.15);
-            border-color: rgba(212, 182, 118, 0.2);
-        }
+      .glass-card:hover {
+          border-color: rgba(255,255,255,0.12);
+          background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+      }
 
-        /* Shimmer Effect */
-        .shimmer-text {
-            background: linear-gradient(to right, #666 20%, #fff 40%, #fff 60%, #666 80%);
-            background-size: 200% auto;
-            color: #000;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
-        }
-        @keyframes shine { to { background-position: 200% center; } }
+      /* Ticker Animation */
+      .ticker-track { animation: scroll 60s linear infinite; }
+      @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+      /* Complex Watch Mechanism Animation */
+      .mech-ring { transform-origin: center; }
+      .spin-cw-slow { animation: spin 80s linear infinite; }
+      .spin-ccw-medium { animation: spin 40s linear infinite reverse; }
+      .spin-cw-fast { animation: spin 15s linear infinite; }
+      .pulse-opacity { animation: pulse 4s ease-in-out infinite; }
+
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+      /* Reveal Animations */
+      .reveal-up {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: var(--bg-dark); }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
     </style>
-</head>
-<body class="selection:bg-[#D4B676] selection:text-black relative">
+  </head>
+  <body class="selection:bg-[#EBCB8B]/20 selection:text-[#EBCB8B] relative">
+    
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-40"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-white/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Background Noise & Glow -->
-    <div class="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] pointer-events-none z-[1]"></div>
-    <div class="fixed top-[-20%] left-[20%] w-[600px] h-[600px] bg-[#D4B676] rounded-full blur-[180px] opacity-[0.03] pointer-events-none z-0"></div>
-
-    <!-- Market Ticker -->
-    <div class="fixed top-0 w-full z-50 bg-[#020202] border-b border-white/5 h-8 flex items-center">
-        <div class="ticker-wrap opacity-60">
-            <div class="ticker text-[10px] font-mono tracking-widest text-zinc-400">
-                <span class="mx-8"><span class="text-[#D4B676]">PP 5711/1A</span> ▲ $128,500</span>
-                <span class="mx-8"><span class="text-[#D4B676]">AP 15202ST</span> ▲ $88,200</span>
-                <span class="mx-8"><span class="text-zinc-500">RLX 116500LN</span> ▼ $28,400</span>
-                <span class="mx-8"><span class="text-[#D4B676]">PP 5167A</span> ▲ $62,100</span>
-                <span class="mx-8"><span class="text-[#D4B676]">RM 11-03</span> ▲ $345,000</span>
-                <span class="mx-8"><span class="text-[#D4B676]">FPJ CHRONOMÈTRE</span> ▲ $92,000</span>
-                <!-- Repeat for infinite scroll illusion -->
-                <span class="mx-8"><span class="text-[#D4B676]">PP 5711/1A</span> ▲ $128,500</span>
-                <span class="mx-8"><span class="text-[#D4B676]">AP 15202ST</span> ▲ $88,200</span>
-                <span class="mx-8"><span class="text-zinc-500">RLX 116500LN</span> ▼ $28,400</span>
-            </div>
+    <!-- Top Bar / Expanded Ticker -->
+    <div class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#030304]/80 backdrop-blur-md">
+      <div class="flex items-center h-9 overflow-hidden relative">
+        <div class="flex items-center gap-2 px-6 border-r border-white/5 h-full bg-[#030304] z-10 shrink-0">
+          <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-zinc-400">Live Global Ask</span>
         </div>
+        <!-- Infinite Scroll Container -->
+        <div class="flex items-center whitespace-nowrap overflow-hidden w-full mask-linear-fade">
+          <div class="ticker-track flex items-center gap-8 px-4 text-[9px] font-mono text-zinc-500">
+            <!-- Set 1 -->
+            <span class="flex gap-2">PP 5711/1A <span class="text-green-400">▲ +2.4%</span></span>
+            <span class="flex gap-2">AP 15407ST <span class="text-green-400">▲ +5.1%</span></span>
+            <span class="flex gap-2">RLX 116500 <span class="text-red-400">▼ -0.8%</span></span>
+            <span class="flex gap-2">FPJ CHRONO <span class="text-green-400">▲ +12.5%</span></span>
+            <span class="flex gap-2">RM 35-02 <span class="text-zinc-400">▬ 0.0%</span></span>
+            <span class="flex gap-2">ALS ODYSSEUS <span class="text-green-400">▲ +1.2%</span></span>
+            <span class="flex gap-2">PP 5740G <span class="text-green-400">▲ +3.8%</span></span>
+            <span class="flex gap-2">AP 16202ST <span class="text-red-400">▼ -1.5%</span></span>
+            <span class="flex gap-2">VC 4500V <span class="text-green-400">▲ +0.9%</span></span>
+            <span class="flex gap-2">RM 67-02 <span class="text-green-400">▲ +15.2%</span></span>
+            <span class="flex gap-2">RLX 126710 <span class="text-zinc-400">▬ 0.0%</span></span>
+            <!-- Set 2 (Duplicate for loop) -->
+            <span class="flex gap-2">PP 5711/1A <span class="text-green-400">▲ +2.4%</span></span>
+            <span class="flex gap-2">AP 15407ST <span class="text-green-400">▲ +5.1%</span></span>
+            <span class="flex gap-2">RLX 116500 <span class="text-red-400">▼ -0.8%</span></span>
+            <span class="flex gap-2">FPJ CHRONO <span class="text-green-400">▲ +12.5%</span></span>
+            <span class="flex gap-2">RM 35-02 <span class="text-zinc-400">▬ 0.0%</span></span>
+            <span class="flex gap-2">ALS ODYSSEUS <span class="text-green-400">▲ +1.2%</span></span>
+            <span class="flex gap-2">PP 5740G <span class="text-green-400">▲ +3.8%</span></span>
+            <span class="flex gap-2">AP 16202ST <span class="text-red-400">▼ -1.5%</span></span>
+            <span class="flex gap-2">VC 4500V <span class="text-green-400">▲ +0.9%</span></span>
+            <span class="flex gap-2">RM 67-02 <span class="text-green-400">▲ +15.2%</span></span>
+            <span class="flex gap-2">RLX 126710 <span class="text-zinc-400">▬ 0.0%</span></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-8 w-full z-40 bg-gradient-to-b from-[#020202] to-transparent backdrop-blur-sm transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-2.5 h-2.5 bg-[#D4B676] rotate-45 group-hover:rotate-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-                <span class="text-xs font-semibold tracking-[0.25em] text-white">NOWAIT</span>
-            </a>
-            
-            <div class="hidden md:flex items-center gap-10">
-                <a href="#philosophy" class="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white transition-colors duration-300">Strategy</a>
-                <a href="#vault" class="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white transition-colors duration-300">Inventory</a>
-                <a href="#concierge" class="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white transition-colors duration-300">Private Office</a>
-            </div>
+    <nav class="fixed top-9 w-full z-40 transition-all duration-300 bg-gradient-to-b from-[#030304] to-transparent">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2 group">
+          <div class="relative w-5 h-5 flex items-center justify-center">
+            <div class="absolute w-full h-full border border-white/20 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+            <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+          </div>
+          <span class="text-sm font-medium tracking-[0.2em] text-white pl-1">NOWAIT</span>
+        </a>
 
-            <button class="glass-panel px-5 py-2 rounded-full flex items-center gap-2 text-[10px] font-medium text-white hover:bg-white/5 transition-all group">
-                <span class="uppercase tracking-widest">Client Login</span>
-                <i data-lucide="lock" class="w-3 h-3 text-[#D4B676] group-hover:text-white transition-colors"></i>
-            </button>
+        <div class="hidden md:flex items-center bg-white/5 border border-white/5 rounded-full px-1 p-1 backdrop-blur-md">
+          <a href="#model" class="px-5 py-1.5 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">O Modelo</a>
+          <a href="#vault" class="px-5 py-1.5 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">Acervo</a>
+          <a href="#private" class="px-5 py-1.5 text-[11px] font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">Private Office</a>
         </div>
+
+        <button class="text-[11px] font-medium text-white flex items-center gap-2 px-4 py-2 border border-white/10 rounded hover:bg-[#EBCB8B] hover:text-black hover:border-[#EBCB8B] transition-all duration-300">
+          <span>Client Portal</span>
+        </button>
+      </div>
     </nav>
 
-    <main class="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto space-y-40">
-        
-        <!-- Hero Section -->
-        <section class="min-h-[75vh] flex flex-col justify-center items-start relative">
-            
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:block opacity-20 grayscale hover:grayscale-0 transition-all duration-1000 fade-in delay-[500ms]">
-                <!-- Abstract stylized watch mechanism visual could go here, emphasizing engineering -->
-                 <i data-lucide="watch" class="w-96 h-96 text-zinc-800 stroke-[0.5]"></i>
-            </div>
+    <main class="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-24 space-y-40">
+      
+      <!-- Hero Section -->
+      <section class="min-h-[60vh] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <div class="inline-flex items-center gap-2 border border-white/10 rounded-full px-3 py-1 mb-8 bg-white/5 backdrop-blur-sm reveal-up">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EBCB8B] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#EBCB8B]"></span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-zinc-300 font-medium">Lista de espera é uma ilusão</span>
+          </div>
 
-            <div class="mb-6 fade-in">
-                <span class="text-[#D4B676] text-[10px] font-bold tracking-[0.3em] uppercase border-l border-[#D4B676] pl-3">Global Asset Allocation</span>
-            </div>
+          <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-6 leading-[1.05] reveal-up" style="transition-delay: 100ms;">
+            Soberania sobre <br>
+            <span class="text-zinc-600">o Tempo.</span>
+          </h1>
 
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-medium tracking-tighter text-white mb-8 leading-[0.9] max-w-5xl">
-                <div class="overflow-hidden"><span class="block reveal-text">O fim das</span></div>
-                <div class="overflow-hidden"><span class="block reveal-text delay-[100ms] text-zinc-600">listas de espera.</span></div>
-            </h1>
+          <p class="text-base text-zinc-400 leading-relaxed max-w-lg mb-10 reveal-up font-light" style="transition-delay: 200ms;">
+            O modelo de varejo tradicional é desenhado para controlar você. Nós redesenhamos o sistema.
+            Através de arbitragem algorítmica em 12 hubs financeiros, nós entregamos o "inobtenível" em 48 horas.
+            <br><br>
+            Não pedimos permissão para alocar ativos. Nós os capturamos.
+          </p>
 
-            <p class="max-w-xl text-zinc-400 text-sm md:text-base leading-relaxed mb-12 fade-in delay-[300ms] border-l border-white/10 pl-6">
-                A NOWAIT não é uma loja. Somos uma infraestrutura logística global para aquisição de ativos hard-luxury. Conectamos seu capital diretamente aos inventários ocultos de Genebra, NY e Dubai. Sem jogos. Sem histórico de compra exigido.
-            </p>
+          <div class="flex flex-col sm:flex-row gap-4 reveal-up" style="transition-delay: 300ms;">
+            <button class="bg-[#EBCB8B] text-black h-12 px-8 rounded flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest hover:bg-[#d6b97e] transition-colors">
+              Iniciar Aquisição
+            </button>
+            <button class="group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-white hover:border-white/30 transition-all">
+              Entenda o Protocolo
+              <i data-lucide="arrow-down" class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors"></i>
+            </button>
+          </div>
+        </div>
 
-            <div class="flex flex-col sm:flex-row gap-6 fade-in delay-[400ms]">
-                <button class="bg-white text-black px-8 py-4 rounded-full text-xs font-bold tracking-widest hover:bg-[#D4B676] transition-colors duration-300 w-full sm:w-auto">
-                    SOLICITAR ALOCAÇÃO
-                </button>
-                <div class="flex items-center gap-4 px-6 py-4 border border-white/10 rounded-full glass-panel w-full sm:w-auto">
-                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    <span class="text-[10px] uppercase tracking-widest text-zinc-300">Market Status: <span class="text-white font-semibold">Liquid</span></span>
+        <!-- The Digital Tourbillon -->
+        <div class="order-1 lg:order-2 flex justify-center items-center relative h-[400px] lg:h-[600px] reveal-up" style="transition-delay: 200ms;">
+            <div class="absolute inset-0 bg-gradient-to-tr from-[#EBCB8B]/5 to-transparent rounded-full blur-3xl opacity-20"></div>
+            <div class="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]">
+              <svg class="absolute inset-0 w-full h-full text-zinc-800" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke="currentColor" stroke-width="0.2"></circle>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.1" stroke-dasharray="1 2"></circle>
+              </svg>
+              <svg class="absolute inset-0 w-full h-full text-zinc-700 mech-ring spin-cw-slow" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="0.1" stroke-dasharray="0.5 3"></circle>
+                <path d="M50 2 V8" stroke="currentColor" stroke-width="0.5"></path>
+                <path d="M50 92 V98" stroke="currentColor" stroke-width="0.5"></path>
+                <path d="M2 50 H8" stroke="currentColor" stroke-width="0.5"></path>
+                <path d="M92 50 H98" stroke="currentColor" stroke-width="0.5"></path>
+              </svg>
+              <svg class="absolute inset-0 w-full h-full text-zinc-600 mech-ring spin-ccw-medium" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="10 15"></circle>
+                <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="0.1"></circle>
+              </svg>
+              <svg class="absolute inset-0 w-full h-full text-[#EBCB8B] mech-ring spin-cw-fast opacity-60" viewBox="0 0 100 100">
+                <path d="M50 20 L50 30" stroke="currentColor" stroke-width="0.5"></path>
+                <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="0.2" stroke-dasharray="2 4"></circle>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-20 h-20 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center z-10">
+                  <div class="w-2 h-2 bg-[#EBCB8B] rounded-full shadow-[0_0_15px_rgba(235,203,139,0.5)] pulse-opacity"></div>
                 </div>
-            </div>
-        </section>
-
-        <!-- The Strategy (Authority) -->
-        <section id="philosophy" class="grid grid-cols-1 md:grid-cols-12 gap-12 border-t border-white/5 pt-20">
-            <div class="md:col-span-4 fade-in">
-                <h2 class="text-3xl font-medium text-white tracking-tight mb-4">Sourcing Algorítmico</h2>
-                <p class="text-sm text-zinc-500 leading-relaxed">
-                    O varejo tradicional é projetado para dizer não. Nossa rede é projetada para dizer sim. Utilizamos tecnologia proprietária para varrer estoques "off-market" em 12 hubs financeiros globais simultaneamente.
-                </p>
-            </div>
-            <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Stat Card 1 -->
-                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/[0.03] transition-colors fade-in delay-[100ms]">
-                    <i data-lucide="globe-2" class="text-zinc-600 w-6 h-6 mb-12 group-hover:text-[#D4B676] transition-colors"></i>
-                    <h3 class="text-4xl font-light text-white mb-2 tracking-tighter">72h</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-zinc-500">Tempo Médio de Aquisição</p>
-                </div>
-                <!-- Stat Card 2 -->
-                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/[0.03] transition-colors fade-in delay-[200ms]">
-                    <i data-lucide="check-circle-2" class="text-zinc-600 w-6 h-6 mb-12 group-hover:text-[#D4B676] transition-colors"></i>
-                    <h3 class="text-4xl font-light text-white mb-2 tracking-tighter">100%</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-zinc-500">Autenticidade Garantida</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- The Vault (Inventory) -->
-        <section id="vault" class="relative">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in">
-                <div>
-                    <span class="text-[#D4B676] text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">Opportunity Buys</span>
-                    <h2 class="text-4xl font-medium text-white tracking-tight">Active Allocations</h2>
-                </div>
-                <div class="text-right hidden md:block">
-                    <p class="text-[10px] uppercase tracking-widest text-zinc-500">Total Volume Traded (Q3)</p>
-                    <p class="text-xl text-white font-mono">R$ 42,500,000.00</p>
-                </div>
-            </div>
-
-            <!-- Asset Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Asset Card 1 -->
-                <div class="group relative bg-[#050505] rounded-[2px] border border-white/5 overflow-hidden transition-all duration-500 gold-glow fade-in delay-[100ms]">
-                    <div class="absolute top-4 left-4 z-20 flex gap-2">
-                        <span class="bg-[#D4B676] text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest">Immediate</span>
-                    </div>
-                    <div class="aspect-[4/5] overflow-hidden bg-zinc-900 relative">
-                        <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Royal Oak" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
-                    </div>
-                    <div class="p-6 absolute bottom-0 w-full">
-                        <h3 class="text-lg text-white font-medium">Royal Oak Jumbo</h3>
-                        <p class="text-xs text-zinc-500 font-mono mb-4">Ref. 15202ST • 2021 • Full Set</p>
-                        <div class="flex justify-between items-center border-t border-white/10 pt-4">
-                            <div>
-                                <p class="text-[9px] uppercase text-zinc-600 tracking-widest">Market Price</p>
-                                <p class="text-sm text-zinc-400 line-through">R$ 580k</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-[9px] uppercase text-[#D4B676] tracking-widest">Client Price</p>
-                                <p class="text-lg text-white font-medium">R$ 545k</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Asset Card 2 -->
-                <div class="group relative bg-[#050505] rounded-[2px] border border-white/5 overflow-hidden transition-all duration-500 gold-glow fade-in delay-[200ms]">
-                    <div class="absolute top-4 left-4 z-20 flex gap-2">
-                        <span class="bg-zinc-800 text-white text-[9px] font-bold px-2 py-1 uppercase tracking-widest">Sourcing</span>
-                    </div>
-                    <div class="aspect-[4/5] overflow-hidden bg-zinc-900 relative">
-                        <img src="https://images.unsplash.com/photo-1639037466185-d85c54c37562?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Nautilus" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
-                    </div>
-                    <div class="p-6 absolute bottom-0 w-full">
-                        <h3 class="text-lg text-white font-medium">Nautilus Travel Time</h3>
-                        <p class="text-xs text-zinc-500 font-mono mb-4">Ref. 5990/1A • 2022 • Unworn</p>
-                        <div class="flex justify-between items-center border-t border-white/10 pt-4">
-                            <div class="w-full text-center">
-                                <button class="w-full text-[10px] uppercase tracking-widest text-white border border-white/20 py-2 hover:bg-white hover:text-black transition-colors">
-                                    Solicitar Cotação
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Asset Card 3 -->
-                <div class="group relative bg-[#050505] rounded-[2px] border border-white/5 overflow-hidden transition-all duration-500 gold-glow fade-in delay-[300ms]">
-                    <div class="absolute top-4 left-4 z-20 flex gap-2">
-                        <span class="bg-[#D4B676] text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest">In Vault</span>
-                    </div>
-                    <div class="aspect-[4/5] overflow-hidden bg-zinc-900 relative">
-                        <img src="https://images.unsplash.com/photo-1548123378-bde4eca81d2d?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Daytona" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
-                    </div>
-                    <div class="p-6 absolute bottom-0 w-full">
-                        <h3 class="text-lg text-white font-medium">Cosmograph Daytona</h3>
-                        <p class="text-xs text-zinc-500 font-mono mb-4">Ref. 116508 "John Mayer" • Green</p>
-                        <div class="flex justify-between items-center border-t border-white/10 pt-4">
-                            <div>
-                                <p class="text-[9px] uppercase text-zinc-600 tracking-widest">Market Price</p>
-                                <p class="text-sm text-zinc-400 line-through">R$ 650k</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-[9px] uppercase text-[#D4B676] tracking-widest">Client Price</p>
-                                <p class="text-lg text-white font-medium">R$ 610k</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="mt-12 text-center">
-                <a href="#" class="inline-flex items-center gap-2 text-xs font-semibold text-zinc-500 hover:text-white transition-colors uppercase tracking-widest group">
-                    Acessar Inventário Completo
-                    <i data-lucide="arrow-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- Private Office / Concierge -->
-        <section id="concierge" class="py-20">
-            <div class="glass-panel rounded-3xl p-1 md:p-1">
-                <div class="bg-[#080808] rounded-[20px] p-10 md:p-20 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-b from-[#D4B676]/10 to-transparent blur-[100px] rounded-full pointer-events-none"></div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
-                        <div class="space-y-8">
-                            <i data-lucide="key" class="w-10 h-10 text-[#D4B676]"></i>
-                            <h2 class="text-3xl md:text-5xl font-medium text-white tracking-tighter leading-tight">
-                                NOWAIT<br><span class="text-zinc-600 italic font-serif">Private Office</span>
-                            </h2>
-                            <p class="text-sm text-zinc-400 leading-loose max-w-md">
-                                Para colecionadores que tratam relógios como uma classe de ativos. Oferecemos custódia, avaliação de portfólio, seguro logístico e liquidação rápida de ativos.
-                            </p>
-                            
-                            <ul class="space-y-4 pt-4">
-                                <li class="flex items-center gap-4 text-xs font-medium text-zinc-300">
-                                    <div class="w-1 h-1 bg-[#D4B676]"></div>
-                                    Buy-back garantido em até 48h
-                                </li>
-                                <li class="flex items-center gap-4 text-xs font-medium text-zinc-300">
-                                    <div class="w-1 h-1 bg-[#D4B676]"></div>
-                                    Acesso prévio a peças "Off-Catalog"
-                                </li>
-                                <li class="flex items-center gap-4 text-xs font-medium text-zinc-300">
-                                    <div class="w-1 h-1 bg-[#D4B676]"></div>
-                                    Logística Blindada (Brinks/Malca-Amit)
-                                </li>
-                            </ul>
-
-                            <button class="mt-8 border-b border-white pb-1 text-xs uppercase tracking-widest hover:text-[#D4B676] hover:border-[#D4B676] transition-all">
-                                Aplicar para Membership
-                            </button>
-                        </div>
-                        
-                        <div class="relative h-full min-h-[300px] border border-white/5 rounded-xl bg-gradient-to-br from-white/[0.02] to-transparent p-8 flex flex-col justify-between">
-                             <div class="flex justify-between items-start">
-                                 <span class="text-[10px] uppercase tracking-widest text-zinc-500">Concierge Request</span>
-                                 <span class="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-                             </div>
-                             <div class="space-y-4 mt-8">
-                                 <div class="bg-white/5 p-4 rounded-lg rounded-tl-none border border-white/5 max-w-[80%]">
-                                     <p class="text-xs text-zinc-300">"Estou buscando um 5740G. Orçamento flexível, mas preciso em SP até sexta-feira."</p>
-                                 </div>
-                                 <div class="bg-[#D4B676]/10 p-4 rounded-lg rounded-tr-none border border-[#D4B676]/20 max-w-[80%] ml-auto">
-                                     <p class="text-xs text-[#D4B676]">"Localizamos uma unidade 'unworn' 2023 em nosso hub de Genebra. Valor de fechamento: €XXXk. O jato sai hoje às 18h."</p>
-                                 </div>
-                             </div>
-                             <p class="text-[9px] text-center text-zinc-600 mt-8 uppercase tracking-widest">Criptografia Ponta-a-Ponta</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-[#010101] pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-                <div class="md:col-span-2 space-y-6">
-                    <div class="flex items-center gap-3">
-                         <div class="w-2 h-2 bg-[#D4B676]"></div>
-                         <span class="text-sm font-bold tracking-[0.2em] text-white">NOWAIT</span>
-                    </div>
-                    <p class="text-xs text-zinc-500 max-w-sm leading-relaxed">
-                        A Premier Logistics Partner for High Net Worth Individuals.
-                        Specialized in the acquisition and transportation of tangible assets.
-                    </p>
-                    <div class="pt-4 flex gap-4">
-                        <span class="text-[10px] border border-zinc-800 px-2 py-1 text-zinc-500 rounded">São Paulo</span>
-                        <span class="text-[10px] border border-zinc-800 px-2 py-1 text-zinc-500 rounded">Miami</span>
-                        <span class="text-[10px] border border-zinc-800 px-2 py-1 text-zinc-500 rounded">Geneva</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">Services</h4>
-                    <ul class="space-y-3 text-[11px] text-zinc-500">
-                        <li><a href="#" class="hover:text-[#D4B676] transition-colors">Asset Sourcing</a></li>
-                        <li><a href="#" class="hover:text-[#D4B676] transition-colors">Logistics &amp; Customs</a></li>
-                        <li><a href="#" class="hover:text-[#D4B676] transition-colors">Secure Vault</a></li>
-                        <li><a href="#" class="hover:text-[#D4B676] transition-colors">Portfolio Management</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">Legal</h4>
-                    <ul class="space-y-3 text-[11px] text-zinc-500">
-                        <li><a href="#" class="hover:text-white transition-colors">KYC / AML Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Privacy Terms</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Client Agreement</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-8 gap-4">
-                <p class="text-[10px] text-zinc-700 font-mono">
-                    NOWAIT OPERATIONS LTD. IS A LOGISTICS FACILITATOR, NOT AN AUTHORIZED DEALER FOR ANY BRAND MENTIONED.
-                </p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
-                    <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
-                </div>
+              </div>
             </div>
         </div>
+      </section>
+
+      <!-- Business Model Breakdown (New Section) -->
+      <section id="model" class="border-t border-white/5 pt-20">
+        <div class="mb-16">
+          <h2 class="text-3xl font-medium text-white tracking-tight mb-4">Protocolo de Liquidez</h2>
+          <p class="text-zinc-500 text-sm max-w-2xl leading-relaxed">
+            Não somos revendedores. Operamos uma rede de liquidez proprietária que conecta cofres privados, family offices e inventário "off-market". Eliminamos o intermediário emocional para focar exclusivamente na eficiência da transação.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-lg overflow-hidden">
+            <!-- Step 1 -->
+            <div class="bg-[#030304] p-8 group hover:bg-[#080808] transition-colors relative">
+                <span class="text-[#EBCB8B] font-mono text-xs mb-4 block">01</span>
+                <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-3">Targeting</h3>
+                <p class="text-xs text-zinc-500 leading-relaxed">
+                    Você define a referência exata (ex: 5711/1A-014). Não aceitamos "listas de interesse". Trabalhamos com ordens firmes de compra.
+                </p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="bg-[#030304] p-8 group hover:bg-[#080808] transition-colors relative">
+                <span class="text-[#EBCB8B] font-mono text-xs mb-4 block">02</span>
+                <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-3">Global Scan</h3>
+                <p class="text-xs text-zinc-500 leading-relaxed">
+                    Nosso algoritmo varre inventários em Genebra, HK, Dubai e NY simultaneamente, identificando arbitragem de preço e disponibilidade imediata.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-[#030304] p-8 group hover:bg-[#080808] transition-colors relative">
+                <span class="text-[#EBCB8B] font-mono text-xs mb-4 block">03</span>
+                <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-3">Secure Escrow</h3>
+                <p class="text-xs text-zinc-500 leading-relaxed">
+                    Fundos são travados em escrow. O ativo passa por inspeção tripla (Visual AI + Mestre Relojoeiro + Validação de Proveniência).
+                </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-[#030304] p-8 group hover:bg-[#080808] transition-colors relative">
+                <span class="text-[#EBCB8B] font-mono text-xs mb-4 block">04</span>
+                <h3 class="text-white text-sm font-medium uppercase tracking-widest mb-3">Settlement</h3>
+                <p class="text-xs text-zinc-500 leading-relaxed">
+                    Entrega via transporte blindado (Malca-Amit) ou retirada em cofre privado. Liquidação instantânea e transferência de propriedade.
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Private Office Section (Based on Image) -->
+      <section id="private" class="reveal-up">
+        <!-- Container mimicking the dark card style -->
+        <div class="relative w-full rounded-3xl border border-white/10 bg-[#050505] overflow-hidden p-8 md:p-16 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+            
+            <!-- Glow Effect -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EBCB8B]/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <!-- Content Left -->
+            <div class="flex-1 space-y-8 relative z-10">
+                <div class="w-12 h-12 mb-6">
+                   <i data-lucide="key" class="w-8 h-8 text-[#EBCB8B]"></i>
+                </div>
+                
+                <div class="space-y-1">
+                    <h2 class="text-4xl text-white font-medium tracking-tight">NOWAIT</h2>
+                    <h2 class="text-4xl text-zinc-500 font-serif-italic tracking-wide">Private Office</h2>
+                </div>
+
+                <p class="text-zinc-400 text-sm leading-relaxed max-w-md font-light">
+                    Para colecionadores que tratam relógios como uma classe de ativos. Oferecemos custódia, avaliação de portfólio, seguro logístico e liquidação rápida de ativos.
+                </p>
+
+                <ul class="space-y-4 pt-4">
+                    <li class="flex items-center gap-3 text-xs text-zinc-300 font-medium tracking-wide">
+                        <span class="w-1 h-1 bg-[#EBCB8B] rounded-sm"></span>
+                        Buy-back garantido em até 48h
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-zinc-300 font-medium tracking-wide">
+                        <span class="w-1 h-1 bg-[#EBCB8B] rounded-sm"></span>
+                        Acesso prévio a peças "Off-Catalog"
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-zinc-300 font-medium tracking-wide">
+                        <span class="w-1 h-1 bg-[#EBCB8B] rounded-sm"></span>
+                        Logística Blindada (Brinks/Malca-Amit)
+                    </li>
+                </ul>
+
+                <div class="pt-8">
+                    <a href="#" class="text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/30 pb-1 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
+                        Aplicar para Membership
+                    </a>
+                </div>
+            </div>
+
+            <!-- Content Right (Chat Interface) -->
+            <div class="w-full lg:w-[480px] relative z-10">
+                <div class="glass-card-dark rounded-2xl p-6 md:p-8 min-h-[400px] flex flex-col justify-between relative">
+                    <!-- Status Header -->
+                    <div class="flex justify-between items-center mb-12 border-b border-white/5 pb-4">
+                        <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">Concierge Request</span>
+                        <div class="flex items-center gap-2">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Chat Bubbles -->
+                    <div class="space-y-8">
+                        <!-- Incoming -->
+                        <div class="flex justify-start">
+                            <div class="bg-zinc-800/80 border border-white/5 rounded-2xl rounded-bl-none p-5 max-w-[90%]">
+                                <p class="text-xs text-zinc-300 leading-relaxed font-light">
+                                    "Estou buscando um 5740G. Orçamento flexível, mas preciso em SP até sexta-feira."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Outgoing -->
+                        <div class="flex justify-end">
+                            <div class="bg-[#1A1A1A] border border-[#EBCB8B]/20 rounded-2xl rounded-br-none p-5 max-w-[90%] relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[#EBCB8B]/5 pointer-events-none"></div>
+                                <p class="text-xs text-[#EBCB8B] leading-relaxed font-light relative z-10">
+                                    "Localizamos uma unidade 'unworn' 2023 em nosso hub de Genebra. Valor de fechamento: €XXXk. O jato sai hoje às 18h."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Chat -->
+                    <div class="mt-12 text-center">
+                        <span class="text-[8px] font-bold tracking-[0.2em] text-zinc-700 uppercase">Criptografia Ponta-a-Ponta</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </section>
+
+      <!-- Inventory / Vault -->
+      <section id="vault">
+        <div class="flex justify-between items-end mb-12">
+          <div>
+            <h2 class="text-3xl font-medium text-white tracking-tight mb-2">Acervo Global</h2>
+            <p class="text-zinc-500 text-sm">Oportunidades verificadas com custódia imediata.</p>
+          </div>
+          <a href="#" class="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white hover:text-[#EBCB8B] transition-colors">
+            Ver Inventário Completo (142)
+            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
+          <!-- Card 1 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up">
+            <div class="absolute top-4 left-4 z-20 flex gap-2">
+                <span class="bg-white text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">Geneva Vault</span>
+            </div>
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+            
+            <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="text-white font-medium">Royal Oak Jumbo</h3>
+                  <p class="text-xs text-zinc-400 font-mono">Ref. 15202ST • 2021</p>
+                </div>
+                <div class="text-right">
+                  <span class="block text-[#EBCB8B] font-mono font-medium">US$ 145,000</span>
+                </div>
+              </div>
+              <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-500 opacity-0 group-hover:opacity-100">
+                <div class="pt-4 mt-4 border-t border-white/10 flex justify-between items-center">
+                    <span class="text-[10px] text-zinc-400 font-mono uppercase">Unworn / Full Set</span>
+                    <button class="text-[10px] uppercase font-bold text-white tracking-widest hover:text-[#EBCB8B]">Bloquear Ativo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up" style="transition-delay: 100ms;">
+             <div class="absolute top-4 left-4 z-20 flex gap-2">
+                <span class="bg-zinc-800 text-white text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">In Transit</span>
+            </div>
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" class="w-full h-full object-cover opacity-80 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="text-white font-medium">Nautilus Travel Time</h3>
+                  <p class="text-xs text-zinc-400 font-mono">Ref. 5990/1A • 2022</p>
+                </div>
+                <div class="text-right">
+                  <span class="block text-[#EBCB8B] font-mono font-medium">US$ 210,000</span>
+                </div>
+              </div>
+              <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-500 opacity-0 group-hover:opacity-100">
+                <div class="pt-4 mt-4 border-t border-white/10 flex justify-between items-center">
+                    <span class="text-[10px] text-zinc-400 font-mono uppercase">Factory Sealed</span>
+                    <button class="text-[10px] uppercase font-bold text-white tracking-widest hover:text-[#EBCB8B]">Fazer Oferta</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="group relative bg-[#050505] border border-white/5 aspect-[4/5] overflow-hidden reveal-up" style="transition-delay: 200ms;">
+             <div class="absolute top-4 left-4 z-20 flex gap-2">
+                <span class="bg-white text-black text-[9px] font-bold px-2 py-1 uppercase tracking-widest rounded-sm">Dubai Vault</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1622434641406-a15810545064?q=80&amp;w=800&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover opacity-80 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="text-white font-medium">Cosmograph Daytona</h3>
+                  <p class="text-xs text-zinc-400 font-mono">Ref. 116500LN • Panda</p>
+                </div>
+                <div class="text-right">
+                  <span class="block text-[#EBCB8B] font-mono font-medium">US$ 32,500</span>
+                </div>
+              </div>
+              <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-500 opacity-0 group-hover:opacity-100">
+                <div class="pt-4 mt-4 border-t border-white/10 flex justify-between items-center">
+                    <span class="text-[10px] text-zinc-400 font-mono uppercase">Mint Condition</span>
+                    <button class="text-[10px] uppercase font-bold text-white tracking-widest hover:text-[#EBCB8B]">Bloquear Ativo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Indicators -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-8 border-y border-white/5 py-12">
+          <div class="text-center md:text-left">
+              <h4 class="text-white text-sm font-medium mb-2">KYC/AML Compliant</h4>
+              <p class="text-xs text-zinc-500">Operamos sob estritos padrões bancários suíços de conformidade e verificação.</p>
+          </div>
+          <div class="text-center md:text-left">
+              <h4 class="text-white text-sm font-medium mb-2">Pagamento Multi-Canal</h4>
+              <p class="text-xs text-zinc-500">Fiat (USD/EUR/GBP/BRL) ou Criptoativos (USDC/USDT) com liquidação D+0.</p>
+          </div>
+          <div class="text-center md:text-left">
+              <h4 class="text-white text-sm font-medium mb-2">Seguro Integral</h4>
+              <p class="text-xs text-zinc-500">Cobertura de 110% do valor de mercado durante trânsito e custódia.</p>
+          </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#020202] py-20 relative overflow-hidden">
+      <!-- Decoration -->
+      <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+      
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+        <div class="col-span-1 md:col-span-2">
+          <a href="#" class="flex items-center gap-2 mb-6">
+            <div class="w-4 h-4 bg-white rounded-sm"></div>
+            <span class="text-sm font-semibold tracking-widest text-white">NOWAIT</span>
+          </a>
+          <p class="text-xs text-zinc-500 max-w-xs leading-relaxed">
+            Redefinindo a aquisição de alta relojoaria através de tecnologia, velocidade e transparência absoluta. Membro da IWJG e NAWCC.
+          </p>
+          <div class="mt-8 flex gap-4">
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">Plataforma</h4>
+          <ul class="space-y-3 text-[11px] text-zinc-500">
+            <li><a href="#" class="hover:text-white transition-colors">Market Data</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Sourcing Engine</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Vault Security</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API Access</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white text-[10px] font-bold uppercase tracking-widest mb-6">Legal</h4>
+          <ul class="space-y-3 text-[11px] text-zinc-500">
+            <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacidade</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Compliance</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[10px] text-zinc-600 font-mono">© 2024 NOWAIT OPERATIONS LTD.</p>
+        <p class="text-[10px] text-zinc-600 font-mono">GENEVA • LONDON • NEW YORK • SÃO PAULO</p>
+      </div>
     </footer>
 
     <script>
-        lucide.createIcons({
-            attrs: {
-                strokeWidth: 1.25 // Thinner stroke for more elegance
-            }
-        });
+      lucide.createIcons({
+          attrs: {
+              strokeWidth: 1.25,
+              class: "text-zinc-400"
+          }
+      });
 
-        // Intersection Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
+      const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('active');
+              }
+          });
+      }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal-text, .fade-in').forEach(el => observer.observe(el));
+      document.querySelectorAll('.reveal-up').forEach(el => {
+          observer.observe(el);
+      });
     </script>
-
+  
 </body></html>
