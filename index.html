@@ -69,7 +69,7 @@
         h1 { font-size: 2.75rem !important; line-height: 1.1 !important; }
       }
 
-      /* Floating Button Pulse */
+      /* Floating Button Pulse (WhatsApp CTA) */
       .pulse-ring {
         position: absolute;
         width: 100%;
@@ -100,13 +100,14 @@
     <div class="fixed inset-0 grid-bg pointer-events-none z-0 opacity-40"></div>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-white/[0.015] blur-[150px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Feature: Floating Concierge Button -->
-    <a href="https://wa.me/5511947899468" target="_blank" class="fixed bottom-6 right-6 z-50 group">
+    <!-- Feature: Floating Concierge Button (WhatsApp CTA) -->
+    <!-- Botão de alta conversão, sempre visível e com link direto para o WhatsApp -->
+    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20Concierge%20sobre%20o%20Private%20Access." target="_blank" class="fixed bottom-6 right-6 z-50 group">
         <div class="relative w-14 h-14 bg-[#0A0A0A] border border-[#EBCB8B]/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:border-[#EBCB8B] transition-colors duration-300">
             <div class="pulse-ring"></div>
             <i data-lucide="message-circle" class="w-6 h-6 text-[#EBCB8B]"></i>
             <span class="absolute right-16 bg-[#0A0A0A] border border-white/10 text-[#EBCB8B] text-[10px] uppercase tracking-widest py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                Concierge Online
+                Concierge 24/7 (WhatsApp)
             </span>
         </div>
     </a>
@@ -153,7 +154,7 @@
             Acervo
           </a>
           <a href="#analytics" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
-            Análise de Spread
+            Inteligência de Mercado
           </a>
           <a href="#private" class="px-6 py-2 text-[10px] font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
             Private Office
@@ -170,41 +171,45 @@
       <!-- Hero Section -->
       <section class="min-h-[65vh] grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         <div class="lg:col-span-7 relative">
+          <!-- Copywriting: Badge atualizado para mais exclusividade -->
           <div class="inline-flex items-center gap-2 border border-[#EBCB8B]/20 rounded-full px-4 py-1.5 mb-8 bg-[#EBCB8B]/5 backdrop-blur-sm reveal-up">
             <span class="relative flex h-1.5 w-1.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EBCB8B] opacity-50"></span>
               <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EBCB8B]"></span>
             </span>
             <span class="text-[9px] uppercase tracking-widest text-[#EBCB8B] font-bold">
-              Membership Open for Q4 2024
+              EXCLUSIVIDADE VALIDADA. VAGAS LIMITADAS Q4
             </span>
           </div>
 
+          <!-- Copywriting: Título focado em solução e alto status -->
           <h1 class="text-5xl sm:text-7xl font-medium tracking-tighter text-white mb-8 leading-[1] reveal-up" style="transition-delay: 100ms;">
-            O fim das
+            Acesso Imediato.
             <br>
-            listas de espera.
+            Sem Lista de Espera.
             <br>
             <span class="text-zinc-600 font-serif-italic text-4xl sm:text-6xl">
-              O tempo é o único luxo real.
+              Seu tempo é o único luxo real.
             </span>
           </h1>
 
+          <!-- Copywriting: Parágrafo reforçando o valor fiduciário e off-market -->
           <p class="text-[15px] text-zinc-400 leading-relaxed max-w-lg mb-12 reveal-up font-light tracking-wide" style="transition-delay: 200ms;">
-            Nossa rede proprietária conecta você diretamente aos inventários ocultos ("Off-Market") de Genebra, Nova York e Dubai. 
+            A NOWAIT é a rede global que elimina a lista de espera. Conectamos colecionadores e investidores diretamente aos inventários **Off-Market** de Genebra, Nova York e Dubai. 
             <br><br>
-            Sem histórico de compra exigido. Sem jogos de relacionamento. Apenas acesso direto ao ativo.
+            Sem histórico de compra exigido. Sem jogos de relacionamento. Apenas a peça que você deseja, entregue com velocidade fiduciária.
           </p>
 
+          <!-- Botões CTA - Botão principal alterado para 'Private Access' e link WhatsApp -->
           <div class="flex flex-col sm:flex-row gap-5 reveal-up" style="transition-delay: 300ms;">
-            <a href="https://wa.me/5511947899468?text=Olá,%20gostaria%20de%20aplicar%20para%20o%20Membership." target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20aplicar%20para%20o%20Private%20Access%20e%20saber%20mais." target="_blank" rel="noopener noreferrer">
               <button class="w-full sm:w-auto bg-[#EBCB8B] text-[#050505] h-12 px-8 rounded flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#d6b97e] transition-colors shadow-[0_0_25px_rgba(235,203,139,0.1)]">
-                Aplicar para Membership
+                Aplicar para Private Access
               </button>
             </a>
 
             <a href="#sourcing" class="w-full sm:w-auto group h-12 px-8 rounded border border-white/10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white hover:border-white/30 transition-all bg-white/[0.02]">
-              Sourcing Engine
+              Ativar Sourcing Engine
               <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-zinc-500 group-hover:text-white transition-colors group-hover:translate-x-1 duration-300"></i>
             </a>
           </div>
@@ -214,11 +219,13 @@
       <!-- Business Model Breakdown -->
       <section id="model" class="border-t border-white/5 pt-24 reveal-up">
         <div class="mb-20">
+          <!-- Copywriting: Mais rigor e profissionalismo no título -->
           <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-            Protocolo Fiduciário
+            Protocolo Fiduciário de Aquisição
           </h2>
+          <!-- Copywriting: Descrição mais assertiva sobre a atuação como agente -->
           <p class="text-zinc-500 text-sm max-w-2xl leading-relaxed">
-            Não somos revendedores. Somos seus agentes no mercado global. Operamos com transparência radical de custos e autenticação forense.
+            Não atuamos como revendedores. Somos seus agentes exclusivos no mercado global. Nossa missão é adquirir o ativo com o menor *spread* possível, com transparência de custos e o único protocolo de autenticação forense de proveniência do mercado.
           </p>
         </div>
 
@@ -226,52 +233,53 @@
           <!-- Step 1 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 01</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Mandato de Aquisição</h3>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Mandato de Aquisição Firme</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Você define o alvo (Ref, Ano, Condição). Estabelecemos um mandato firme. Não trabalhamos com especulação.
+              Você define o alvo (Ref, Ano, Condição). Estabelecemos um mandato fiduciário com foco em preço de compra, não de venda.
             </p>
           </div>
 
           <!-- Step 2 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 02</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Varredura Global</h3>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Varredura Global Off-Market</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Nossos algoritmos e agentes varrem 420+ cofres parceiros em busca do ativo com o menor spread do mercado.
+              Nossos algoritmos e agentes varrem 420+ cofres parceiros em Genebra, NY e Dubai em busca do ativo com o menor spread do mercado.
             </p>
           </div>
 
-          <!-- Step 3 -->
+          <!-- Step 3 (Copywriting Ajustado) -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative border-r border-white/5">
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 03</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Autenticação Forense</h3>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Autenticação Forense Rigorosa</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              O relógio viaja para nosso laboratório em Genebra para inspeção microscópica e verificação de proveniência (Art Loss Register).
+              O ativo passa por inspeção microscópica em nosso laboratório de Genebra. Verificação tripla de proveniência (Art Loss Register) e conformidade global.
             </p>
           </div>
 
           <!-- Step 4 -->
           <div class="bg-[#050505] p-10 group hover:bg-[#080808] transition-colors relative">
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-6 block opacity-60">ETAPA 04</span>
-            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Hand-Delivery</h3>
+            <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4">Logística & Hand-Delivery</h3>
             <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-              Entrega blindada via transportadora de valores ou retirada pessoal em nosso escritório privado em São Paulo.
+              Entrega blindada e segurada via transportadora de valores ou retirada pessoal em nosso escritório privado em São Paulo/Nova York.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Feature: Price Discovery Protocol (UPDATED) -->
+      <!-- Feature: Price Discovery Protocol (Copywriting Ajustado) -->
       <section id="analytics" class="py-24 relative border-t border-white/5 reveal-up">
         <div class="mb-16 text-center">
+            <!-- Copywriting: Focado em Inteligência de Mercado -->
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
-                PRICE DISCOVERY PROTOCOL
+                INTELIGÊNCIA DE MERCADO
             </span>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-                Análise de Spread Exclusiva
+                O Custo Real da Exclusividade
             </h2>
             <p class="text-zinc-500 text-sm max-w-2xl mx-auto leading-relaxed">
-                Veja a diferença entre o preço de mercado público brasileiro e o valor de aquisição via nossa rede privada.
+                A lista de espera tem um preço. Nosso protocolo de *Price Discovery* revela o *spread* exato que você elimina ao acessar a peça diretamente do inventário privado. Veja a vantagem de preço e velocidade que apenas a NOWAIT oferece.
             </p>
         </div>
 
@@ -372,7 +380,7 @@
         </div>
       </section>
 
-      <!-- Private Office Section -->
+      <!-- Private Office Section (Copywriting e CTA Ajustados) -->
       <section id="private" class="reveal-up">
         <div class="relative w-full rounded-3xl border border-white/5 bg-[#080808] overflow-hidden p-8 md:p-20 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center shadow-2xl">
           <!-- Glow Effect -->
@@ -393,9 +401,9 @@
               </h2>
             </div>
 
+            <!-- Copywriting: Focado em Gestão de Ativos Estratégicos -->
             <p class="text-zinc-400 text-sm leading-relaxed max-w-md font-light">
-              Para o colecionador que vê a relojoaria como classe de ativos alternativa. 
-              Oferecemos gestão de portfólio (entrada e saída), *sourcing* de peças *Application Only* e estratégias de preservação de capital.
+              O serviço fiduciário destinado ao colecionador que trata a alta relojoaria como uma classe de ativo estratégico. Gestão de portfólio (entrada e saída), aquisição de peças *Application Only* e otimização de liquidez e preservação de capital.
             </p>
 
             <ul class="space-y-5 pt-6 border-t border-white/5">
@@ -403,9 +411,10 @@
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
                 Liquidez Garantida (Buy-back Policy)
               </li>
+              <!-- Copywriting: Bullet 2 ajustado -->
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
-                Acesso a alocações primárias (Sob análise)
+                Acesso direto a alocações primárias (Sob análise de comitê)
               </li>
               <li class="flex items-center gap-4 text-xs text-zinc-300 font-medium tracking-wide">
                 <i data-lucide="check" class="w-4 h-4 text-[#EBCB8B]"></i>
@@ -413,10 +422,11 @@
               </li>
             </ul>
 
+            <!-- CTA Ajustado para Entrevista Privada e WhatsApp -->
             <div class="pt-8">
-             <a href="https://wa.me/5511947899468" target="_blank" rel="noopener noreferrer"
+             <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20Entrevista%20Privada%20para%20o%20Private%20Office." target="_blank" rel="noopener noreferrer"
                class="text-white text-[10px] font-bold uppercase tracking-[0.25em] border-b border-white/30 pb-2 hover:border-[#EBCB8B] hover:text-[#EBCB8B] transition-all">
-                Agendar Entrevista
+                Agendar Entrevista Privada
               </a>
             </div>
           </div>
@@ -559,26 +569,27 @@
         </div>
         
         <div class="mt-8 text-center">
-             <a href="#" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
-                Ver Inventário Completo (142 Ativos)
+             <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20gostaria%20de%20ver%20o%20Invent%C3%A1rio%20Completo." target="_blank" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
+                Falar com Concierge e Ver Inventário Completo (142 Ativos)
                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
              </a>
         </div>
       </section>
       
-      <!-- Sourcing Section -->
+      <!-- Sourcing Section (Copywriting Ajustado) -->
       <section id="sourcing" class="py-24 relative border-t border-white/5 reveal-up">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#EBCB8B]/5 blur-[100px] rounded-full pointer-events-none z-0"></div>
         <div class="max-w-4xl mx-auto px-6 relative z-10">
           <div class="text-center mb-12">
+            <!-- Copywriting: Focado em velocidade e capacidade de encontrar o "impossível" -->
             <span class="text-[#EBCB8B] font-mono text-[10px] mb-3 block opacity-80">
-              ON DEMAND
+              VELOCIDADE FORENSE
             </span>
             <h2 class="text-3xl font-medium text-white tracking-tight mb-4">
-              Sourcing Engine
+              Sourcing Engine: Ativos Sob Demanda
             </h2>
             <p class="text-zinc-500 text-sm max-w-xl mx-auto leading-relaxed">
-              Não encontrou no cofre? Ative nossa rede global. Localizamos referências específicas em até 48h.
+              Você não precisa esperar. Para referências *Application Only* ou peças que a rede pública considera "esgotadas", ative nossa máquina de *sourcing*. Em até 48 horas, identificamos a peça e a origem com a melhor relação *risk/price* na nossa rede global de *vaults*.
             </p>
           </div>
 
@@ -701,10 +712,11 @@
                     </div>
                   </div>
 
+                  <!-- CTA Ajustado para WhatsApp -->
                   <div class="pt-4">
-                    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20pe%C3%A7a%20localizada%20pelo%20Sourcing%20Engine." target="_blank" class="group bg-[#EBCB8B] hover:bg-white text-black h-12 px-6 rounded-sm flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all w-full">
+                    <a href="https://wa.me/5511947899468?text=Ol%C3%A1%2C%20o%20Sourcing%20Engine%20localizou%20a%20pe%C3%A7a%20${encodeURIComponent(model)}.%20Gostaria%20de%20solicitar%20os%20detalhes%20e%20pre%C3%A7o." target="_blank" class="group bg-[#EBCB8B] hover:bg-white text-black h-12 px-6 rounded-sm flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all w-full">
                       <i data-lucide="message-circle" class="w-4 h-4"></i>
-                      Solicitar Detalhes & Preço
+                      Solicitar Detalhes & Preço (WhatsApp)
                     </a>
                   </div>
                 </div>
@@ -749,7 +761,7 @@
             Swiss Compliance
           </h4>
           <p class="text-[12px] text-zinc-500 leading-relaxed font-light">
-            Operamos sob estritos padrões de due-diligence e KYC. Privacidade absoluta garantida.
+            Operamos sob estritos padrões de due-diligence e KYC/AML. Privacidade absoluta garantida.
           </p>
         </div>
         <div class="text-center md:text-left px-4">
@@ -789,14 +801,14 @@
             velocidade e transparência absoluta. Membro da IWJG e NAWCC.
           </p>
           <div class="mt-8 flex gap-6">
+            <a href="https://wa.me/5511947899468" target="_blank" class="text-zinc-600 hover:text-white transition-colors">
+              <i data-lucide="whatsapp" class="w-4 h-4"></i>
+            </a>
             <a href="#" class="text-zinc-600 hover:text-white transition-colors">
               <i data-lucide="instagram" class="w-4 h-4"></i>
             </a>
             <a href="#" class="text-zinc-600 hover:text-white transition-colors">
               <i data-lucide="mail" class="w-4 h-4"></i>
-            </a>
-            <a href="#" class="text-zinc-600 hover:text-white transition-colors">
-              <i data-lucide="phone" class="w-4 h-4"></i>
             </a>
           </div>
         </div>
@@ -806,9 +818,9 @@
             Serviços
           </h4>
           <ul class="space-y-4 text-[11px] text-zinc-500 font-medium">
-            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Market Data</a></li>
-            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Sourcing Global</a></li>
-            <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Avaliação de Portfólio</a></li>
+            <li><a href="#analytics" class="hover:text-[#EBCB8B] transition-colors">Market Data & Spread</a></li>
+            <li><a href="#sourcing" class="hover:text-[#EBCB8B] transition-colors">Sourcing Global On-Demand</a></li>
+            <li><a href="#private" class="hover:text-[#EBCB8B] transition-colors">Private Office (Gestão de Ativos)</a></li>
             <li><a href="#" class="hover:text-[#EBCB8B] transition-colors">Custódia Segura</a></li>
           </ul>
         </div>
@@ -958,6 +970,13 @@
               
               // Re-init icons for the new content
               if(window.lucide) window.lucide.createIcons();
+              
+              // ** CRITICAL: Update the WhatsApp link in the result state dynamically **
+              const whatsappLink = document.querySelector('#sourcing-result a');
+              if (whatsappLink) {
+                 const modelEncoded = encodeURIComponent(model);
+                 whatsappLink.href = `https://wa.me/5511947899468?text=Ol%C3%A1%2C%20o%20Sourcing%20Engine%20localizou%20a%20pe%C3%A7a%20${modelEncoded}.%20Gostaria%20de%20solicitar%20os%20detalhes%20e%20pre%C3%A7o.`;
+              }
           }, 4500);
       }
       
