@@ -696,6 +696,76 @@ Sem intermediários. Sem margem inflada. Sem espera de 5 anos na boutique. Acess
     </footer>
 
     <!-- SCRIPTS -->
+    
+    <!-- OVERLAY NOWAIT (exibe se tiver ?ads=1) -->
+<div id="nowait-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center px-6">
+  <div id="nowait-card" class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+    
+    <!-- Botão fechar -->
+    <button id="close-overlay" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl">
+      ×
+    </button>
+
+    <h2 class="text-white text-2xl font-semibold mb-4 tracking-tight">
+      Entre para a comunidade NOWAIT.
+    </h2>
+
+    <p class="text-zinc-400 text-sm leading-relaxed mb-8">
+      Acesso direto a maior comunidade de relogios de luxo do brasil. Itens com valores até 40% abaixo das grandes revendas 
+    </p>
+
+    <!-- Botão WhatsApp -->
+    <a href="https://chat.whatsapp.com/BCyhW7Z4SynLpeWucyCHD7"
+       class="block w-full text-center bg-white text-black font-semibold py-3 rounded-lg hover:bg-zinc-200 transition">
+       Entrar na Comunidade
+    </a>
+
+    <!-- Botão conhecer NOWAIT -->
+    <button id="go-to-nowait" class="mt-4 w-full text-center border border-white/20 text-white py-3 rounded-lg hover:bg-white/10 transition">
+      Conheça mais sobre a NOWAIT
+    </button>
+
+  </div>
+</div>
+
+<script>
+  // Função para detectar parâmetro da URL
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Mostrar overlay se ads=1
+  if (getQueryParam("ads") === "1") {
+    document.getElementById("nowait-overlay").classList.remove("hidden");
+  }
+
+  // Fechar overlay ao clicar no X
+  document.getElementById("close-overlay").addEventListener("click", () => {
+    document.getElementById("nowait-overlay").classList.add("hidden");
+  });
+
+  // Fechar ao clicar fora do card
+  document.getElementById("nowait-overlay").addEventListener("click", (e) => {
+    const card = document.getElementById("nowait-card");
+    if (!card.contains(e.target)) {
+      document.getElementById("nowait-overlay").classList.add("hidden");
+    }
+  });
+
+  // Botão para rolar até seção da NOWAIT — ajuste o ID conforme sua página
+  document.getElementById("go-to-nowait").addEventListener("click", () => {
+    const section = document.getElementById("sourcing"); // coloque o ID da seção correta
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("nowait-overlay").classList.add("hidden");
+    } else {
+      window.location.href = "#"; // fallback
+    }
+  });
+</script>
+
+    
     <script>
       lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
 
