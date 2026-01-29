@@ -1,0 +1,5 @@
+{
+  "name": "Disparo WhatsApp via Webhook",
+  "description": "Uma ferramenta ágil para processar planilhas de clientes e enviar dados para automação de mensagens no WhatsApp via n8n.",
+  "requestFramePermissions": []
+}
